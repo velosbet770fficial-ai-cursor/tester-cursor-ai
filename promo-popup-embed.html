@@ -1,0 +1,438 @@
+<!--
+  DROP-IN SNIPPET (Blogger / HTML widget)
+  - Checkbox #popup-state HARUS di atas #popup-overlay
+  - Tutup murni CSS (label → checkbox)
+  - Ganti data-theme di body wrapper jika perlu: obsidian | arcade | emerald
+-->
+<style>
+  #promo-root {
+    --bg-card: rgba(12, 16, 28, 0.82);
+    --stroke: rgba(255, 210, 120, 0.55);
+    --glow: rgba(255, 170, 40, 0.45);
+    --glow-soft: rgba(80, 180, 255, 0.18);
+    --title: #ffe08a;
+    --sub: #b8c4d8;
+    --btn-login-bg: linear-gradient(160deg, #121826, #0a0e18);
+    --btn-login-fg: #ffe08a;
+    --btn-login-border: #ffe08a;
+    --btn-daftar-bg: linear-gradient(145deg, #ffd76a, #ff9d1f);
+    --btn-daftar-fg: #2a1600;
+    --close-bg: linear-gradient(145deg, #ff5e4a, #b91f1f);
+    --meteor-core: #fff6d0;
+    --meteor-tail: rgba(255, 200, 90, 1);
+    --meteor-tail-mid: rgba(255, 120, 30, 0.7);
+    --shock: rgba(255, 190, 80, 0.9);
+    --lava: rgba(255, 120, 20, 0.28);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #promo-root[data-theme="arcade"] {
+    --bg-card: rgba(10, 8, 22, 0.8);
+    --stroke: rgba(0, 255, 220, 0.55);
+    --glow: rgba(0, 255, 200, 0.35);
+    --glow-soft: rgba(255, 0, 180, 0.22);
+    --title: #7dffef;
+    --sub: #d2c4ff;
+    --btn-login-bg: linear-gradient(160deg, #14102a, #0a0716);
+    --btn-login-fg: #7dffef;
+    --btn-login-border: #7dffef;
+    --btn-daftar-bg: linear-gradient(145deg, #ff4fd8, #7a1cff);
+    --btn-daftar-fg: #fff;
+    --close-bg: linear-gradient(145deg, #ff3d9a, #7a12ff);
+    --meteor-core: #eaffff;
+    --meteor-tail: rgba(80, 255, 230, 1);
+    --meteor-tail-mid: rgba(255, 60, 200, 0.65);
+    --shock: rgba(80, 255, 230, 0.9);
+    --lava: rgba(180, 40, 255, 0.25);
+  }
+  #promo-root[data-theme="emerald"] {
+    --bg-card: rgba(8, 22, 16, 0.84);
+    --stroke: rgba(180, 255, 200, 0.4);
+    --glow: rgba(60, 220, 140, 0.35);
+    --glow-soft: rgba(212, 175, 55, 0.2);
+    --title: #f0d78c;
+    --sub: #b7d4c4;
+    --btn-login-bg: linear-gradient(160deg, #0e1f18, #07140f);
+    --btn-login-fg: #f0d78c;
+    --btn-login-border: #f0d78c;
+    --btn-daftar-bg: linear-gradient(145deg, #3dff9a, #0fb86a);
+    --btn-daftar-fg: #042416;
+    --close-bg: linear-gradient(145deg, #e8c15a, #9a6b10);
+    --meteor-core: #f7ffe8;
+    --meteor-tail: rgba(120, 255, 180, 1);
+    --meteor-tail-mid: rgba(212, 175, 55, 0.7);
+    --shock: rgba(80, 255, 160, 0.9);
+    --lava: rgba(40, 180, 100, 0.28);
+  }
+
+  #promo-root #popup-state { position: absolute; opacity: 0; pointer-events: none; }
+
+  #promo-root #popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    animation: promo-appear 0.55s ease 1.2s forwards;
+    box-sizing: border-box;
+  }
+  @keyframes promo-appear {
+    to { opacity: 1; visibility: visible; }
+  }
+  #promo-root #popup-state:checked ~ #popup-overlay {
+    display: none !important;
+  }
+
+  #promo-root .popup-box {
+    position: relative;
+    width: min(360px, 92vw);
+    padding: 20px;
+    border-radius: 22px;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--stroke);
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.55),
+      0 0 50px var(--glow),
+      0 0 100px var(--glow-soft);
+    overflow: hidden;
+    animation: promo-in 0.65s cubic-bezier(0.22, 1.2, 0.36, 1) 1.2s backwards;
+    box-sizing: border-box;
+  }
+  #promo-root .popup-box::before {
+    content: "";
+    position: absolute;
+    inset: -40% -20%;
+    background: conic-gradient(from 180deg, transparent, var(--glow), transparent, var(--glow-soft), transparent);
+    opacity: 0.35;
+    animation: promo-rim 8s linear infinite;
+    z-index: 0;
+  }
+  #promo-root .popup-box::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 21px;
+    background: var(--bg-card);
+    z-index: 0;
+  }
+  @keyframes promo-rim { to { transform: rotate(360deg); } }
+  @keyframes promo-in {
+    0%   { transform: translateY(40px) scale(0.88); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  #promo-root .popup-box > * { position: relative; z-index: 1; }
+
+  #promo-root .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--close-bg);
+    border: 1px solid rgba(255,255,255,0.45);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 34px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: transform 0.2s;
+    user-select: none;
+    z-index: 3;
+  }
+  #promo-root .popup-close:hover { transform: scale(1.08) rotate(90deg); }
+
+  #promo-root .popup-img-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  #promo-root .popup-img-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55));
+    pointer-events: none;
+  }
+  #promo-root .popup-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #promo-root .popup-badge {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #1a1200;
+    background: linear-gradient(90deg, #ffe08a, #ffb84d);
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+  #promo-root[data-theme="arcade"] .popup-badge {
+    color: #fff;
+    background: linear-gradient(90deg, #ff4fd8, #7a1cff);
+  }
+  #promo-root[data-theme="emerald"] .popup-badge {
+    color: #042416;
+    background: linear-gradient(90deg, #f0d78c, #3dff9a);
+  }
+
+  #promo-root .popup-title {
+    margin: 18px 0 6px;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--title);
+    text-shadow: 0 0 24px var(--glow);
+  }
+  #promo-root .popup-sub {
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: var(--sub);
+  }
+  #promo-root .popup-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  #promo-root .popup-btn {
+    flex: 1;
+    padding: 13px 0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  #promo-root .popup-btn:hover { transform: translateY(-3px); }
+  #promo-root .btn-login {
+    background: var(--btn-login-bg);
+    color: var(--btn-login-fg);
+    border: 1.5px solid var(--btn-login-border);
+    box-shadow: 0 0 14px var(--glow);
+  }
+  #promo-root .btn-daftar {
+    background: var(--btn-daftar-bg);
+    color: var(--btn-daftar-fg);
+    border: none;
+    box-shadow: 0 0 22px var(--glow);
+    animation: promo-cta 1.8s ease-in-out infinite;
+  }
+  @keyframes promo-cta {
+    0%, 100% { box-shadow: 0 0 14px var(--glow); }
+    50% { box-shadow: 0 0 28px var(--glow); }
+  }
+
+  #promo-root #meteor-canvas {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+  }
+  #promo-root .meteor {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--meteor-core);
+  }
+  #promo-root .meteor::after {
+    content: "";
+    position: absolute;
+    bottom: 55%;
+    left: 50%;
+    width: 4px;
+    height: var(--tail-h, 60px);
+    border-radius: 3px;
+    background: linear-gradient(0deg, var(--meteor-tail) 0%, var(--meteor-tail-mid) 50%, transparent 100%);
+    transform: translateX(-50%) rotate(var(--tail-angle));
+    transform-origin: bottom center;
+  }
+  @keyframes promo-meteor-fall {
+    0%   { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(var(--mx), var(--my)); opacity: 1; }
+  }
+  #promo-root .letupan-particle { position: absolute; border-radius: 50%; }
+  @keyframes promo-letupan-fly {
+    0%   { transform: translate(0, 0) scale(1.15); opacity: 1; }
+    100% { transform: translate(var(--lx), calc(var(--ly) + 8vh)) scale(0.2); opacity: 0; }
+  }
+  #promo-root .shockwave {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid var(--shock);
+    box-shadow: 0 0 24px var(--glow);
+  }
+  @keyframes promo-shockwave {
+    0%   { transform: translate(-50%, -50%) scale(0.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+  }
+  #promo-root .letupan-flash {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(28px);
+  }
+  @keyframes promo-bloom {
+    0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
+  }
+  #promo-root .kelip {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px 3px rgba(255,255,255,0.95);
+  }
+  @keyframes promo-kelip {
+    0%   { transform: scale(0); opacity: 0; }
+    30%  { transform: scale(1.4); opacity: 1; }
+    100% { transform: scale(0.2); opacity: 0; }
+  }
+  #promo-root .meteor-glow {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150vw;
+    height: 240px;
+    background: radial-gradient(ellipse at 50% 100%, var(--lava) 0%, transparent 70%);
+    animation: promo-lava 2.5s ease-in-out infinite;
+  }
+  @keyframes promo-lava {
+    0%, 100% { opacity: 0.55; transform: translateX(-50%) scaleY(1); }
+    50% { opacity: 1; transform: translateX(-50%) scaleY(1.25); }
+  }
+</style>
+
+<div id="promo-root" data-theme="obsidian">
+  <input type="checkbox" id="popup-state">
+
+  <div id="popup-overlay">
+    <div class="popup-box">
+      <label for="popup-state" class="popup-close">✕</label>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
+        <span class="popup-badge">Limited Offer</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Daftar sekarang &amp; klaim bonus deposit pertamamu</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="meteor-canvas">
+    <div class="meteor-glow"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("promo-root");
+  if (!root) return;
+  var canvas = root.querySelector("#meteor-canvas");
+  var W = window.innerWidth, H = window.innerHeight;
+  window.addEventListener("resize", function () {
+    W = window.innerWidth; H = window.innerHeight;
+  });
+
+  var WARNA = [
+    ["#ffd24d", "rgba(255,180,50,0.85)"],
+    ["#ff7a2a", "rgba(255,122,42,0.85)"],
+    ["#7dffef", "rgba(125,255,239,0.85)"],
+    ["#ffe9a8", "rgba(255,233,168,0.9)"]
+  ];
+
+  function meletup(x, y, besar) {
+    var warna = WARNA[Math.floor(Math.random() * WARNA.length)];
+    var fl = document.createElement("div");
+    fl.className = "letupan-flash";
+    var fs = besar ? 360 : 200;
+    fl.style.cssText = "width:" + fs + "px;height:" + fs + "px;left:" + x + "px;top:" + y + "px;background:radial-gradient(circle," + warna[1] + " 0%,transparent 70%);animation:promo-bloom .75s ease-out forwards";
+    canvas.appendChild(fl);
+    setTimeout(function () { fl.remove(); }, 750);
+
+    var sw = document.createElement("div");
+    sw.className = "shockwave";
+    var sws = besar ? 260 : 140;
+    sw.style.cssText = "width:" + sws + "px;height:" + sws + "px;left:" + x + "px;top:" + y + "px;animation:promo-shockwave .65s ease-out forwards";
+    canvas.appendChild(sw);
+    setTimeout(function () { sw.remove(); }, 650);
+
+    var jumlah = besar ? 36 : 16, radius = besar ? 18 : 10;
+    for (var i = 0; i < jumlah; i++) {
+      var p = document.createElement("div");
+      p.className = "letupan-particle";
+      var ps = Math.random() * 6 + 3;
+      var wc = WARNA[Math.floor(Math.random() * WARNA.length)];
+      p.style.width = ps + "px";
+      p.style.height = ps + "px";
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      p.style.background = wc[0];
+      p.style.boxShadow = "0 0 10px 3px " + wc[1];
+      var sudut = (Math.PI * 2 * i) / jumlah + Math.random() * 0.3;
+      var jarak = (Math.random() * 0.5 + 0.55) * radius;
+      p.style.setProperty("--lx", Math.cos(sudut) * jarak + "vw");
+      p.style.setProperty("--ly", Math.sin(sudut) * jarak * 0.6 + "vw");
+      var dur = Math.random() * 0.6 + 0.9;
+      p.style.animation = "promo-letupan-fly " + dur + "s ease-out forwards";
+      canvas.appendChild(p);
+      setTimeout(function (el) { el.remove(); }.bind(null, p), dur * 1000);
+    }
+  }
+
+  function spawnMeteor(besar) {
+    var startX = Math.random() * 85 + 15;
+    var endX = startX - (Math.random() * 28 + 16);
+    var endY = Math.random() * 45 + 45;
+    var m = document.createElement("div");
+    m.className = "meteor";
+    var size = besar ? Math.random() * 5 + 11 : Math.random() * 3 + 5;
+    m.style.width = size + "px";
+    m.style.height = size + "px";
+    m.style.left = startX + "vw";
+    m.style.top = "-5vh";
+    m.style.boxShadow = "0 0 " + (size * 2) + "px " + (size / 2) + "px rgba(255,180,60,.9)";
+    var dx = endX - startX;
+    var sudut = Math.atan2(-dx * (W / 100), endY * (H / 100)) * 180 / Math.PI;
+    m.style.setProperty("--tail-angle", sudut + "deg");
+    m.style.setProperty("--tail-h", (besar ? 88 : 52) + "px");
+    m.style.setProperty("--mx", dx + "vw");
+    m.style.setProperty("--my", (endY + 5) + "vh");
+    var dur = besar ? Math.random() * 0.35 + 0.85 : Math.random() * 0.35 + 0.55;
+    m.style.animation = "promo-meteor-fall " + dur + "s linear forwards";
+    canvas.appendChild(m);
+    setTimeout(function () {
+      m.remove();
+      meletup(W * endX / 100, H * endY / 100, besar);
+    }, dur * 1000);
+  }
+
+  setInterval(function () { spawnMeteor(Math.random() > 0.78); }, 520);
+  setInterval(function () {
+    spawnMeteor(true);
+    if (Math.random() > 0.55) setTimeout(function () { spawnMeteor(true); }, 280);
+  }, 3200);
+  spawnMeteor(true);
+  setTimeout(function () { spawnMeteor(true); }, 380);
+})();
+</script>
