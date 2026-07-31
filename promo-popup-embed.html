@@ -2,10 +2,31 @@
   DROP-IN SNIPPET (Blogger / HTML widget)
   - Checkbox #popup-state HARUS di atas #popup-overlay
   - Tutup murni CSS (label → checkbox)
-  - Ganti data-theme di body wrapper jika perlu: obsidian | arcade | emerald
+  - Default tema: arcade. Bisa diganti: obsidian | arcade | emerald
 -->
 <style>
   #promo-root {
+    /* Neon Arcade (default) */
+    --bg-card: rgba(10, 8, 22, 0.8);
+    --stroke: rgba(0, 255, 220, 0.55);
+    --glow: rgba(0, 255, 200, 0.35);
+    --glow-soft: rgba(255, 0, 180, 0.22);
+    --title: #7dffef;
+    --sub: #d2c4ff;
+    --btn-login-bg: linear-gradient(160deg, #14102a, #0a0716);
+    --btn-login-fg: #7dffef;
+    --btn-login-border: #7dffef;
+    --btn-daftar-bg: linear-gradient(145deg, #ff4fd8, #7a1cff);
+    --btn-daftar-fg: #fff;
+    --close-bg: linear-gradient(145deg, #ff3d9a, #7a12ff);
+    --meteor-core: #eaffff;
+    --meteor-tail: rgba(80, 255, 230, 1);
+    --meteor-tail-mid: rgba(255, 60, 200, 0.65);
+    --shock: rgba(80, 255, 230, 0.9);
+    --lava: rgba(180, 40, 255, 0.25);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #promo-root[data-theme="obsidian"] {
     --bg-card: rgba(12, 16, 28, 0.82);
     --stroke: rgba(255, 210, 120, 0.55);
     --glow: rgba(255, 170, 40, 0.45);
@@ -23,7 +44,6 @@
     --meteor-tail-mid: rgba(255, 120, 30, 0.7);
     --shock: rgba(255, 190, 80, 0.9);
     --lava: rgba(255, 120, 20, 0.28);
-    font-family: Arial, Helvetica, sans-serif;
   }
   #promo-root[data-theme="arcade"] {
     --bg-card: rgba(10, 8, 22, 0.8);
@@ -64,7 +84,13 @@
     --lava: rgba(40, 180, 100, 0.28);
   }
 
-  #promo-root #popup-state { position: absolute; opacity: 0; pointer-events: none; }
+  #promo-root #popup-state {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
 
   #promo-root #popup-overlay {
     position: fixed;
@@ -84,12 +110,27 @@
   @keyframes promo-appear {
     to { opacity: 1; visibility: visible; }
   }
-  #promo-root #popup-state:checked ~ #popup-overlay {
+  #promo-root #popup-state:checked ~ #popup-overlay,
+  #promo-root #popup-overlay.is-closed {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    animation: none !important;
+  }
+
+  #promo-root .popup-backdrop {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+    background: transparent;
+    z-index: 0;
   }
 
   #promo-root .popup-box {
     position: relative;
+    z-index: 1;
     width: min(360px, 92vw);
     padding: 20px;
     border-radius: 22px;
@@ -100,7 +141,7 @@
       0 20px 60px rgba(0,0,0,0.55),
       0 0 50px var(--glow),
       0 0 100px var(--glow-soft);
-    overflow: hidden;
+    overflow: visible;
     animation: promo-in 0.65s cubic-bezier(0.22, 1.2, 0.36, 1) 1.2s backwards;
     box-sizing: border-box;
   }
@@ -112,6 +153,8 @@
     opacity: 0.35;
     animation: promo-rim 8s linear infinite;
     z-index: 0;
+    pointer-events: none;
+    border-radius: 22px;
   }
   #promo-root .popup-box::after {
     content: "";
@@ -120,6 +163,7 @@
     border-radius: 21px;
     background: var(--bg-card);
     z-index: 0;
+    pointer-events: none;
   }
   @keyframes promo-rim { to { transform: rotate(360deg); } }
   @keyframes promo-in {
@@ -130,25 +174,27 @@
 
   #promo-root .popup-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
+    top: -14px;
+    right: -14px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: var(--close-bg);
-    border: 1px solid rgba(255,255,255,0.45);
+    border: 2px solid rgba(255,255,255,0.55);
     color: #fff;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
-    line-height: 34px;
+    line-height: 40px;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px var(--glow-soft);
     transition: transform 0.2s;
     user-select: none;
-    z-index: 3;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
   }
-  #promo-root .popup-close:hover { transform: scale(1.08) rotate(90deg); }
+  #promo-root .popup-close:hover,
+  #promo-root .popup-close:active { transform: scale(1.1) rotate(90deg); }
 
   #promo-root .popup-img-wrap {
     position: relative;
@@ -320,12 +366,13 @@
   }
 </style>
 
-<div id="promo-root" data-theme="obsidian">
+<div id="promo-root" data-theme="arcade">
   <input type="checkbox" id="popup-state">
 
   <div id="popup-overlay">
+    <label for="popup-state" class="popup-backdrop" aria-label="Tutup popup"></label>
     <div class="popup-box">
-      <label for="popup-state" class="popup-close">✕</label>
+      <label for="popup-state" class="popup-close" aria-label="Tutup">✕</label>
       <div class="popup-img-wrap">
         <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
         <span class="popup-badge">Limited Offer</span>
@@ -348,6 +395,21 @@
 (function () {
   var root = document.getElementById("promo-root");
   if (!root) return;
+
+  /* Fallback tutup — CSS + JS supaya pasti bisa ditutup */
+  var state = root.querySelector("#popup-state");
+  var overlay = root.querySelector("#popup-overlay");
+  function closePopup() {
+    if (state) state.checked = true;
+    if (overlay) overlay.classList.add("is-closed");
+  }
+  root.querySelectorAll('label[for="popup-state"]').forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault(); /* cegah toggle ganda dari <label for> */
+      closePopup();
+    });
+  });
+
   var canvas = root.querySelector("#meteor-canvas");
   var W = window.innerWidth, H = window.innerHeight;
   window.addEventListener("resize", function () {

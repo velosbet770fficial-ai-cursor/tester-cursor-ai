@@ -153,7 +153,13 @@
     }
 
     /* ===== POPUP ===== */
-    #popup-state { position: absolute; opacity: 0; pointer-events: none; }
+    #popup-state {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
 
     #popup-overlay {
       position: fixed;
@@ -174,12 +180,28 @@
     @keyframes popup-appear {
       to { opacity: 1; visibility: visible; }
     }
-    #popup-state:checked ~ #popup-overlay {
+    /* Tutup: checkbox dicentang = overlay hilang total */
+    #popup-state:checked ~ #popup-overlay,
+    #popup-overlay.is-closed {
       display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      animation: none !important;
+    }
+
+    .popup-backdrop {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      cursor: pointer;
+      background: transparent;
+      z-index: 0;
     }
 
     .popup-box {
       position: relative;
+      z-index: 1;
       width: min(360px, 92vw);
       padding: 20px;
       border-radius: 22px;
@@ -193,7 +215,7 @@
         0 20px 60px rgba(0,0,0,0.55),
         0 0 50px var(--glow),
         0 0 100px var(--glow-soft);
-      overflow: hidden;
+      overflow: visible;
       animation: popup-in 0.65s cubic-bezier(0.22, 1.2, 0.36, 1) 1.2s backwards;
     }
     .popup-box::before {
@@ -204,6 +226,8 @@
       opacity: 0.35;
       animation: rim-spin 8s linear infinite;
       z-index: 0;
+      pointer-events: none;
+      border-radius: 22px;
     }
     .popup-box::after {
       content: "";
@@ -212,6 +236,7 @@
       border-radius: 21px;
       background: linear-gradient(165deg, rgba(255,255,255,0.05), transparent 35%), var(--bg-card);
       z-index: 0;
+      pointer-events: none;
     }
     @keyframes rim-spin {
       to { transform: rotate(360deg); }
@@ -225,25 +250,27 @@
 
     .popup-close {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 36px;
-      height: 36px;
+      top: -14px;
+      right: -14px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--close-bg);
-      border: 1px solid rgba(255,255,255,0.45);
+      border: 2px solid rgba(255,255,255,0.55);
       color: #fff;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
-      line-height: 34px;
+      line-height: 40px;
       text-align: center;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px var(--glow-soft);
       transition: transform 0.2s;
       user-select: none;
-      z-index: 3;
+      z-index: 10;
+      -webkit-tap-highlight-color: transparent;
     }
-    .popup-close:hover { transform: scale(1.08) rotate(90deg); }
+    .popup-close:hover,
+    .popup-close:active { transform: scale(1.1) rotate(90deg); }
 
     .popup-img-wrap {
       position: relative;
@@ -448,14 +475,15 @@
     }
   </style>
 </head>
-<body data-theme="obsidian">
+<body data-theme="arcade">
 
   <!-- Checkbox HARUS sebelum overlay agar sibling selector CSS bekerja -->
   <input type="checkbox" id="popup-state">
 
   <div id="popup-overlay">
+    <label for="popup-state" class="popup-backdrop" aria-label="Tutup popup"></label>
     <div class="popup-box" role="dialog" aria-labelledby="popup-title">
-      <label for="popup-state" class="popup-close" aria-label="Tutup">✕</label>
+      <label for="popup-state" class="popup-close" aria-label="Tutup" role="button" tabindex="0">✕</label>
       <div class="popup-img-wrap">
         <img
           class="popup-img"
@@ -484,8 +512,8 @@
     <p>Versi baru: glass card + rotating rim light, tipografi display, dan 3 tema yang bisa diganti live.</p>
 
     <div class="theme-picker" role="group" aria-label="Pilih tema">
-      <button type="button" data-set-theme="obsidian" aria-pressed="true">1 · Obsidian Ember</button>
-      <button type="button" data-set-theme="arcade" aria-pressed="false">2 · Neon Arcade</button>
+      <button type="button" data-set-theme="arcade" aria-pressed="true">1 · Neon Arcade</button>
+      <button type="button" data-set-theme="obsidian" aria-pressed="false">2 · Obsidian Ember</button>
       <button type="button" data-set-theme="emerald" aria-pressed="false">3 · Emerald Royale</button>
     </div>
 
@@ -524,6 +552,34 @@
         buttons.forEach(function (b) {
           b.setAttribute("aria-pressed", b === btn ? "true" : "false");
         });
+      });
+    });
+
+    /* Fallback tutup popup — jaga-jaga kalau CSS sibling gagal (Blogger, dll) */
+    var state = document.getElementById("popup-state");
+    var overlay = document.getElementById("popup-overlay");
+    function closePopup() {
+      if (state) state.checked = true;
+      if (overlay) overlay.classList.add("is-closed");
+    }
+    function openPopup() {
+      if (state) state.checked = false;
+      if (overlay) overlay.classList.remove("is-closed");
+    }
+    document.querySelectorAll('label[for="popup-state"]').forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault(); /* cegah toggle ganda dari <label for> */
+        if (el.closest(".reopen")) {
+          openPopup();
+          return;
+        }
+        closePopup();
+      });
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          closePopup();
+        }
       });
     });
 
