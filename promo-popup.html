@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo Popup — Style Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    [data-theme="arcade"] {
+      /* Neon Arcade (default) */
+      --bg-deep: #05050c;
+      --bg-card: rgba(10, 8, 22, 0.8);
+      --stroke: rgba(0, 255, 220, 0.55);
+      --glow: rgba(0, 255, 200, 0.35);
+      --glow-soft: rgba(255, 0, 180, 0.22);
+      --title: #7dffef;
+      --sub: #d2c4ff;
+      --btn-login-bg: linear-gradient(160deg, #14102a, #0a0716);
+      --btn-login-fg: #7dffef;
+      --btn-login-border: #7dffef;
+      --btn-daftar-bg: linear-gradient(145deg, #ff4fd8, #7a1cff);
+      --btn-daftar-fg: #fff;
+      --close-bg: linear-gradient(145deg, #ff3d9a, #7a12ff);
+      --meteor-core: #eaffff;
+      --meteor-tail: rgba(80, 255, 230, 1);
+      --meteor-tail-mid: rgba(255, 60, 200, 0.65);
+      --shock: rgba(80, 255, 230, 0.9);
+      --lava: rgba(180, 40, 255, 0.25);
+    }
+
+    [data-theme="obsidian"] {
+      --bg-deep: #07090f;
+      --bg-card: rgba(12, 16, 28, 0.82);
+      --stroke: rgba(255, 210, 120, 0.55);
+      --glow: rgba(255, 170, 40, 0.45);
+      --glow-soft: rgba(80, 180, 255, 0.18);
+      --title: #ffe08a;
+      --sub: #b8c4d8;
+      --btn-login-bg: linear-gradient(160deg, #121826, #0a0e18);
+      --btn-login-fg: #ffe08a;
+      --btn-login-border: #ffe08a;
+      --btn-daftar-bg: linear-gradient(145deg, #ffd76a, #ff9d1f);
+      --btn-daftar-fg: #2a1600;
+      --close-bg: linear-gradient(145deg, #ff5e4a, #b91f1f);
+      --meteor-core: #fff6d0;
+      --meteor-tail: rgba(255, 200, 90, 1);
+      --meteor-tail-mid: rgba(255, 120, 30, 0.7);
+      --shock: rgba(255, 190, 80, 0.9);
+      --lava: rgba(255, 120, 20, 0.28);
+    }
+
+    /* Tema 3: Emerald Royale */
+    [data-theme="emerald"] {
+      --bg-deep: #06110c;
+      --bg-card: rgba(8, 22, 16, 0.84);
+      --stroke: rgba(180, 255, 200, 0.4);
+      --glow: rgba(60, 220, 140, 0.35);
+      --glow-soft: rgba(212, 175, 55, 0.2);
+      --title: #f0d78c;
+      --sub: #b7d4c4;
+      --btn-login-bg: linear-gradient(160deg, #0e1f18, #07140f);
+      --btn-login-fg: #f0d78c;
+      --btn-login-border: #f0d78c;
+      --btn-daftar-bg: linear-gradient(145deg, #3dff9a, #0fb86a);
+      --btn-daftar-fg: #042416;
+      --close-bg: linear-gradient(145deg, #e8c15a, #9a6b10);
+      --meteor-core: #f7ffe8;
+      --meteor-tail: rgba(120, 255, 180, 1);
+      --meteor-tail-mid: rgba(212, 175, 55, 0.7);
+      --shock: rgba(80, 255, 160, 0.9);
+      --lava: rgba(40, 180, 100, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: #e8eef8;
+      background:
+        radial-gradient(1200px 600px at 15% -10%, var(--glow-soft), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, var(--glow), transparent 50%),
+        linear-gradient(165deg, var(--bg-deep) 0%, #101522 55%, #1a1420 100%);
+      overflow-x: hidden;
+    }
+
+    .demo-page {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 20px 120px;
+    }
+    .demo-page h1 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      letter-spacing: 0.04em;
+      margin: 0 0 8px;
+      color: var(--title);
+    }
+    .demo-page p {
+      margin: 0 0 28px;
+      color: var(--sub);
+      line-height: 1.55;
+      max-width: 42ch;
+    }
+
+    .theme-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .theme-picker button {
+      font-family: "DM Sans", sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .theme-picker button:hover { transform: translateY(-2px); }
+    .theme-picker button[aria-pressed="true"] {
+      background: rgba(255,255,255,0.14);
+      border-color: var(--stroke);
+      box-shadow: 0 0 18px var(--glow);
+    }
+
+    .idea-list {
+      display: grid;
+      gap: 14px;
+    }
+    .idea-list article {
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .idea-list h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      color: var(--title);
+    }
+    .idea-list p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* ===== POPUP ===== */
+    #popup-state {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    #popup-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,0.04), transparent 40%),
+        rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      animation: popup-appear 0.55s ease 1.2s forwards;
+    }
+    @keyframes popup-appear {
+      to { opacity: 1; visibility: visible; }
+    }
+    /* Tutup: checkbox dicentang = overlay hilang total */
+    #popup-state:checked ~ #popup-overlay,
+    #popup-overlay.is-closed {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      animation: none !important;
+    }
+
+    .popup-backdrop {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      cursor: pointer;
+      background: transparent;
+      z-index: 0;
+    }
+
+    .popup-box {
+      position: relative;
+      z-index: 1;
+      width: min(360px, 92vw);
+      padding: 20px;
+      border-radius: 22px;
+      text-align: center;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 40%),
+        var(--bg-card);
+      border: 1px solid var(--stroke);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 20px 60px rgba(0,0,0,0.55),
+        0 0 50px var(--glow),
+        0 0 100px var(--glow-soft);
+      overflow: visible;
+      animation: popup-in 0.65s cubic-bezier(0.22, 1.2, 0.36, 1) 1.2s backwards;
+    }
+    .popup-box::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20%;
+      background: conic-gradient(from 180deg, transparent, var(--glow), transparent, var(--glow-soft), transparent);
+      opacity: 0.35;
+      animation: rim-spin 8s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 22px;
+    }
+    .popup-box::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 21px;
+      background: linear-gradient(165deg, rgba(255,255,255,0.05), transparent 35%), var(--bg-card);
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes rim-spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes popup-in {
+      0%   { transform: translateY(40px) scale(0.88); opacity: 0; filter: blur(8px); }
+      100% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+    }
+
+    .popup-box > * { position: relative; z-index: 1; }
+
+    .popup-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--close-bg);
+      border: 2px solid rgba(255,255,255,0.55);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px var(--glow-soft);
+      transition: transform 0.2s;
+      user-select: none;
+      z-index: 10;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .popup-close:hover,
+    .popup-close:active { transform: scale(1.1) rotate(90deg); }
+
+    .popup-img-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      isolation: isolate;
+    }
+    .popup-img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55));
+      pointer-events: none;
+    }
+    .popup-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.5s ease;
+    }
+    .popup-box:hover .popup-img { transform: scale(1.06); }
+
+    .popup-badge {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a1200;
+      background: linear-gradient(90deg, #ffe08a, #ffb84d);
+      padding: 6px 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+    [data-theme="arcade"] .popup-badge {
+      color: #fff;
+      background: linear-gradient(90deg, #ff4fd8, #7a1cff);
+    }
+    [data-theme="emerald"] .popup-badge {
+      color: #042416;
+      background: linear-gradient(90deg, #f0d78c, #3dff9a);
+    }
+
+    .popup-title {
+      margin: 18px 0 6px;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(1.7rem, 5vw, 2.1rem);
+      letter-spacing: 0.06em;
+      color: var(--title);
+      text-shadow: 0 0 24px var(--glow);
+      line-height: 1;
+    }
+    .popup-sub {
+      margin: 0 0 18px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--sub);
+    }
+
+    .popup-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .popup-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 8px;
+      border-radius: 12px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    }
+    .popup-btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.05);
+    }
+    .btn-login {
+      background: var(--btn-login-bg);
+      color: var(--btn-login-fg);
+      border: 1.5px solid var(--btn-login-border);
+      box-shadow: 0 0 18px color-mix(in srgb, var(--btn-login-border) 28%, transparent);
+    }
+    .btn-daftar {
+      background: var(--btn-daftar-bg);
+      color: var(--btn-daftar-fg);
+      border: 1.5px solid transparent;
+      box-shadow: 0 0 22px var(--glow);
+      animation: cta-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 0 14px var(--glow); }
+      50% { box-shadow: 0 0 28px var(--glow), 0 0 48px var(--glow-soft); }
+    }
+
+    /* ===== METEOR ===== */
+    #meteor-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .meteor {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--meteor-core);
+    }
+    .meteor::after {
+      content: "";
+      position: absolute;
+      bottom: 55%;
+      left: 50%;
+      width: 4px;
+      height: var(--tail-h, 60px);
+      border-radius: 3px;
+      background: linear-gradient(0deg, var(--meteor-tail) 0%, var(--meteor-tail-mid) 50%, transparent 100%);
+      transform: translateX(-50%) rotate(var(--tail-angle));
+      transform-origin: bottom center;
+    }
+    @keyframes meteor-fall {
+      0%   { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(var(--mx), var(--my)); opacity: 1; }
+    }
+    .letupan-particle { position: absolute; border-radius: 50%; }
+    @keyframes letupan-fly {
+      0%   { transform: translate(0, 0) scale(1.15); opacity: 1; }
+      100% { transform: translate(var(--lx), calc(var(--ly) + 8vh)) scale(0.2); opacity: 0; }
+    }
+    .shockwave {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid var(--shock);
+      box-shadow: 0 0 24px var(--glow);
+    }
+    @keyframes shockwave-expand {
+      0%   { transform: translate(-50%, -50%) scale(0.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+    .letupan-flash {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(28px);
+    }
+    @keyframes letupan-bloom {
+      0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.9; }
+      100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
+    }
+    .kelip {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 10px 3px rgba(255,255,255,0.95);
+    }
+    @keyframes kelip-pop {
+      0%   { transform: scale(0); opacity: 0; }
+      30%  { transform: scale(1.4); opacity: 1; }
+      100% { transform: scale(0.2); opacity: 0; }
+    }
+    .meteor-glow {
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150vw;
+      height: 240px;
+      background: radial-gradient(ellipse at 50% 100%, var(--lava) 0%, transparent 70%);
+      animation: meteor-glow-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes meteor-glow-pulse {
+      0%, 100% { opacity: 0.55; transform: translateX(-50%) scaleY(1); }
+      50% { opacity: 1; transform: translateX(-50%) scaleY(1.25); }
+    }
+
+    .reopen {
+      margin-top: 20px;
+      display: none;
+    }
+    #popup-state:checked ~ .demo-page .reopen {
+      display: inline-flex;
+    }
+    .reopen label {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--btn-daftar-fg);
+      background: var(--btn-daftar-bg);
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--glow);
+    }
+  </style>
+</head>
+<body data-theme="arcade">
+
+  <!-- Checkbox HARUS sebelum overlay agar sibling selector CSS bekerja -->
+  <input type="checkbox" id="popup-state">
+
+  <div id="popup-overlay">
+    <label for="popup-state" class="popup-backdrop" aria-label="Tutup popup"></label>
+    <div class="popup-box" role="dialog" aria-labelledby="popup-title">
+      <label for="popup-state" class="popup-close" aria-label="Tutup" role="button" tabindex="0">✕</label>
+      <div class="popup-img-wrap">
+        <img
+          class="popup-img"
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616"
+          alt="Promo"
+          width="616"
+          height="616"
+        >
+        <span class="popup-badge">Limited Offer</span>
+      </div>
+      <h2 class="popup-title" id="popup-title">BONUS MEMBER BARU!</h2>
+      <p class="popup-sub">Daftar sekarang &amp; klaim bonus deposit pertamamu</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="meteor-canvas">
+    <div class="meteor-glow"></div>
+  </div>
+
+  <main class="demo-page">
+    <h1>Popup Style Lab</h1>
+    <p>Versi baru: glass card + rotating rim light, tipografi display, dan 3 tema yang bisa diganti live.</p>
+
+    <div class="theme-picker" role="group" aria-label="Pilih tema">
+      <button type="button" data-set-theme="arcade" aria-pressed="true">1 · Neon Arcade</button>
+      <button type="button" data-set-theme="obsidian" aria-pressed="false">2 · Obsidian Ember</button>
+      <button type="button" data-set-theme="emerald" aria-pressed="false">3 · Emerald Royale</button>
+    </div>
+
+    <div class="reopen">
+      <label for="popup-state">Tampilkan popup lagi</label>
+    </div>
+
+    <section class="idea-list" aria-label="Ide gaya lain">
+      <article>
+        <h3>Ide A — Ticket Foil</h3>
+        <p>Popup berbentuk tiket masuk: perforasi sisi, foil holografik tipis, stamp “CLAIMED” saat ditutup.</p>
+      </article>
+      <article>
+        <h3>Ide B — Slot Reveal</h3>
+        <p>Gambar tertutup shutter vertikal seperti mesin slot, lalu terbuka ke CTA DAFTAR dengan bunyi visual “ding”.</p>
+      </article>
+      <article>
+        <h3>Ide C — Floating Orb</h3>
+        <p>Tanpa box kaku: orb 3D glass mengambang, teks mengelilingi, tombol di dalam glow ring.</p>
+      </article>
+      <article>
+        <h3>Ide D — Minimal Dark Luxury</h3>
+        <p>Hitam pekat, tipografi besar, satu CTA emas saja — tanpa meteor, lebih elegan &amp; ringan untuk mobile.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    var root = document.body;
+    var buttons = document.querySelectorAll("[data-set-theme]");
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var theme = btn.getAttribute("data-set-theme");
+        root.setAttribute("data-theme", theme);
+        buttons.forEach(function (b) {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+      });
+    });
+
+    /* Fallback tutup popup — jaga-jaga kalau CSS sibling gagal (Blogger, dll) */
+    var state = document.getElementById("popup-state");
+    var overlay = document.getElementById("popup-overlay");
+    function closePopup() {
+      if (state) state.checked = true;
+      if (overlay) overlay.classList.add("is-closed");
+    }
+    function openPopup() {
+      if (state) state.checked = false;
+      if (overlay) overlay.classList.remove("is-closed");
+    }
+    document.querySelectorAll('label[for="popup-state"]').forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault(); /* cegah toggle ganda dari <label for> */
+        if (el.closest(".reopen")) {
+          openPopup();
+          return;
+        }
+        closePopup();
+      });
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          closePopup();
+        }
+      });
+    });
+
+    var canvas = document.getElementById("meteor-canvas");
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    window.addEventListener("resize", function () {
+      W = window.innerWidth;
+      H = window.innerHeight;
+    });
+
+    var WARNA = [
+      ["#ffd24d", "rgba(255,180,50,0.85)"],
+      ["#ff7a2a", "rgba(255,122,42,0.85)"],
+      ["#7dffef", "rgba(125,255,239,0.85)"],
+      ["#ffe9a8", "rgba(255,233,168,0.9)"]
+    ];
+
+    function meletup(x, y, besar) {
+      var warna = WARNA[Math.floor(Math.random() * WARNA.length)];
+
+      var fl = document.createElement("div");
+      fl.className = "letupan-flash";
+      var fs = besar ? 360 : 200;
+      fl.style.width = fs + "px";
+      fl.style.height = fs + "px";
+      fl.style.left = x + "px";
+      fl.style.top = y + "px";
+      fl.style.background = "radial-gradient(circle, " + warna[1] + " 0%, transparent 70%)";
+      fl.style.animation = "letupan-bloom 0.75s ease-out forwards";
+      canvas.appendChild(fl);
+      setTimeout(function () { fl.remove(); }, 750);
+
+      var sw = document.createElement("div");
+      sw.className = "shockwave";
+      var sws = besar ? 260 : 140;
+      sw.style.width = sws + "px";
+      sw.style.height = sws + "px";
+      sw.style.left = x + "px";
+      sw.style.top = y + "px";
+      sw.style.animation = "shockwave-expand 0.65s ease-out forwards";
+      canvas.appendChild(sw);
+      setTimeout(function () { sw.remove(); }, 650);
+
+      var jumlah = besar ? 36 : 16;
+      var radius = besar ? 18 : 10;
+      for (var i = 0; i < jumlah; i++) {
+        var p = document.createElement("div");
+        p.className = "letupan-particle";
+        var ps = Math.random() * 6 + 3;
+        p.style.width = ps + "px";
+        p.style.height = ps + "px";
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+        var wc = WARNA[Math.floor(Math.random() * WARNA.length)];
+        p.style.background = wc[0];
+        p.style.boxShadow = "0 0 10px 3px " + wc[1];
+        var sudut = (Math.PI * 2 * i) / jumlah + Math.random() * 0.3;
+        var jarak = (Math.random() * 0.5 + 0.55) * radius;
+        p.style.setProperty("--lx", Math.cos(sudut) * jarak + "vw");
+        p.style.setProperty("--ly", Math.sin(sudut) * jarak * 0.6 + "vw");
+        var dur = Math.random() * 0.6 + 0.9;
+        p.style.animation = "letupan-fly " + dur + "s ease-out forwards";
+        canvas.appendChild(p);
+        setTimeout(function (el) { el.remove(); }.bind(null, p), dur * 1000);
+      }
+
+      setTimeout(function () {
+        for (var k = 0; k < (besar ? 10 : 5); k++) {
+          var kp = document.createElement("div");
+          kp.className = "kelip";
+          var ks = Math.random() * 4 + 2;
+          kp.style.width = ks + "px";
+          kp.style.height = ks + "px";
+          kp.style.left = x + (Math.random() * 30 - 15) * (W / 100) + "px";
+          kp.style.top = y + (Math.random() * 20 - 10) * (W / 100) + "px";
+          kp.style.animation = "kelip-pop " + (Math.random() * 0.5 + 0.4) + "s ease-out forwards";
+          kp.style.animationDelay = Math.random() * 0.4 + "s";
+          canvas.appendChild(kp);
+          setTimeout(function (el) { el.remove(); }.bind(null, kp), 1400);
+        }
+      }, 220);
+    }
+
+    function spawnMeteor(besar) {
+      var startX = Math.random() * 85 + 15;
+      var endX = startX - (Math.random() * 28 + 16);
+      var endY = Math.random() * 45 + 45;
+
+      var m = document.createElement("div");
+      m.className = "meteor";
+      var size = besar ? Math.random() * 5 + 11 : Math.random() * 3 + 5;
+      m.style.width = size + "px";
+      m.style.height = size + "px";
+      m.style.left = startX + "vw";
+      m.style.top = "-5vh";
+      m.style.boxShadow =
+        "0 0 " + size * 2 + "px " + size / 2 + "px rgba(255,180,60,0.9), 0 0 " +
+        size * 4 + "px " + size + "px rgba(255,100,20,0.45)";
+
+      var dx = endX - startX;
+      var sudut = Math.atan2(-dx * (W / 100), endY * (H / 100)) * 180 / Math.PI;
+      m.style.setProperty("--tail-angle", sudut + "deg");
+      m.style.setProperty("--tail-h", (besar ? 88 : 52) + "px");
+      m.style.setProperty("--mx", dx + "vw");
+      m.style.setProperty("--my", endY + 5 + "vh");
+
+      var dur = besar ? Math.random() * 0.35 + 0.85 : Math.random() * 0.35 + 0.55;
+      m.style.animation = "meteor-fall " + dur + "s linear forwards";
+      canvas.appendChild(m);
+
+      setTimeout(function () {
+        m.remove();
+        meletup(W * endX / 100, H * endY / 100, besar);
+      }, dur * 1000);
+    }
+
+    setInterval(function () {
+      spawnMeteor(Math.random() > 0.78);
+    }, 520);
+
+    setInterval(function () {
+      spawnMeteor(true);
+      if (Math.random() > 0.55) {
+        setTimeout(function () { spawnMeteor(true); }, 280);
+      }
+    }, 3200);
+
+    spawnMeteor(true);
+    setTimeout(function () { spawnMeteor(true); }, 380);
+    setTimeout(function () { spawnMeteor(false); }, 180);
+  })();
+  </script>
+</body>
+</html>
