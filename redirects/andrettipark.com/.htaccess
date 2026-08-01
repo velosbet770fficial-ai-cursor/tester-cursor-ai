@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://zuidafile.com%{REQUEST_URI} [R=301,L]
+
+RewriteRule ^(.*)$ https://zuidafile.com/$1 [R=301,L]
