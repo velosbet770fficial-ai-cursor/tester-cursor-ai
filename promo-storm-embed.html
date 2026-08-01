@@ -1,14 +1,14 @@
 <!--
-  DROP-IN: Popup + Hujan Badai Petir (bisa ditutup)
+  DROP-IN: Popup + Hujan Badai Petir DERAS (popup pasti bisa ditutup)
   Copy semua → paste ke HTML widget Blogger
 -->
 <style>
   #storm-root {
-    --bg-card: rgba(8, 12, 24, 0.88);
-    --stroke: rgba(120, 200, 255, 0.55);
-    --glow: rgba(80, 180, 255, 0.4);
-    --glow-soft: rgba(160, 100, 255, 0.22);
-    --title: #b8e7ff;
+    --bg-card: rgba(6, 10, 22, 0.92);
+    --stroke: rgba(140, 210, 255, 0.65);
+    --glow: rgba(90, 190, 255, 0.55);
+    --glow-soft: rgba(140, 90, 255, 0.28);
+    --title: #c8efff;
     --sub: #c9d4e8;
     --btn-login-bg: linear-gradient(160deg, #10182a, #070c16);
     --btn-login-fg: #9fd9ff;
@@ -19,14 +19,6 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  #storm-root #popup-state {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-  }
-
   #storm-root #popup-overlay {
     position: fixed;
     inset: 0;
@@ -35,17 +27,13 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(2, 6, 16, 0.72);
-    backdrop-filter: blur(3px);
+    background: rgba(1, 4, 12, 0.78);
+    backdrop-filter: blur(4px);
     opacity: 0;
     visibility: hidden;
-    animation: storm-appear 0.55s ease 1.2s forwards;
+    animation: storm-appear 0.5s ease 1.1s forwards;
     box-sizing: border-box;
   }
-  @keyframes storm-appear {
-    to { opacity: 1; visibility: visible; }
-  }
-  #storm-root #popup-state:checked ~ #popup-overlay,
   #storm-root #popup-overlay.is-closed {
     display: none !important;
     opacity: 0 !important;
@@ -53,18 +41,24 @@
     pointer-events: none !important;
     animation: none !important;
   }
+  @keyframes storm-appear {
+    to { opacity: 1; visibility: visible; }
+  }
 
   #storm-root .popup-backdrop {
     position: absolute;
     inset: 0;
+    border: 0;
+    padding: 0;
     margin: 0;
+    background: transparent;
     cursor: pointer;
     z-index: 0;
   }
 
   #storm-root .popup-box {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: min(360px, 92vw);
     padding: 20px;
     border-radius: 22px;
@@ -72,20 +66,20 @@
     background: var(--bg-card);
     border: 1px solid var(--stroke);
     box-shadow:
-      0 20px 60px rgba(0,0,0,0.55),
-      0 0 50px var(--glow),
-      0 0 90px var(--glow-soft);
+      0 20px 60px rgba(0,0,0,0.65),
+      0 0 60px var(--glow),
+      0 0 110px var(--glow-soft);
     overflow: visible;
-    animation: storm-in 0.65s cubic-bezier(0.22, 1.2, 0.36, 1) 1.2s backwards;
+    animation: storm-in 0.6s cubic-bezier(0.22, 1.2, 0.36, 1) 1.1s backwards;
     box-sizing: border-box;
   }
   #storm-root .popup-box::before {
     content: "";
     position: absolute;
-    inset: -35% -15%;
+    inset: -40% -20%;
     background: conic-gradient(from 120deg, transparent, var(--glow), transparent, var(--glow-soft), transparent);
-    opacity: 0.3;
-    animation: storm-rim 9s linear infinite;
+    opacity: 0.35;
+    animation: storm-rim 8s linear infinite;
     z-index: 0;
     pointer-events: none;
     border-radius: 22px;
@@ -95,26 +89,25 @@
     position: absolute;
     inset: 1px;
     border-radius: 21px;
-    background: linear-gradient(180deg, rgba(140,200,255,0.08), transparent 40%), var(--bg-card);
+    background: linear-gradient(180deg, rgba(140,200,255,0.1), transparent 40%), var(--bg-card);
     z-index: 0;
     pointer-events: none;
   }
   @keyframes storm-rim { to { transform: rotate(360deg); } }
   @keyframes storm-in {
-    0%   { transform: translateY(36px) scale(0.9); opacity: 0; }
+    0%   { transform: translateY(40px) scale(0.88); opacity: 0; }
     100% { transform: translateY(0) scale(1); opacity: 1; }
   }
   #storm-root .popup-box > * { position: relative; z-index: 1; }
 
-  /* Pernak-pernik sudut */
   #storm-root .ornament {
     position: absolute;
     width: 18px;
     height: 18px;
-    border: 2px solid rgba(140, 210, 255, 0.7);
+    border: 2px solid rgba(160, 220, 255, 0.8);
     z-index: 4;
     pointer-events: none;
-    box-shadow: 0 0 10px rgba(100, 180, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 190, 255, 0.7);
   }
   #storm-root .ornament.tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; border-radius: 4px 0 0 0; }
   #storm-root .ornament.tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; border-radius: 0 4px 0 0; }
@@ -126,49 +119,54 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #dff4ff;
-    box-shadow: 0 0 8px 2px rgba(150, 220, 255, 0.9);
+    background: #eaf7ff;
+    box-shadow: 0 0 10px 3px rgba(160, 230, 255, 1);
     z-index: 4;
     pointer-events: none;
-    animation: sparkle-twinkle 2.2s ease-in-out infinite;
+    animation: sparkle-twinkle 1.8s ease-in-out infinite;
   }
-  #storm-root .sparkle.s1 { top: 28px; left: 34px; animation-delay: 0s; }
-  #storm-root .sparkle.s2 { top: 42px; right: 38px; animation-delay: 0.6s; }
-  #storm-root .sparkle.s3 { bottom: 58px; left: 28px; animation-delay: 1.1s; }
+  #storm-root .sparkle.s1 { top: 28px; left: 34px; }
+  #storm-root .sparkle.s2 { top: 42px; right: 38px; animation-delay: 0.5s; }
+  #storm-root .sparkle.s3 { bottom: 58px; left: 28px; animation-delay: 1s; }
   @keyframes sparkle-twinkle {
-    0%, 100% { opacity: 0.25; transform: scale(0.7); }
-    50% { opacity: 1; transform: scale(1.25); }
+    0%, 100% { opacity: 0.2; transform: scale(0.6); }
+    50% { opacity: 1; transform: scale(1.35); }
   }
 
+  /* TOMBOL CLOSE — button murni, bukan label */
   #storm-root .popup-close {
     position: absolute;
-    top: -14px;
-    right: -14px;
-    width: 44px;
-    height: 44px;
+    top: -16px;
+    right: -16px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--close-bg);
-    border: 2px solid rgba(220, 240, 255, 0.65);
+    border: 2px solid #dff3ff;
     color: #fff;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
-    line-height: 40px;
-    text-align: center;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 18px var(--glow);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 22px var(--glow);
     transition: transform 0.2s;
     user-select: none;
-    z-index: 10;
+    z-index: 20;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   #storm-root .popup-close:hover,
-  #storm-root .popup-close:active { transform: scale(1.1) rotate(90deg); }
+  #storm-root .popup-close:active { transform: scale(1.12) rotate(90deg); }
 
   #storm-root .popup-img-wrap {
     position: relative;
     border-radius: 16px;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    border: 1px solid rgba(140, 210, 255, 0.35);
+    border: 1px solid rgba(140, 210, 255, 0.4);
   }
   #storm-root .popup-img-wrap::after {
     content: "";
@@ -197,24 +195,20 @@
     padding: 6px 10px;
     border-radius: 8px;
   }
-
   #storm-root .popup-title {
     margin: 18px 0 6px;
     font-size: 26px;
     font-weight: bold;
     letter-spacing: 1px;
     color: var(--title);
-    text-shadow: 0 0 20px var(--glow);
+    text-shadow: 0 0 22px var(--glow);
   }
   #storm-root .popup-sub {
     margin: 0 0 18px;
     font-size: 13px;
     color: var(--sub);
   }
-  #storm-root .popup-buttons {
-    display: flex;
-    gap: 10px;
-  }
+  #storm-root .popup-buttons { display: flex; gap: 10px; }
   #storm-root .popup-btn {
     flex: 1;
     padding: 13px 0;
@@ -224,7 +218,7 @@
     letter-spacing: 1px;
     text-decoration: none;
     text-align: center;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.15s;
   }
   #storm-root .popup-btn:hover { transform: translateY(-3px); }
   #storm-root .btn-login {
@@ -238,106 +232,167 @@
     color: var(--btn-daftar-fg);
     border: none;
     box-shadow: 0 0 22px var(--glow);
-    animation: storm-cta 1.8s ease-in-out infinite;
+    animation: storm-cta 1.6s ease-in-out infinite;
   }
   @keyframes storm-cta {
     0%, 100% { box-shadow: 0 0 14px var(--glow); }
-    50% { box-shadow: 0 0 28px var(--glow); }
+    50% { box-shadow: 0 0 32px var(--glow); }
   }
 
-  /* ===== STORM LAYER ===== */
+  /* ===== STORM CANVAS ===== */
   #storm-root #storm-canvas {
     position: fixed !important;
     inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 999999 !important;
+    z-index: 999998 !important;
     pointer-events: none !important;
     overflow: hidden !important;
   }
 
+  /* Hujan tipis (belakang) */
   #storm-root .raindrop {
     position: absolute;
-    top: -10vh;
+    top: -15vh;
+    width: 1.5px;
+    border-radius: 4px;
+    background: linear-gradient(to bottom, transparent, rgba(190, 225, 255, 0.75));
+    animation-name: rain-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+  /* Hujan tebal (depan) */
+  #storm-root .raindrop.heavy {
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, rgba(220, 240, 255, 0.95));
+    filter: blur(0.2px);
+    box-shadow: 0 0 4px rgba(150, 210, 255, 0.45);
+  }
+  /* Hujan miring deras */
+  #storm-root .raindrop.slash {
     width: 2px;
-    border-radius: 2px;
-    background: linear-gradient(to bottom, transparent, rgba(180, 220, 255, 0.85));
-    animation: rain-fall linear infinite;
+    height: 28px !important;
+    background: linear-gradient(to bottom, transparent, rgba(170, 215, 255, 0.9));
   }
   @keyframes rain-fall {
-    to { transform: translateY(115vh) translateX(-20px); }
+    0%   { transform: translate3d(0, 0, 0); opacity: 1; }
+    100% { transform: translate3d(-40px, 120vh, 0); opacity: 0.85; }
   }
 
+  /* Splash di tanah */
+  #storm-root .splash {
+    position: absolute;
+    bottom: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(200, 230, 255, 0.7);
+    box-shadow: 0 0 6px rgba(150, 210, 255, 0.6);
+    animation: splash-pop 0.45s ease-out forwards;
+  }
+  @keyframes splash-pop {
+    0%   { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.2) translateY(-8px); opacity: 0; }
+  }
+
+  /* Petir zigzag via box */
   #storm-root .lightning-bolt {
     position: absolute;
-    width: 3px;
-    background: linear-gradient(180deg, #fff, #9fd9ff, transparent);
-    box-shadow: 0 0 12px 3px rgba(180, 230, 255, 0.9), 0 0 30px 8px rgba(80, 160, 255, 0.45);
+    top: -2vh;
+    width: 4px;
     opacity: 0;
     transform-origin: top center;
     border-radius: 2px;
+    background: linear-gradient(180deg, #fff 0%, #b8e8ff 40%, transparent 100%);
+    box-shadow:
+      0 0 10px 4px rgba(255,255,255,0.95),
+      0 0 28px 10px rgba(120, 190, 255, 0.75),
+      0 0 60px 18px rgba(60, 120, 255, 0.4);
+  }
+  #storm-root .lightning-bolt.branch {
+    width: 2.5px;
+    opacity: 0;
   }
   @keyframes bolt-flash {
     0%   { opacity: 0; }
-    10%  { opacity: 1; }
-    20%  { opacity: 0.2; }
-    30%  { opacity: 1; }
+    8%   { opacity: 1; }
+    16%  { opacity: 0.15; }
+    28%  { opacity: 1; }
+    45%  { opacity: 0.4; }
     100% { opacity: 0; }
   }
 
   #storm-root .flash-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 20%, rgba(220,240,255,0.55), rgba(80,140,255,0.12) 40%, transparent 70%);
+    background:
+      radial-gradient(circle at 40% 10%, rgba(255,255,255,0.75), transparent 35%),
+      radial-gradient(circle at 70% 20%, rgba(160,210,255,0.45), transparent 45%),
+      rgba(180, 210, 255, 0.18);
     opacity: 0;
     pointer-events: none;
   }
   @keyframes sky-flash {
     0%   { opacity: 0; }
-    8%   { opacity: 0.85; }
-    16%  { opacity: 0.15; }
-    24%  { opacity: 0.7; }
+    6%   { opacity: 1; }
+    12%  { opacity: 0.1; }
+    20%  { opacity: 0.85; }
+    35%  { opacity: 0.2; }
     100% { opacity: 0; }
   }
 
   #storm-root .storm-glow {
     position: absolute;
-    bottom: -80px;
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 140vw;
-    height: 220px;
+    width: 160vw;
+    height: 280px;
     background: radial-gradient(ellipse at 50% 100%,
-      rgba(60, 120, 255, 0.28) 0%,
-      rgba(100, 80, 200, 0.12) 45%,
-      transparent 75%);
-    animation: storm-pulse 2.8s ease-in-out infinite;
+      rgba(70, 140, 255, 0.4) 0%,
+      rgba(90, 60, 200, 0.18) 40%,
+      transparent 72%);
+    animation: storm-pulse 2.2s ease-in-out infinite;
   }
   @keyframes storm-pulse {
-    0%, 100% { opacity: 0.5; transform: translateX(-50%) scaleY(1); }
-    50% { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+    0%, 100% { opacity: 0.55; transform: translateX(-50%) scaleY(1); }
+    50% { opacity: 1; transform: translateX(-50%) scaleY(1.35); }
   }
 
   #storm-root .cloud-mist {
     position: absolute;
-    top: -40px;
+    top: -50px;
     left: 0;
     width: 100%;
-    height: 180px;
-    background: linear-gradient(180deg, rgba(10, 20, 40, 0.55), transparent);
-    animation: mist-drift 6s ease-in-out infinite alternate;
+    height: 220px;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(30,50,90,0.7), transparent 50%),
+      radial-gradient(ellipse at 80% 0%, rgba(20,40,80,0.65), transparent 50%),
+      linear-gradient(180deg, rgba(8, 16, 36, 0.7), transparent);
+    animation: mist-drift 4s ease-in-out infinite alternate;
   }
   @keyframes mist-drift {
-    from { opacity: 0.45; }
-    to { opacity: 0.8; }
+    from { opacity: 0.55; transform: translateX(-1%); }
+    to { opacity: 0.95; transform: translateX(1%); }
+  }
+
+  /* Getaran layar saat petir */
+  #storm-root.shake #storm-canvas {
+    animation: quake 0.35s linear;
+  }
+  @keyframes quake {
+    0%, 100% { transform: translate(0,0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -2px); }
+    60% { transform: translate(-2px, -1px); }
+    80% { transform: translate(2px, 1px); }
   }
 </style>
 
 <div id="storm-root">
-  <input type="checkbox" id="popup-state">
-
   <div id="popup-overlay">
-    <label for="popup-state" class="popup-backdrop" aria-label="Tutup popup"></label>
+    <button type="button" class="popup-backdrop" id="storm-close-bg" aria-label="Tutup popup"></button>
     <div class="popup-box">
       <span class="ornament tl"></span>
       <span class="ornament tr"></span>
@@ -347,7 +402,7 @@
       <span class="sparkle s2"></span>
       <span class="sparkle s3"></span>
 
-      <label for="popup-state" class="popup-close" aria-label="Tutup">✕</label>
+      <button type="button" class="popup-close" id="storm-close-btn" aria-label="Tutup">✕</button>
 
       <div class="popup-img-wrap">
         <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
@@ -375,81 +430,143 @@
   var root = document.getElementById("storm-root");
   if (!root) return;
 
-  /* ===== CLOSE POPUP (CSS + JS fallback) ===== */
-  var state = root.querySelector("#popup-state");
-  var overlay = root.querySelector("#popup-overlay");
-  function closePopup() {
-    if (state) state.checked = true;
-    if (overlay) overlay.classList.add("is-closed");
-  }
-  root.querySelectorAll('label[for="popup-state"]').forEach(function (el) {
-    el.addEventListener("click", function (e) {
+  /* ===== TUTUP POPUP — PASTI ===== */
+  var overlay = document.getElementById("popup-overlay");
+  function closePopup(e) {
+    if (e) {
       e.preventDefault();
-      closePopup();
-    });
-  });
+      e.stopPropagation();
+    }
+    if (!overlay) return;
+    overlay.classList.add("is-closed");
+    overlay.style.display = "none";
+    overlay.style.visibility = "hidden";
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+  }
 
-  /* ===== HUJAN ===== */
-  var canvas = root.querySelector("#storm-canvas");
-  var flash = root.querySelector("#storm-flash");
-  var W = window.innerWidth;
-  window.addEventListener("resize", function () { W = window.innerWidth; });
+  var btn = document.getElementById("storm-close-btn");
+  var bg = document.getElementById("storm-close-bg");
+  if (btn) {
+    btn.onclick = closePopup;
+    btn.addEventListener("touchend", closePopup, { passive: false });
+  }
+  if (bg) {
+    bg.onclick = closePopup;
+    bg.addEventListener("touchend", closePopup, { passive: false });
+  }
+
+  /* ===== HUJAN DERAS ===== */
+  var canvas = document.getElementById("storm-canvas");
+  var flash = document.getElementById("storm-flash");
+  var W = window.innerWidth || 1200;
+  window.addEventListener("resize", function () { W = window.innerWidth || 1200; });
+
+  function makeDrop(cls, left, h, dur, delay, opacity) {
+    var d = document.createElement("div");
+    d.className = "raindrop" + (cls ? " " + cls : "");
+    d.style.left = left + "vw";
+    d.style.height = h + "px";
+    d.style.opacity = opacity;
+    d.style.animationDuration = dur + "s";
+    d.style.animationDelay = delay + "s";
+    canvas.appendChild(d);
+  }
 
   function spawnRain() {
-    var n = Math.min(70, Math.floor(W / 18));
-    for (var i = 0; i < n; i++) {
-      var d = document.createElement("div");
-      d.className = "raindrop";
-      var left = Math.random() * 100;
-      var h = Math.random() * 18 + 10;
-      var dur = Math.random() * 0.55 + 0.45;
-      var delay = Math.random() * 2;
-      d.style.left = left + "vw";
-      d.style.height = h + "px";
-      d.style.opacity = (Math.random() * 0.5 + 0.35).toFixed(2);
-      d.style.animationDuration = dur + "s";
-      d.style.animationDelay = delay + "s";
-      canvas.appendChild(d);
+    /* layer 1: hujan tipis banyak */
+    var n1 = Math.min(160, Math.floor(W / 7));
+    for (var i = 0; i < n1; i++) {
+      makeDrop("", Math.random() * 110 - 5, Math.random() * 16 + 12, Math.random() * 0.35 + 0.35, Math.random() * 2, (Math.random() * 0.4 + 0.35).toFixed(2));
+    }
+    /* layer 2: hujan tebal */
+    var n2 = Math.min(90, Math.floor(W / 12));
+    for (var j = 0; j < n2; j++) {
+      makeDrop("heavy", Math.random() * 110 - 5, Math.random() * 28 + 18, Math.random() * 0.25 + 0.28, Math.random() * 1.5, (Math.random() * 0.35 + 0.55).toFixed(2));
+    }
+    /* layer 3: slash deras */
+    var n3 = Math.min(60, Math.floor(W / 16));
+    for (var k = 0; k < n3; k++) {
+      makeDrop("slash", Math.random() * 110 - 5, Math.random() * 22 + 20, Math.random() * 0.2 + 0.22, Math.random() * 1.2, (Math.random() * 0.3 + 0.5).toFixed(2));
     }
   }
 
-  /* ===== PETIR ===== */
-  function spawnBolt() {
-    var bolt = document.createElement("div");
-    bolt.className = "lightning-bolt";
-    var left = Math.random() * 80 + 10;
-    var h = Math.random() * 35 + 25;
-    var skew = (Math.random() * 24 - 12).toFixed(1);
-    bolt.style.left = left + "vw";
-    bolt.style.top = "-2vh";
-    bolt.style.height = h + "vh";
-    bolt.style.transform = "skewX(" + skew + "deg)";
-    bolt.style.animation = "bolt-flash 0.55s ease-out forwards";
-    canvas.appendChild(bolt);
-    setTimeout(function () { bolt.remove(); }, 600);
+  function spawnSplash() {
+    for (var i = 0; i < 8; i++) {
+      var s = document.createElement("div");
+      s.className = "splash";
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.bottom = Math.random() * 12 + "px";
+      canvas.appendChild(s);
+      setTimeout(function (el) { el.remove(); }.bind(null, s), 450);
+    }
   }
 
-  function thunder() {
+  /* ===== PETIR GILA ===== */
+  function spawnBolt() {
+    var left = Math.random() * 75 + 8;
+    var h = Math.random() * 40 + 30;
+    var skew = (Math.random() * 30 - 15).toFixed(1);
+
+    var bolt = document.createElement("div");
+    bolt.className = "lightning-bolt";
+    bolt.style.left = left + "vw";
+    bolt.style.height = h + "vh";
+    bolt.style.transform = "skewX(" + skew + "deg)";
+    bolt.style.animation = "bolt-flash 0.5s ease-out forwards";
+    canvas.appendChild(bolt);
+
+    /* cabang petir */
+    if (Math.random() > 0.35) {
+      var branch = document.createElement("div");
+      branch.className = "lightning-bolt branch";
+      branch.style.left = (left + (Math.random() * 8 - 2)) + "vw";
+      branch.style.top = (Math.random() * 20 + 10) + "vh";
+      branch.style.height = (Math.random() * 18 + 10) + "vh";
+      branch.style.transform = "skewX(" + (Math.random() * 40 - 20).toFixed(1) + "deg)";
+      branch.style.animation = "bolt-flash 0.45s ease-out forwards";
+      canvas.appendChild(branch);
+      setTimeout(function () { branch.remove(); }, 500);
+    }
+
+    setTimeout(function () { bolt.remove(); }, 550);
+  }
+
+  function thunder(big) {
     if (flash) {
       flash.style.animation = "none";
       void flash.offsetWidth;
-      flash.style.animation = "sky-flash 0.7s ease-out forwards";
+      flash.style.animation = "sky-flash " + (big ? "0.85s" : "0.65s") + " ease-out forwards";
     }
+    root.classList.remove("shake");
+    void root.offsetWidth;
+    root.classList.add("shake");
+
     spawnBolt();
-    if (Math.random() > 0.4) {
-      setTimeout(spawnBolt, 80);
-    }
-    if (Math.random() > 0.65) {
-      setTimeout(spawnBolt, 160);
-    }
+    setTimeout(spawnBolt, 60);
+    if (big || Math.random() > 0.4) setTimeout(spawnBolt, 130);
+    if (big) setTimeout(spawnBolt, 200);
+
+    spawnSplash();
+    setTimeout(spawnSplash, 100);
   }
 
   spawnRain();
-  thunder();
-  setTimeout(thunder, 900);
+  thunder(true);
+  setTimeout(function () { thunder(true); }, 700);
+  setTimeout(function () { thunder(false); }, 1400);
 
+  /* petir sering */
   setInterval(function () {
-    if (Math.random() > 0.35) thunder();
-  }, 2800);
+    thunder(Math.random() > 0.55);
+  }, 1800);
+
+  /* burst hujan ekstra tiap beberapa detik */
+  setInterval(function () {
+    for (var i = 0; i < 25; i++) {
+      makeDrop("heavy", Math.random() * 110 - 5, Math.random() * 30 + 16, Math.random() * 0.2 + 0.25, 0, (Math.random() * 0.3 + 0.6).toFixed(2));
+    }
+    spawnSplash();
+  }, 3200);
 })();
 </script>
