@@ -1,0 +1,285 @@
+<!--
+  DROP-IN: Popup + MATRIX HIJAU (digital rain) — bisa ditutup
+-->
+<style>
+  #matrix-root {
+    --bg: rgba(2, 12, 4, 0.96);
+    --green: #39ff14;
+    --green2: #00c853;
+    --deep: #001a08;
+    --sub: #9dffb0;
+    font-family: "Courier New", Courier, monospace;
+  }
+  #matrix-root #popup-overlay {
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; box-sizing: border-box;
+    background: rgba(0, 8, 2, .82); backdrop-filter: blur(5px);
+    opacity: 0; visibility: hidden;
+    animation: mx-in .45s ease 1s forwards;
+  }
+  #matrix-root #popup-overlay.is-closed {
+    display: none !important; opacity: 0 !important;
+    visibility: hidden !important; pointer-events: none !important;
+    animation: none !important;
+  }
+  @keyframes mx-in { to { opacity: 1; visibility: visible; } }
+  #matrix-root .popup-backdrop {
+    position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
+    background: transparent; cursor: pointer; z-index: 0;
+  }
+  #matrix-root .popup-box {
+    position: relative; z-index: 2; width: min(370px, 93vw);
+    padding: 20px; border-radius: 16px; text-align: center;
+    background: linear-gradient(165deg, #031a0a 0%, #010f06 55%, #052412 100%);
+    border: 1.5px solid rgba(57, 255, 20, .7);
+    box-shadow:
+      0 0 0 1px rgba(57,255,20,.15) inset,
+      0 0 40px rgba(57,255,20,.35),
+      0 0 90px rgba(0,200,83,.18),
+      0 25px 70px rgba(0,0,0,.7);
+    overflow: visible;
+    animation: mx-pop .65s cubic-bezier(.22,1.2,.36,1) 1s backwards;
+  }
+  #matrix-root .popup-box::before {
+    content: ""; position: absolute; inset: -2px; border-radius: 18px; z-index: 0; pointer-events: none;
+    background: linear-gradient(135deg, rgba(57,255,20,.45), transparent 40%, rgba(0,200,83,.3));
+    opacity: .5; filter: blur(8px);
+  }
+  #matrix-root .popup-box::after {
+    content: ""; position: absolute; inset: 1px; border-radius: 15px; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(57,255,20,.08), transparent 35%),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,40,10,.12) 2px, rgba(0,40,10,.12) 4px),
+      var(--bg);
+  }
+  @keyframes mx-pop {
+    0% { transform: translateY(40px) scale(.88); opacity: 0; }
+    100% { transform: none; opacity: 1; }
+  }
+  #matrix-root .popup-box > * { position: relative; z-index: 1; }
+  #matrix-root .scanline {
+    position: absolute; inset: 0; border-radius: 16px; pointer-events: none; z-index: 3;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0 2px,
+      rgba(57,255,20,.04) 2px 4px
+    );
+    animation: mx-scan 3s linear infinite;
+    opacity: .7;
+  }
+  @keyframes mx-scan {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 40px; }
+  }
+  #matrix-root .popup-close {
+    position: absolute; top: -16px; right: -16px; width: 48px; height: 48px;
+    border-radius: 50%; border: 2px solid #9dffb0;
+    background: linear-gradient(145deg, #39ff14, #008c3a);
+    color: #001a08; font-size: 24px; font-weight: bold; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 22px rgba(57,255,20,.75); z-index: 30; padding: 0;
+    font-family: Arial, sans-serif; transition: transform .2s;
+  }
+  #matrix-root .popup-close:hover { transform: scale(1.12) rotate(90deg); }
+  #matrix-root .popup-img-wrap {
+    position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1/1;
+    border: 1px solid rgba(57,255,20,.5);
+    box-shadow: 0 0 24px rgba(57,255,20,.28);
+  }
+  #matrix-root .popup-img-wrap::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(57,255,20,.12), transparent 30%, rgba(0,20,8,.55));
+    mix-blend-mode: screen;
+  }
+  #matrix-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #matrix-root .popup-badge {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    font-size: 11px; font-weight: bold; letter-spacing: .14em; text-transform: uppercase;
+    color: #001a08; background: linear-gradient(90deg, #9dffb0, #39ff14);
+    padding: 6px 10px; border-radius: 6px; box-shadow: 0 0 14px rgba(57,255,20,.55);
+    font-family: Arial, sans-serif;
+  }
+  #matrix-root .popup-title {
+    margin: 16px 0 6px; font-size: 26px; font-weight: bold; letter-spacing: 1px;
+    color: var(--green); text-shadow: 0 0 18px rgba(57,255,20,.85), 0 0 40px rgba(0,200,83,.4);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #matrix-root .popup-sub {
+    margin: 0 0 16px; font-size: 13px; color: var(--sub);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #matrix-root .popup-buttons { display: flex; gap: 10px; font-family: Arial, sans-serif; }
+  #matrix-root .popup-btn {
+    flex: 1; padding: 13px 0; border-radius: 10px; font-size: 15px; font-weight: bold;
+    letter-spacing: 1px; text-decoration: none; text-align: center; transition: transform .15s;
+  }
+  #matrix-root .popup-btn:hover { transform: translateY(-3px); }
+  #matrix-root .btn-login {
+    background: #021208; color: var(--green); border: 1.5px solid var(--green2);
+    box-shadow: 0 0 14px rgba(57,255,20,.35);
+  }
+  #matrix-root .btn-daftar {
+    background: linear-gradient(145deg, #9dffb0, #00c853); color: #001a08; border: none;
+    box-shadow: 0 0 22px rgba(57,255,20,.55); animation: mx-cta 1.5s ease-in-out infinite;
+  }
+  @keyframes mx-cta {
+    0%,100% { box-shadow: 0 0 14px rgba(57,255,20,.4); }
+    50% { box-shadow: 0 0 34px rgba(57,255,20,.95); }
+  }
+
+  #matrix-root #fx {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    z-index: 999998 !important; pointer-events: none !important;
+    overflow: hidden !important;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,40,12,.35), transparent 55%);
+  }
+  #matrix-root .col {
+    position: absolute; top: -120%;
+    color: #39ff14;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold; white-space: pre; line-height: 1.15;
+    text-shadow: 0 0 8px #39ff14, 0 0 18px rgba(0,200,83,.7);
+    animation: mx-fall linear forwards;
+    opacity: .85;
+  }
+  #matrix-root .col .head {
+    color: #e8ffe8; text-shadow: 0 0 12px #fff, 0 0 20px #39ff14;
+  }
+  @keyframes mx-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    8% { opacity: .9; }
+    100% { transform: translateY(220vh); opacity: .35; }
+  }
+  #matrix-root .glitch {
+    position: absolute; width: 2px; background: #39ff14;
+    box-shadow: 0 0 10px #39ff14, 0 0 20px #00c853;
+    animation: mx-glitch linear forwards;
+  }
+  @keyframes mx-glitch {
+    0% { opacity: 1; transform: scaleY(0); }
+    30% { opacity: 1; transform: scaleY(1); }
+    100% { opacity: 0; transform: scaleY(1) translateY(40px); }
+  }
+  #matrix-root .pulse {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(57,255,20,.7);
+    box-shadow: 0 0 20px rgba(57,255,20,.5);
+    animation: mx-pulse .9s ease-out forwards;
+  }
+  @keyframes mx-pulse {
+    0% { transform: scale(.2); opacity: .9; }
+    100% { transform: scale(2.8); opacity: 0; }
+  }
+  #matrix-root .grid {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(57,255,20,.05) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(57,255,20,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .35;
+    animation: mx-grid 8s linear infinite;
+  }
+  @keyframes mx-grid {
+    from { background-position: 0 0; }
+    to { background-position: 0 48px; }
+  }
+</style>
+
+<div id="matrix-root">
+  <div id="popup-overlay">
+    <button type="button" class="popup-backdrop" id="mx-close-bg" aria-label="Tutup"></button>
+    <div class="popup-box">
+      <div class="scanline"></div>
+      <button type="button" class="popup-close" id="mx-close-btn" aria-label="Tutup">✕</button>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
+        <span class="popup-badge">Matrix Deal</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Daftar sekarang &amp; klaim bonus deposit pertamamu</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+  <div id="fx">
+    <div class="grid"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("matrix-root");
+  if (!root) return;
+  var overlay = document.getElementById("popup-overlay");
+  var fx = document.getElementById("fx");
+  var W = window.innerWidth || 1200, H = window.innerHeight || 800;
+  window.addEventListener("resize", function () {
+    W = window.innerWidth || 1200; H = window.innerHeight || 800;
+  });
+  function closePopup(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (!overlay) return;
+    overlay.classList.add("is-closed");
+    overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
+  }
+  var b1 = document.getElementById("mx-close-btn");
+  var b2 = document.getElementById("mx-close-bg");
+  if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
+  if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
+
+  var CHARS = "01アイウエオカキクケコサシスセソタチツテトナニヌネノﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*+-<>";
+  function randChar() { return CHARS.charAt(Math.floor(Math.random() * CHARS.length)); }
+
+  function rainCol() {
+    var el = document.createElement("div");
+    el.className = "col";
+    var len = Math.floor(Math.random() * 14) + 8;
+    var html = "";
+    for (var i = 0; i < len; i++) {
+      var c = randChar();
+      if (i === 0) html += '<span class="head">' + c + "</span>\n";
+      else html += c + "\n";
+    }
+    el.innerHTML = html;
+    var size = Math.random() * 10 + 11;
+    el.style.fontSize = size + "px";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.letterSpacing = "1px";
+    var dur = Math.random() * 2.8 + 2.2;
+    el.style.animationDuration = dur + "s";
+    el.style.opacity = (Math.random() * 0.45 + 0.45).toFixed(2);
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, dur * 1000 + 40);
+  }
+  function glitch() {
+    var el = document.createElement("div");
+    el.className = "glitch";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 70 + "vh";
+    el.style.height = (Math.random() * 80 + 30) + "px";
+    var dur = Math.random() * 0.35 + 0.2;
+    el.style.animationDuration = dur + "s";
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, dur * 1000);
+  }
+  function pulse(x, y) {
+    var el = document.createElement("div");
+    el.className = "pulse";
+    var s = Math.random() * 40 + 50;
+    el.style.width = s + "px"; el.style.height = s + "px";
+    el.style.left = (x - s / 2) + "px";
+    el.style.top = (y - s / 2) + "px";
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, 950);
+  }
+
+  setInterval(function () { rainCol(); rainCol(); rainCol(); }, 90);
+  setInterval(function () { glitch(); glitch(); }, 180);
+  function bang() { pulse(Math.random()*W*0.8+W*0.1, Math.random()*H*0.55+H*0.1); }
+  bang(); setTimeout(bang, 700); setInterval(bang, 1800);
+})();
+</script>
