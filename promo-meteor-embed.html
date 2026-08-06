@@ -1,0 +1,378 @@
+<!--
+  DROP-IN: Popup + METEOR STORM (hujan meteor + ledakan impact) — bisa ditutup
+  WARNING: FX sangat ramai, bisa berat di HP low-end
+-->
+<style>
+  #meteor-root {
+    --bg: rgba(8, 4, 2, 0.96);
+    --fire: #ff6a00;
+    --core: #ffe066;
+    --lava: #ff2d00;
+    --sub: #ffc9a0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #meteor-root #popup-overlay {
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; box-sizing: border-box;
+    background: rgba(6, 2, 0, .72); backdrop-filter: blur(3px);
+    opacity: 0; visibility: hidden;
+    animation: mt-in .4s ease .7s forwards;
+  }
+  #meteor-root #popup-overlay.is-closed {
+    display: none !important; opacity: 0 !important;
+    visibility: hidden !important; pointer-events: none !important;
+    animation: none !important;
+  }
+  @keyframes mt-in { to { opacity: 1; visibility: visible; } }
+  #meteor-root .popup-backdrop {
+    position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
+    background: transparent; cursor: pointer; z-index: 0;
+  }
+  #meteor-root .popup-box {
+    position: relative; z-index: 2; width: min(370px, 93vw);
+    padding: 20px; border-radius: 18px; text-align: center;
+    background: linear-gradient(165deg, #3a1808 0%, #120602 55%, #2a1006 100%);
+    border: 2px solid rgba(255, 160, 40, .9);
+    box-shadow:
+      0 0 0 1px rgba(255,80,0,.3) inset,
+      0 0 50px rgba(255,100,0,.5),
+      0 0 100px rgba(255,40,0,.28),
+      0 25px 70px rgba(0,0,0,.8);
+    overflow: visible;
+    animation: mt-pop .65s cubic-bezier(.22,1.3,.36,1) .7s backwards, mt-pulse 1.4s ease-in-out 1.4s infinite;
+  }
+  #meteor-root .popup-box::before {
+    content: ""; position: absolute; inset: -4px; border-radius: 22px; z-index: 0; pointer-events: none;
+    background: conic-gradient(from 0deg, #ff6a00, #ffe066, #ff2d00, #ff9a00, #ffe066, #ff6a00);
+    opacity: .55; filter: blur(12px);
+    animation: mt-spin 2.4s linear infinite;
+  }
+  #meteor-root .popup-box::after {
+    content: ""; position: absolute; inset: 2px; border-radius: 16px; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,160,40,.22), transparent 45%),
+      var(--bg);
+  }
+  @keyframes mt-spin { to { transform: rotate(360deg); } }
+  @keyframes mt-pop {
+    0% { transform: scale(.45) rotate(10deg); opacity: 0; }
+    70% { transform: scale(1.08) rotate(-2deg); }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes mt-pulse {
+    0%,100% { box-shadow: 0 0 40px rgba(255,100,0,.4), 0 0 80px rgba(255,40,0,.25), 0 25px 70px rgba(0,0,0,.8); }
+    50% { box-shadow: 0 0 75px rgba(255,180,40,.9), 0 0 130px rgba(255,40,0,.55), 0 25px 70px rgba(0,0,0,.8); }
+  }
+  #meteor-root .popup-box > * { position: relative; z-index: 1; }
+  #meteor-root .heat {
+    position: absolute; inset: 0; border-radius: 18px; pointer-events: none; z-index: 5;
+    background: radial-gradient(circle at 50% 30%, rgba(255,200,80,.45), transparent 55%);
+    opacity: 0; animation: mt-heat 1.8s ease-in-out infinite;
+  }
+  @keyframes mt-heat {
+    0%,70%,100% { opacity: 0; }
+    78% { opacity: .65; }
+    88% { opacity: .15; }
+    92% { opacity: .5; }
+  }
+  #meteor-root .popup-close {
+    position: absolute; top: -16px; right: -16px; width: 50px; height: 50px;
+    border-radius: 50%; border: 2px solid #ffe066;
+    background: linear-gradient(145deg, #ff6a00, #8b1a00);
+    color: #fff; font-size: 24px; font-weight: bold; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 28px rgba(255,140,0,.95); z-index: 30; padding: 0;
+    transition: transform .2s; animation: mt-btn 1s ease-in-out infinite;
+  }
+  @keyframes mt-btn {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  #meteor-root .popup-close:hover { transform: scale(1.15) rotate(90deg); animation: none; }
+  #meteor-root .popup-img-wrap {
+    position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 1/1;
+    border: 2px solid rgba(255,160,40,.65);
+    box-shadow: 0 0 30px rgba(255,80,0,.4);
+  }
+  #meteor-root .popup-img-wrap::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,160,40,.18), transparent 30%, rgba(40,10,0,.55));
+  }
+  #meteor-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #meteor-root .popup-badge {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    font-size: 11px; font-weight: bold; letter-spacing: .14em; text-transform: uppercase;
+    color: #2a0a00; background: linear-gradient(90deg, #fff2a0, #ff9a00, #ff2d00);
+    padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 18px rgba(255,140,0,.7);
+    animation: mt-badge .8s ease-in-out infinite;
+  }
+  @keyframes mt-badge {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  #meteor-root .popup-title {
+    margin: 16px 0 6px; font-size: 28px; font-weight: bold; letter-spacing: 1px;
+    color: #ffe066;
+    text-shadow: 0 0 20px rgba(255,160,0,.95), 0 0 40px rgba(255,40,0,.55), 0 2px 0 #5a1800;
+    animation: mt-title 1s ease-in-out infinite;
+  }
+  @keyframes mt-title {
+    0%,100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.04); filter: brightness(1.35); }
+  }
+  #meteor-root .popup-sub { margin: 0 0 16px; font-size: 13px; color: var(--sub); }
+  #meteor-root .popup-buttons { display: flex; gap: 10px; }
+  #meteor-root .popup-btn {
+    flex: 1; padding: 14px 0; border-radius: 12px; font-size: 15px; font-weight: bold;
+    letter-spacing: 1px; text-decoration: none; text-align: center; transition: transform .15s;
+  }
+  #meteor-root .popup-btn:hover { transform: translateY(-3px) scale(1.03); }
+  #meteor-root .btn-login {
+    background: #1a0800; color: #ffe066; border: 2px solid #ff9a00;
+    box-shadow: 0 0 16px rgba(255,140,0,.4);
+  }
+  #meteor-root .btn-daftar {
+    background: linear-gradient(145deg, #ffe066, #ff2d00); color: #1a0500; border: none;
+    box-shadow: 0 0 28px rgba(255,140,0,.75); animation: mt-cta .9s ease-in-out infinite;
+  }
+  @keyframes mt-cta {
+    0%,100% { box-shadow: 0 0 16px rgba(255,140,0,.5); transform: scale(1); }
+    50% { box-shadow: 0 0 40px rgba(255,40,0,.9), 0 0 30px #ffe066; transform: scale(1.03); }
+  }
+
+  #meteor-root #fx {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    z-index: 999998 !important; pointer-events: none !important;
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(60,10,0,.55), transparent 50%),
+      radial-gradient(ellipse at 20% 10%, rgba(40,20,0,.4), transparent 40%),
+      #050208;
+  }
+  #meteor-root .star {
+    position: absolute; width: 2px; height: 2px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 6px #fff;
+    animation: mt-twinkle ease-in-out infinite;
+  }
+  @keyframes mt-twinkle {
+    0%,100% { opacity: .25; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.6); }
+  }
+  #meteor-root .meteor {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 8px 2px #ffe066,
+      0 0 18px 4px #ff6a00,
+      -40px -20px 20px 2px rgba(255,100,0,.55);
+    animation: mt-fall linear forwards;
+  }
+  #meteor-root .meteor.big {
+    width: 6px; height: 6px;
+    box-shadow:
+      0 0 14px 4px #ffe066,
+      0 0 36px 10px #ff2d00,
+      -70px -35px 30px 6px rgba(255,80,0,.65);
+  }
+  @keyframes mt-fall {
+    0% { transform: translate(0,0) rotate(0); opacity: 0; }
+    8% { opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) rotate(0); opacity: 0; }
+  }
+  #meteor-root .streak {
+    position: absolute; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #ffe066, #ff6a00, transparent);
+    transform-origin: left center;
+    animation: mt-streak linear forwards;
+    filter: blur(.5px);
+  }
+  @keyframes mt-streak {
+    0% { opacity: 0; transform: rotate(var(--ang)) scaleX(.2); }
+    15% { opacity: 1; }
+    100% { opacity: 0; transform: rotate(var(--ang)) scaleX(1) translateX(var(--len)); }
+  }
+  #meteor-root .debris {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #ff9a40; box-shadow: 0 0 8px #ff6a00;
+    animation: mt-debris linear forwards;
+  }
+  @keyframes mt-debris {
+    0% { transform: translate(0,0) scale(1.3); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+  }
+  #meteor-root .impact {
+    position: absolute; border-radius: 50%;
+    border: 2px solid #ffe066;
+    box-shadow: 0 0 30px #ff2d00, inset 0 0 20px rgba(255,200,80,.5);
+    animation: mt-impact .55s ease-out forwards;
+  }
+  @keyframes mt-impact {
+    0% { transform: scale(.15); opacity: 1; }
+    100% { transform: scale(3.2); opacity: 0; }
+  }
+  #meteor-root .flashbang {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,240,180,.9), rgba(255,100,0,.4) 40%, transparent 70%);
+    animation: mt-flashbang .45s ease-out forwards;
+  }
+  @keyframes mt-flashbang {
+    0% { transform: scale(.2); opacity: 1; }
+    100% { transform: scale(2.8); opacity: 0; }
+  }
+  #meteor-root .ash {
+    position: absolute; top: -4vh; width: 3px; height: 3px; border-radius: 50%;
+    background: #ff9a40; opacity: .7;
+    animation: mt-ash linear forwards;
+  }
+  @keyframes mt-ash {
+    0% { transform: translateY(0) translateX(0); opacity: .8; }
+    100% { transform: translateY(110vh) translateX(var(--drift)); opacity: 0; }
+  }
+</style>
+
+<div id="meteor-root">
+  <div id="popup-overlay">
+    <button type="button" class="popup-backdrop" id="mt-close-bg" aria-label="Tutup"></button>
+    <div class="popup-box">
+      <div class="heat"></div>
+      <button type="button" class="popup-close" id="mt-close-btn" aria-label="Tutup">✕</button>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
+        <span class="popup-badge">Meteor Deal</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Daftar sekarang &amp; klaim bonus deposit pertamamu</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+  <div id="fx"></div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("meteor-root");
+  if (!root) return;
+  var overlay = document.getElementById("popup-overlay");
+  var fx = document.getElementById("fx");
+  var W = window.innerWidth || 1200, H = window.innerHeight || 800;
+  window.addEventListener("resize", function () {
+    W = window.innerWidth || 1200; H = window.innerHeight || 800;
+  });
+  function closePopup(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (!overlay) return;
+    overlay.classList.add("is-closed");
+    overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
+  }
+  var b1 = document.getElementById("mt-close-btn");
+  var b2 = document.getElementById("mt-close-bg");
+  if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
+  if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
+
+  for (var i = 0; i < 70; i++) {
+    var st = document.createElement("div");
+    st.className = "star";
+    st.style.left = Math.random() * 100 + "vw";
+    st.style.top = Math.random() * 100 + "vh";
+    st.style.animationDuration = (Math.random() * 2 + 1.2) + "s";
+    st.style.animationDelay = Math.random() * 2 + "s";
+    if (Math.random() > 0.7) {
+      st.style.width = "3px"; st.style.height = "3px";
+    }
+    fx.appendChild(st);
+  }
+
+  function impact(x, y, big) {
+    var n = big ? 42 : 22;
+    for (var i = 0; i < n; i++) {
+      var d = document.createElement("div");
+      d.className = "debris";
+      var ang = (Math.PI * 2 * i) / n + Math.random() * 0.3;
+      var dist = (big ? 160 : 90) * (0.4 + Math.random());
+      d.style.left = x + "px"; d.style.top = y + "px";
+      d.style.background = i % 3 === 0 ? "#ffe066" : (i % 2 ? "#ff6a00" : "#ff2d00");
+      d.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+      d.style.setProperty("--dy", Math.sin(ang) * dist + "px");
+      var dur = Math.random() * 0.55 + 0.4;
+      d.style.animationDuration = dur + "s";
+      fx.appendChild(d);
+      setTimeout(function (el) { el.remove(); }.bind(null, d), dur * 1000);
+    }
+    var r = document.createElement("div");
+    r.className = "impact";
+    var rs = big ? 70 : 40;
+    r.style.width = rs + "px"; r.style.height = rs + "px";
+    r.style.left = (x - rs / 2) + "px"; r.style.top = (y - rs / 2) + "px";
+    fx.appendChild(r);
+    setTimeout(function () { r.remove(); }, 560);
+    if (big) {
+      var f = document.createElement("div");
+      f.className = "flashbang";
+      var fs = 120;
+      f.style.width = fs + "px"; f.style.height = fs + "px";
+      f.style.left = (x - fs / 2) + "px"; f.style.top = (y - fs / 2) + "px";
+      fx.appendChild(f);
+      setTimeout(function () { f.remove(); }, 460);
+    }
+  }
+
+  function meteor(big) {
+    var el = document.createElement("div");
+    el.className = "meteor" + (big ? " big" : "");
+    var startX = Math.random() * W * 1.2 - W * 0.1;
+    var startY = -Math.random() * H * 0.15 - 20;
+    el.style.left = startX + "px";
+    el.style.top = startY + "px";
+    var dx = Math.random() * W * 0.45 + W * 0.25;
+    var dy = Math.random() * H * 0.55 + H * 0.45;
+    el.style.setProperty("--dx", dx + "px");
+    el.style.setProperty("--dy", dy + "px");
+    var dur = (big ? 0.9 : 0.55) + Math.random() * 0.45;
+    el.style.animationDuration = dur + "s";
+    fx.appendChild(el);
+
+    var streak = document.createElement("div");
+    streak.className = "streak";
+    streak.style.left = startX + "px";
+    streak.style.top = startY + "px";
+    var ang = Math.atan2(dy, dx) * 180 / Math.PI;
+    var len = Math.sqrt(dx * dx + dy * dy) * 0.35;
+    streak.style.width = len + "px";
+    streak.style.setProperty("--ang", ang + "deg");
+    streak.style.setProperty("--len", (len * 0.4) + "px");
+    streak.style.animationDuration = dur + "s";
+    fx.appendChild(streak);
+
+    setTimeout(function () {
+      el.remove();
+      streak.remove();
+      if (big || Math.random() > 0.45) {
+        impact(startX + dx * 0.85, startY + dy * 0.85, big);
+      }
+    }, dur * 1000);
+  }
+
+  function ash() {
+    var el = document.createElement("div");
+    el.className = "ash";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.setProperty("--drift", (Math.random() * 80 - 40) + "px");
+    var dur = Math.random() * 2.5 + 2;
+    el.style.animationDuration = dur + "s";
+    el.style.background = Math.random() > 0.5 ? "#ff6a00" : "#ffe066";
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, dur * 1000);
+  }
+
+  setInterval(function () { meteor(false); meteor(false); meteor(Math.random() > 0.65); }, 180);
+  setInterval(function () { meteor(true); }, 700);
+  setInterval(function () { ash(); ash(); ash(); ash(); }, 90);
+  meteor(true); meteor(true);
+  setTimeout(function () { meteor(true); impact(W * 0.5, H * 0.55, true); }, 500);
+})();
+</script>
