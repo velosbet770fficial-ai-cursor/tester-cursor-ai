@@ -1,0 +1,16 @@
+# Blok eksekusi PHP / script di folder upload
+<FilesMatch "\.(?i:php|phtml|php[0-9]|phar|cgi|pl|py|asp|aspx|jsp|sh)$">
+  Require all denied
+</FilesMatch>
+
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+  <FilesMatch "\.(?i:php|phtml|php[0-9]|phar|cgi|pl|py|asp|aspx|jsp|sh)$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
+
+Options -Indexes
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8
