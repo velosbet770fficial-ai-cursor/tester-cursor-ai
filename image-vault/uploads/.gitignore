@@ -1,0 +1,4 @@
+# Abaikan file temporary / sistem
+.DS_Store
+Thumbs.db
+*.tmp
