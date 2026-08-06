@@ -1,0 +1,320 @@
+<!--
+  DROP-IN: Popup + VORTEX WARP (lubang hitam + spiral) — bisa ditutup
+  WARNING: FX sangat ramai, bisa berat di HP low-end
+-->
+<style>
+  #vx-root {
+    --bg: rgba(4, 2, 16, 0.97);
+    --a: #7c3aed;
+    --b: #22d3ee;
+    --c: #f472b6;
+    --sub: #c4b5fd;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #vx-root #popup-overlay {
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; box-sizing: border-box;
+    background: rgba(0, 0, 8, .8); backdrop-filter: blur(4px);
+    opacity: 0; visibility: hidden;
+    animation: vx-in .4s ease .8s forwards;
+  }
+  #vx-root #popup-overlay.is-closed {
+    display: none !important; opacity: 0 !important;
+    visibility: hidden !important; pointer-events: none !important;
+    animation: none !important;
+  }
+  @keyframes vx-in { to { opacity: 1; visibility: visible; } }
+  #vx-root .popup-backdrop {
+    position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
+    background: transparent; cursor: pointer; z-index: 0;
+  }
+  #vx-root .popup-box {
+    position: relative; z-index: 2; width: min(370px, 93vw);
+    padding: 20px; border-radius: 20px; text-align: center;
+    background: linear-gradient(165deg, #160830 0%, #060214 55%, #1a0840 100%);
+    border: 2px solid rgba(34, 211, 238, .75);
+    box-shadow:
+      0 0 0 1px rgba(124,58,237,.3) inset,
+      0 0 50px rgba(124,58,237,.5),
+      0 0 90px rgba(34,211,238,.25),
+      0 25px 70px rgba(0,0,0,.8);
+    overflow: visible;
+    animation: vx-pop .7s cubic-bezier(.22,1.3,.36,1) .8s backwards;
+  }
+  #vx-root .popup-box::before {
+    content: ""; position: absolute; inset: -6px; border-radius: 26px; z-index: 0; pointer-events: none;
+    background: conic-gradient(from 0deg, #22d3ee, #7c3aed, #f472b6, #22d3ee, #7c3aed);
+    opacity: .55; filter: blur(14px);
+    animation: vx-spin 1.8s linear infinite;
+  }
+  #vx-root .popup-box::after {
+    content: ""; position: absolute; inset: 2px; border-radius: 18px; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(124,58,237,.2), transparent 55%),
+      var(--bg);
+  }
+  @keyframes vx-spin { to { transform: rotate(360deg); } }
+  @keyframes vx-pop {
+    0% { transform: scale(0) rotate(180deg); opacity: 0; filter: blur(20px); }
+    100% { transform: none; opacity: 1; filter: none; }
+  }
+  #vx-root .popup-box > * { position: relative; z-index: 1; }
+  #vx-root .warp-ring {
+    position: absolute; inset: -30px; border-radius: 50%; pointer-events: none; z-index: 0;
+    border: 2px solid transparent;
+    border-top-color: #22d3ee; border-bottom-color: #f472b6;
+    animation: vx-spin 1.2s linear infinite;
+    opacity: .7;
+  }
+  #vx-root .warp-ring2 {
+    position: absolute; inset: -48px; border-radius: 50%; pointer-events: none; z-index: 0;
+    border: 1px dashed rgba(124,58,237,.5);
+    animation: vx-spin-rev 2.5s linear infinite;
+  }
+  @keyframes vx-spin-rev { to { transform: rotate(-360deg); } }
+  #vx-root .popup-close {
+    position: absolute; top: -16px; right: -16px; width: 50px; height: 50px;
+    border-radius: 50%; border: 2px solid #22d3ee;
+    background: linear-gradient(145deg, #7c3aed, #1e0340);
+    color: #fff; font-size: 24px; font-weight: bold; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 28px rgba(34,211,238,.85); z-index: 30; padding: 0;
+    transition: transform .2s;
+  }
+  #vx-root .popup-close:hover { transform: scale(1.15) rotate(90deg); }
+  #vx-root .popup-img-wrap {
+    position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 1/1;
+    border: 1px solid rgba(34,211,238,.55);
+    box-shadow: 0 0 30px rgba(124,58,237,.4);
+    animation: vx-img 3s ease-in-out infinite;
+  }
+  @keyframes vx-img {
+    0%,100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(25deg) brightness(1.1); }
+  }
+  #vx-root .popup-img-wrap::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(34,211,238,.12), transparent 30%, rgba(10,0,30,.6));
+  }
+  #vx-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #vx-root .popup-badge {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    font-size: 11px; font-weight: bold; letter-spacing: .14em; text-transform: uppercase;
+    color: #0a0420; background: linear-gradient(90deg, #22d3ee, #c084fc, #f472b6);
+    padding: 6px 12px; border-radius: 999px; box-shadow: 0 0 18px rgba(34,211,238,.6);
+  }
+  #vx-root .popup-title {
+    margin: 16px 0 6px; font-size: 28px; font-weight: bold; letter-spacing: 1px;
+    color: #fff;
+    text-shadow:
+      0 0 16px rgba(34,211,238,.9),
+      0 0 32px rgba(124,58,237,.7),
+      2px 0 #f472b6, -2px 0 #22d3ee;
+    animation: vx-title 1.5s steps(2) infinite;
+  }
+  @keyframes vx-title {
+    0%,100% { letter-spacing: 1px; }
+    50% { letter-spacing: 2px; }
+  }
+  #vx-root .popup-sub { margin: 0 0 16px; font-size: 13px; color: var(--sub); }
+  #vx-root .popup-buttons { display: flex; gap: 10px; }
+  #vx-root .popup-btn {
+    flex: 1; padding: 14px 0; border-radius: 12px; font-size: 15px; font-weight: bold;
+    letter-spacing: 1px; text-decoration: none; text-align: center; transition: transform .15s;
+  }
+  #vx-root .popup-btn:hover { transform: translateY(-3px); }
+  #vx-root .btn-login {
+    background: #0a0420; color: #22d3ee; border: 2px solid #22d3ee;
+    box-shadow: 0 0 16px rgba(34,211,238,.4);
+  }
+  #vx-root .btn-daftar {
+    background: linear-gradient(145deg, #22d3ee, #7c3aed 50%, #f472b6); color: #0a0420; border: none;
+    box-shadow: 0 0 28px rgba(124,58,237,.7); animation: vx-cta 1s ease-in-out infinite;
+  }
+  @keyframes vx-cta {
+    0%,100% { box-shadow: 0 0 16px rgba(124,58,237,.5); }
+    50% { box-shadow: 0 0 40px rgba(34,211,238,.9), 0 0 30px #f472b6; }
+  }
+
+  #vx-root #fx {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    z-index: 999998 !important; pointer-events: none !important;
+    overflow: hidden !important;
+    background: radial-gradient(circle at 50% 50%, #1a0840 0%, #050214 45%, #000 100%);
+  }
+  #vx-root .hole {
+    position: absolute; left: 50%; top: 50%;
+    width: min(55vw, 420px); height: min(55vw, 420px);
+    margin: calc(min(55vw, 420px) / -2) 0 0 calc(min(55vw, 420px) / -2);
+    border-radius: 50%;
+    background: radial-gradient(circle, #000 20%, #1e1b4b 45%, transparent 70%);
+    box-shadow: 0 0 80px 20px rgba(124,58,237,.5), inset 0 0 60px #000;
+    animation: vx-hole 3s ease-in-out infinite;
+  }
+  @keyframes vx-hole {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  #vx-root .disc {
+    position: absolute; left: 50%; top: 50%;
+    width: min(90vw, 700px); height: min(28vw, 220px);
+    margin-left: calc(min(90vw, 700px) / -2);
+    margin-top: calc(min(28vw, 220px) / -2);
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, #22d3ee, #7c3aed, #f472b6, #22d3ee, transparent);
+    opacity: .45; filter: blur(8px);
+    animation: vx-spin 4s linear infinite;
+    transform: rotateX(72deg);
+  }
+  #vx-root .dot {
+    position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; border-radius: 50%;
+    margin: -2px 0 0 -2px;
+    box-shadow: 0 0 8px currentColor;
+    animation: vx-suck linear forwards;
+  }
+  @keyframes vx-suck {
+    0% { transform: rotate(var(--rot)) translateX(var(--r)) scale(1); opacity: 1; }
+    100% { transform: rotate(calc(var(--rot) + 400deg)) translateX(8px) scale(0); opacity: 0; }
+  }
+  #vx-root .bolt {
+    position: absolute; left: 50%; top: 50%; width: 2px;
+    background: linear-gradient(to top, transparent, #22d3ee, #fff);
+    transform-origin: bottom center;
+    box-shadow: 0 0 10px #22d3ee;
+    animation: vx-bolt linear forwards;
+  }
+  @keyframes vx-bolt {
+    0% { transform: rotate(var(--rot)) scaleY(0); opacity: 1; }
+    40% { transform: rotate(var(--rot)) scaleY(1); opacity: 1; }
+    100% { transform: rotate(calc(var(--rot) + 40deg)) scaleY(1); opacity: 0; }
+  }
+  #vx-root .shock {
+    position: absolute; left: 50%; top: 50%; border-radius: 50%;
+    border: 2px solid #22d3ee; box-shadow: 0 0 30px #7c3aed;
+    margin: 0; transform: translate(-50%, -50%);
+    animation: vx-shock .8s ease-out forwards;
+  }
+  @keyframes vx-shock {
+    0% { width: 40px; height: 40px; opacity: 1; }
+    100% { width: 90vw; height: 90vw; opacity: 0; }
+  }
+  #vx-root .flare {
+    position: absolute; width: 6px; height: 6px; border-radius: 50%;
+    box-shadow: 0 0 14px 3px currentColor;
+    animation: vx-flare linear forwards;
+  }
+  @keyframes vx-flare {
+    0% { transform: translate(0,0) scale(1.5); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+  }
+</style>
+
+<div id="vx-root">
+  <div id="popup-overlay">
+    <button type="button" class="popup-backdrop" id="vx-close-bg" aria-label="Tutup"></button>
+    <div class="popup-box">
+      <div class="warp-ring"></div>
+      <div class="warp-ring2"></div>
+      <button type="button" class="popup-close" id="vx-close-btn" aria-label="Tutup">✕</button>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
+        <span class="popup-badge">Vortex Deal</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Daftar sekarang &amp; klaim bonus deposit pertamamu</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+  <div id="fx">
+    <div class="hole"></div>
+    <div class="disc"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("vx-root");
+  if (!root) return;
+  var overlay = document.getElementById("popup-overlay");
+  var fx = document.getElementById("fx");
+  var W = window.innerWidth || 1200, H = window.innerHeight || 800;
+  window.addEventListener("resize", function () {
+    W = window.innerWidth || 1200; H = window.innerHeight || 800;
+  });
+  function closePopup(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (!overlay) return;
+    overlay.classList.add("is-closed");
+    overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
+  }
+  var b1 = document.getElementById("vx-close-btn");
+  var b2 = document.getElementById("vx-close-bg");
+  if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
+  if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
+
+  var COLORS = ["#22d3ee", "#7c3aed", "#f472b6", "#a78bfa", "#67e8f9", "#fff"];
+
+  function suck() {
+    for (var i = 0; i < 4; i++) {
+      var el = document.createElement("div");
+      el.className = "dot";
+      var c = COLORS[Math.floor(Math.random() * COLORS.length)];
+      el.style.background = c; el.style.color = c;
+      el.style.setProperty("--rot", (Math.random() * 360) + "deg");
+      el.style.setProperty("--r", (Math.random() * Math.min(W, H) * 0.55 + 80) + "px");
+      var dur = Math.random() * 1.4 + 1.1;
+      el.style.animationDuration = dur + "s";
+      fx.appendChild(el);
+      setTimeout(function (e) { e.remove(); }.bind(null, el), dur * 1000);
+    }
+  }
+  function bolt() {
+    var el = document.createElement("div");
+    el.className = "bolt";
+    el.style.height = (Math.random() * 120 + 80) + "px";
+    el.style.setProperty("--rot", (Math.random() * 360) + "deg");
+    el.style.marginBottom = "0";
+    var dur = Math.random() * 0.35 + 0.25;
+    el.style.animationDuration = dur + "s";
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, dur * 1000);
+  }
+  function shock() {
+    var el = document.createElement("div");
+    el.className = "shock";
+    fx.appendChild(el);
+    setTimeout(function () { el.remove(); }, 850);
+  }
+  function explode() {
+    var cx = W / 2, cy = H / 2;
+    for (var i = 0; i < 48; i++) {
+      var s = document.createElement("div");
+      s.className = "flare";
+      var ang = (Math.PI * 2 * i) / 48;
+      var dist = Math.random() * 200 + 80;
+      var c = COLORS[i % COLORS.length];
+      s.style.background = c; s.style.color = c;
+      s.style.left = cx + "px"; s.style.top = cy + "px";
+      s.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+      s.style.setProperty("--dy", Math.sin(ang) * dist + "px");
+      var dur = Math.random() * 0.7 + 0.5;
+      s.style.animationDuration = dur + "s";
+      fx.appendChild(s);
+      setTimeout(function (el) { el.remove(); }.bind(null, s), dur * 1000);
+    }
+    shock();
+  }
+
+  setInterval(suck, 50);
+  setInterval(function () { bolt(); bolt(); bolt(); }, 120);
+  explode();
+  setTimeout(explode, 600);
+  setInterval(explode, 1600);
+  setInterval(shock, 2200);
+})();
+</script>
