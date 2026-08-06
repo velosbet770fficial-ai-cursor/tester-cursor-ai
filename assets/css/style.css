@@ -17,15 +17,26 @@
   --surface-2: #fbf8f4;
   --ink: #1a1512;
   --ink-2: #392f28;
-  --muted: #796d63;
+  --muted: #726659;
   /* pita gelap: tetap gelap di kedua mode */
   --band: #17120f;
   --line: rgba(26, 21, 18, .11);
   --line-strong: rgba(26, 21, 18, .2);
 
   --brand: #ff4d2d;
-  --brand-deep: #d62f10;
+  --brand-deep: #cd2d0f;
   --brand-soft: #fff1ec;
+
+  /* warna chip kategori sengaja sama di mode terang & gelap: semuanya sudah
+     diuji kontras >= 4.5:1 terhadap teks putih (kecuali lucu yang pakai teks gelap) */
+  --chip-lucu: #eda100;
+  --chip-lawak: #6d4bff;
+  --chip-mancing: #0d8376;
+  --chip-traveling: #246cf7;
+  --chip-kuliner: #e42300;
+  --chip-otomotif: #5b6472;
+  --chip-hiburan: #e0225d;
+  --chip-misteri: #4a3fa5;
   --teal: #0f9c8c;
   --amber: #eda100;
   --violet: #6d4bff;
@@ -127,7 +138,6 @@ h1, h2, h3, h4 {
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -.02em;
-  font-variation-settings: "SOFT" 0, "WONK" 1;
   text-wrap: balance;
 }
 
@@ -251,7 +261,7 @@ p { text-wrap: pretty; }
 .btn:active { transform: translateY(0); }
 
 .btn--primary {
-  --btn-bg: linear-gradient(135deg, #ff7a3d, var(--brand) 55%, #ec2f5c);
+  --btn-bg: linear-gradient(135deg, var(--chip-kuliner), #dc1f38 52%, #cf1a49);
   --btn-fg: #fff;
   box-shadow: var(--shadow-brand);
 }
@@ -297,14 +307,14 @@ p { text-wrap: pretty; }
   white-space: nowrap;
 }
 
-.chip--lucu     { --c: var(--amber); color: #241a00; }
-.chip--lawak    { --c: var(--violet); }
-.chip--mancing  { --c: var(--teal); }
-.chip--traveling{ --c: var(--blue); }
-.chip--kuliner  { --c: var(--brand); }
-.chip--otomotif { --c: var(--slate); }
-.chip--hiburan  { --c: var(--pink); }
-.chip--misteri  { --c: var(--indigo); }
+.chip--lucu     { --c: var(--chip-lucu); color: #2a1c00; }
+.chip--lawak    { --c: var(--chip-lawak); }
+.chip--mancing  { --c: var(--chip-mancing); }
+.chip--traveling{ --c: var(--chip-traveling); }
+.chip--kuliner  { --c: var(--chip-kuliner); }
+.chip--otomotif { --c: var(--chip-otomotif); }
+.chip--hiburan  { --c: var(--chip-hiburan); }
+.chip--misteri  { --c: var(--chip-misteri); }
 
 .chip--soft {
   background: var(--brand-soft);
@@ -683,8 +693,8 @@ html[data-theme="dark"] .blob { opacity: .28; }
   margin-top: .2rem;
 }
 
-/* kolase hero */
-.hero__art { position: relative; min-height: clamp(320px, 42vw, 470px); }
+/* kolase hero: pakai rasio aspek supaya kartu absolut selalu muat di segala lebar */
+.hero__art { position: relative; width: 100%; aspect-ratio: 1 / .85; }
 
 .hero__card {
   position: absolute;
@@ -789,7 +799,7 @@ html[data-theme="dark"] .blob { opacity: .28; }
   margin-left: var(--pad);
   padding: .2rem .7rem;
   border-radius: 999px;
-  background: var(--brand);
+  background: var(--chip-kuliner);
   color: #fff;
   font-size: .68rem;
   font-weight: 800;
@@ -1212,20 +1222,22 @@ kbd {
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 
-.joke__no {
+/* nomor dekoratif, dibuat lewat pseudo-element supaya tidak dibaca pembaca layar */
+.joke::before {
+  content: attr(data-no);
   position: absolute;
   top: .35rem; right: .9rem;
   font-family: var(--font-display);
-  font-size: 3.4rem;
+  font-size: 3.6rem;
   font-weight: 800;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--line);
+  -webkit-text-stroke: 1.8px var(--line-strong);
   pointer-events: none;
   transition: -webkit-text-stroke-color .3s var(--ease);
 }
 
-.joke:hover .joke__no { -webkit-text-stroke-color: rgba(255, 77, 45, .4); }
+.joke:hover::before { -webkit-text-stroke-color: var(--brand); }
 
 .joke summary { padding-right: 3rem; }
 
@@ -1872,11 +1884,10 @@ kbd {
 @media (max-width: 860px) {
   .hero__inner { grid-template-columns: 1fr; }
   .hero__copy { max-width: 640px; }
-  .hero__art { min-height: 400px; margin-top: 1rem; }
-  .hero__card--main { width: 56%; right: 12%; }
-  .hero__card--b { width: 42%; }
-  .hero__card--c { width: 34%; }
-  .topbar__note span { display: none; }
+  .hero__art { max-width: 520px; margin-top: 1rem; }
+  .hero__title { max-width: 26ch; }
+  .topbar__note { display: none; }
+  .topbar__inner { justify-content: flex-end; }
 }
 
 @media (max-width: 720px) {
@@ -1891,8 +1902,9 @@ kbd {
   .section__head { flex-direction: column; align-items: flex-start; }
   .story--row { flex-direction: column; }
   .story--row .story__media { width: 100%; aspect-ratio: 16 / 9; }
-  .hero__art { min-height: 340px; }
   .hero__badge { bottom: 0; }
+  /* di layar sempit kartu kolase saling menimpa, jadi keterangannya disembunyikan */
+  .hero__card figcaption { display: none; }
   .footer__top { grid-template-columns: 1fr; }
   .footer__brand { grid-column: auto; }
   .quote blockquote { font-size: clamp(1.35rem, 6vw, 1.9rem); }
@@ -1902,7 +1914,6 @@ kbd {
   .topbar__right a { display: none; }
   .topbar__sep { display: none; }
   .hero__stats { gap: 1.25rem 1.75rem; }
-  .hero__art { min-height: 300px; }
   .hero__card--main { width: 62%; right: 4%; }
   .hero__card--c { display: none; }
   .btn--lg { width: 100%; }
@@ -1910,6 +1921,7 @@ kbd {
   .stats__grid { grid-template-columns: 1fr; }
   .mini-form { flex-direction: column; }
   .mini-form .btn { width: 100%; }
+  .meta__views, .meta__sep:has(+ .meta__views) { display: none; }
 }
 
 /* ============ PREFERENSI PENGGUNA ============ */

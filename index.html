@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CeritaRandom — Kumpulan Cerita Lucu, Mancing, Traveling, Kuliner &amp; Otomotif</title>
+<title>CeritaRandom — Cerita Lucu, Mancing, Traveling &amp; Kuliner</title>
 <meta name="description" content="CeritaRandom adalah rumah cerita random dari seluruh penjuru: cerita lucu, lawak receh, pengalaman mancing, catatan traveling, kuliner pinggir jalan, otomotif, sampai kisah yang susah dijelaskan. Cerita baru tiap hari.">
 <meta name="keywords" content="cerita lucu, cerita lawak, cerita mancing, cerita traveling, cerita kuliner, cerita otomotif, cerita random, hiburan, kisah receh">
 <meta name="author" content="Redaksi CeritaRandom">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/img/api-unggun-hutan.webp">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&amp;family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&amp;family=Plus+Jakarta+Sans:wght@400..800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script type="application/ld+json">
@@ -66,7 +66,7 @@
 <div class="progress" id="progress" aria-hidden="true"><span></span></div>
 
 <!-- ============ TOPBAR ============ -->
-<div class="topbar">
+<aside class="topbar" aria-label="Informasi singkat dan tautan cepat">
   <div class="container topbar__inner">
     <p class="topbar__note">
       <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5v5.4l4 2.3-1 1.7-5-2.9V7h2Z"/></svg>
@@ -91,7 +91,7 @@
       </nav>
     </div>
   </div>
-</div>
+</aside>
 
 <!-- ============ HEADER ============ -->
 <header class="header" id="header">
@@ -214,7 +214,7 @@
   </section>
 
   <!-- ============ TICKER ============ -->
-  <div class="ticker" aria-label="Topik yang sedang ramai">
+  <div class="ticker">
     <span class="ticker__label">Sedang ramai</span>
     <div class="ticker__viewport">
       <div class="ticker__track">
@@ -991,33 +991,27 @@
       </header>
 
       <div class="jokes">
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">01</span>
+        <details class="joke reveal" data-no="01">
           <summary>Kenapa nelayan jarang panik waktu main kartu?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Karena dia selalu punya jaring pengaman.</p>
         </details>
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">02</span>
+        <details class="joke reveal" data-no="02">
           <summary>Apa bedanya kopi tubruk dan mantan?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Kopi tubruk masih enak diseruput walaupun sudah dingin.</p>
         </details>
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">03</span>
+        <details class="joke reveal" data-no="03">
           <summary>Kenapa Vespa tua tidak takut hujan?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Karena dia sudah kenyang makan asam garam jalanan. Yang dia takutkan cuma tanjakan dan tanggal tua.</p>
         </details>
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">04</span>
+        <details class="joke reveal" data-no="04">
           <summary>Kenapa bakso bentuknya bulat?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Kalau kotak namanya tahu.</p>
         </details>
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">05</span>
+        <details class="joke reveal" data-no="05">
           <summary>Kenapa orang mancing sabar sekali?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Karena dia sudah biasa ditolak berkali-kali tanpa penjelasan.</p>
         </details>
-        <details class="joke reveal">
-          <span class="joke__no" aria-hidden="true">06</span>
+        <details class="joke reveal" data-no="06">
           <summary>Apa yang paling cepat berlalu di dunia?<span class="joke__cue">Lihat jawaban</span></summary>
           <p>Waktu istirahat. Nomor dua: uang gajian.</p>
         </details>
@@ -1057,7 +1051,7 @@
       </header>
       <div class="quotes">
         <figure class="tcard reveal">
-          <div class="stars" aria-label="5 dari 5">
+          <div class="stars" role="img" aria-label="5 dari 5">
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
@@ -1068,7 +1062,7 @@
           <figcaption><span class="avatar" data-tone="2" aria-hidden="true">FA</span><span><strong>Fajar A.</strong><small>Bekasi</small></span></figcaption>
         </figure>
         <figure class="tcard reveal">
-          <div class="stars" aria-label="5 dari 5">
+          <div class="stars" role="img" aria-label="5 dari 5">
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
@@ -1079,7 +1073,7 @@
           <figcaption><span class="avatar" data-tone="5" aria-hidden="true">NH</span><span><strong>Nurul H.</strong><small>Semarang</small></span></figcaption>
         </figure>
         <figure class="tcard reveal">
-          <div class="stars" aria-label="5 dari 5">
+          <div class="stars" role="img" aria-label="5 dari 5">
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
             <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z"/></svg>
