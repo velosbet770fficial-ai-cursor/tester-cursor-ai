@@ -176,7 +176,7 @@
       chipClass: chip.className,
       img: img.getAttribute('src'),
       alt: img.getAttribute('alt'),
-      href: 'artikel.html'
+      href: ($('a', card) || { getAttribute: function () { return 'artikel.html'; } }).getAttribute('href')
     });
   });
 
