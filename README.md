@@ -87,6 +87,37 @@ Tambahkan `class="... is-hidden" data-more="1"` kalau kartu itu baru muncul sete
 tombol muat lebih banyak ditekan. Jumlah cerita di teks bawah grid dihitung otomatis,
 tidak perlu diubah manual.
 
+**Mengisi cerita sungguhan.** Beranda berperan sebagai daftar isi: setiap kartu sudah
+membawa tautan sendiri, dan untuk sekarang semuanya masih menunjuk ke `artikel.html`
+sebagai contoh. Jadi mengisi cerita berarti membuat satu berkas HTML per cerita, lalu
+mengarahkan tautan kartunya ke berkas itu.
+
+Langkah per cerita:
+
+1. Salin `artikel.html` menjadi berkas baru di folder yang sama, misalnya
+   `mancing-kali-belakang-rumah.html`. Menaruhnya sejajar `index.html` bikin semua path
+   `assets/...` tetap benar tanpa diubah.
+2. Di berkas baru itu, ganti bagian ini: `<title>`, `meta name="description"`,
+   `link rel="canonical"`, `og:url`, `og:title`, `og:description`, `og:image`,
+   `link rel="preload"` untuk gambar sampul, blok JSON-LD (`headline`, `image`,
+   `datePublished`, `dateModified`), lalu isi `<h1>`, gambar sampul, dan badan cerita.
+3. Di `index.html`, cari kartu ceritanya dan ganti **dua** tautannya, satu di gambar
+   (`.story__media` atau `.feature__media`) dan satu di judul (`.story__title` atau
+   `.feature__title`), dari `artikel.html` ke berkas baru.
+4. Tambahkan URL-nya ke `sitemap.xml`.
+
+Pencarian, tombol cerita random, dan kartu "cerita pilihan" membaca tautan langsung dari
+kartu di halaman, jadi ketiganya otomatis ikut begitu `href` kartu diganti. Tidak ada
+daftar tautan terpisah di JavaScript yang perlu disentuh.
+
+Tempat lain yang tautannya juga masih mengarah ke `artikel.html` dan bisa diarahkan
+belakangan: daftar "Paling dibaca minggu ini" di sidebar beranda (5 tautan) dan blok
+"cerita terkait" di bagian bawah halaman artikel.
+
+Kalau lebih suka rapi dengan subfolder, misalnya `cerita/mancing-kali.html`, ingat dua hal
+di dalam berkas artikelnya: path aset jadi `../assets/...` dan tautan balik ke beranda jadi
+`../index.html`. Tautan di `index.html` cukup ditulis `cerita/mancing-kali.html`.
+
 **Mengganti warna.** Semua warna ada di blok `:root` dan `html[data-theme="dark"]`
 pada bagian atas `assets/css/style.css`. Warna aksen utama ada di `--brand`.
 Token `--band` khusus untuk pita gelap (topbar, ticker, angka, footer) supaya tetap
