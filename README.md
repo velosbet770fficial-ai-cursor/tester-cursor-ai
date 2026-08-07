@@ -10,16 +10,16 @@ jadi bisa langsung diunggah ke hosting statis apa pun.
 
 ```
 index.html            Beranda (14 bagian)
-cerita/*.html         26 halaman cerita, satu berkas per cerita
+cerita/*.html         27 halaman cerita, satu berkas per cerita
 template/
-  cerita-baru.html    Kerangka kosong untuk menulis cerita ke-27
+  cerita-baru.html    Kerangka kosong untuk menulis cerita berikutnya
 assets/
   css/style.css       Seluruh gaya, memakai token desain + mode gelap
   js/main.js          Seluruh interaksi, vanilla JS tanpa dependensi
-  img/*.webp          52 foto stok (CC0) yang sudah dikonversi ke WebP
+  img/*.webp          54 foto stok (CC0) yang sudah dikonversi ke WebP
   favicon.svg         Ikon situs
 robots.txt            Aturan untuk mesin pencari
-sitemap.xml           Daftar 27 halaman untuk mesin pencari
+sitemap.xml           Daftar 28 halaman untuk mesin pencari
 ```
 
 ## Cara menjalankan di komputer sendiri
@@ -48,11 +48,11 @@ jadi tetap jalan tanpa diubah.
 - Ticker topik yang berjalan dan berhenti saat disentuh kursor.
 - Sorotan editorial: satu kartu besar plus tiga kartu baris.
 - Delapan kartu kategori bergambar; diklik langsung menyaring daftar cerita.
-- Grid 22 cerita dengan saringan kategori dan tombol muat lebih banyak.
+- Grid 23 cerita dengan saringan kategori dan tombol muat lebih banyak.
 - Sidebar lekat: peringkat terpopuler, profil penulis, kotak langganan, dan tag.
 - Mesin cerita random, kutipan redaksi berlatar foto, enam kartu lawakan yang
   jawabannya bisa dibuka, pita angka dengan animasi hitung, testimoni, dan CTA langganan.
-- 26 halaman cerita berisi tulisan utuh (total sekitar 13.400 kata), masing-masing dengan
+- 27 halaman cerita berisi tulisan utuh (total sekitar 14.000 kata), masing-masing dengan
   drop cap, kutipan tarik, kotak tips, boks penulis, daftar lanjut baca, dan tiga cerita
   terkait yang dipilih dari kategori yang sama.
 
@@ -93,8 +93,8 @@ Tambahkan `class="... is-hidden" data-more="1"` kalau kartu itu baru muncul sete
 tombol muat lebih banyak ditekan. Jumlah cerita di teks bawah grid dihitung otomatis,
 tidak perlu diubah manual.
 
-**Menulis cerita baru.** Semua 26 kartu di beranda sudah punya halamannya sendiri di
-folder `cerita/`, dan tautannya sudah terpasang. Untuk menambah cerita ke-27:
+**Menulis cerita baru.** Semua 27 kartu di beranda sudah punya halamannya sendiri di
+folder `cerita/`, dan tautannya sudah terpasang. Untuk menambah cerita berikutnya:
 
 1. Salin `template/cerita-baru.html` ke folder `cerita/` dengan nama sesuai judulnya,
    misalnya `cerita/mancing-di-empang-sebelah.html`. Pakai huruf kecil dan tanda hubung,
@@ -119,7 +119,7 @@ benar. Tidak ada daftar tautan terpisah di JavaScript yang perlu disentuh.
 Empat hal yang sebaiknya tetap sama antara kartu di beranda dan halaman ceritanya, karena
 pembaca akan menyadari kalau berbeda: judul, nama penulis, tanggal, dan lama baca.
 
-**Mengganti cerita bawaan dengan cerita sendiri.** Isi 26 cerita yang ada sekarang ditulis
+**Mengganti cerita bawaan dengan cerita sendiri.** Isi 27 cerita yang ada sekarang ditulis
 sebagai contoh yang layak tayang, bukan sebagai teks sementara. Kalau mau menggantinya,
 timpa saja bagian `<h1>`, `.article__lead`, dan isi `.prose` pada berkas yang bersangkutan,
 lalu samakan judul dan ringkasannya di kartu beranda.
@@ -135,11 +135,13 @@ saringan `<button class="pill" data-filter="namabaru">`.
 
 ## Kredit foto
 
-Semua foto berasal dari kontributor [StockSnap.io](https://stocksnap.io/) dengan
-lisensi **CC0** (bebas dipakai untuk keperluan komersial, tanpa kewajiban atribusi).
-Ditemukan lewat [API Openverse](https://api.openverse.org/) lalu disimpan sendiri di repo
-dalam bentuk WebP 960px, jadi situs tidak bergantung pada CDN pihak lain.
-Atribusi tetap dicantumkan di footer sebagai bentuk terima kasih.
+Semua foto berlisensi **CC0** (bebas dipakai untuk keperluan komersial, tanpa kewajiban
+atribusi). Sebagian besar dari kontributor [StockSnap.io](https://stocksnap.io/), dua foto
+bertema kali (`kali-hijau-tebing.webp` dan `kali-kelapa-tepian.webp`) dari
+[Direktori Foto WordPress](https://wordpress.org/photos/). Semuanya ditemukan lewat
+[API Openverse](https://api.openverse.org/) lalu disimpan sendiri di repo dalam bentuk
+WebP 960&times;640, jadi situs tidak bergantung pada CDN pihak lain. Atribusi tetap
+dicantumkan di footer sebagai bentuk terima kasih.
 
 Font: [Fraunces](https://fonts.google.com/specimen/Fraunces) dan
 [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) dari Google Fonts,

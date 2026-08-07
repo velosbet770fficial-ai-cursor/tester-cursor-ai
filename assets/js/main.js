@@ -445,4 +445,15 @@
   /* ---------- tahun berjalan di footer ---------- */
   var yearHolder = $('[data-year]');
   if (yearHolder) yearHolder.textContent = String(new Date().getFullYear());
+
+  /* ---------- tanggal hari ini di bilah atas ---------- */
+  var todayHolder = $('[data-today]');
+  if (todayHolder) {
+    var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    var kini = new Date();
+    todayHolder.textContent = hari[kini.getDay()] + ', ' + kini.getDate() + ' ' +
+      bulan[kini.getMonth()] + ' ' + kini.getFullYear();
+  }
 })();

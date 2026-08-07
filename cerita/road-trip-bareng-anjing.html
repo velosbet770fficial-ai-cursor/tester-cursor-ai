@@ -59,7 +59,7 @@
   <div class="container topbar__inner">
     <p class="topbar__note">
       <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5v5.4l4 2.3-1 1.7-5-2.9V7h2Z"/></svg>
-      <span>Kamis, 6 Agustus 2026 &middot; cerita baru tiap hari pukul 07.00 WIB</span>
+      <span><span data-today>Kamis, 6 Agustus 2026</span> &middot; cerita baru tiap hari pukul 07.00 WIB</span>
     </p>
     <div class="topbar__right">
       <a href="../index.html#kirim">Kirim ceritamu</a>
@@ -308,15 +308,15 @@
             </li>
             <li>
               <span class="rank__num">2</span>
-              <a href="kucing-ketiduran-di-helm.html"><strong>Kucing Saya Ketiduran di Helm, Saya Telat Rapat 40 Menit</strong><small>Lucu &middot; 3 mnt baca</small></a>
+              <a href="asep-mandi-di-kali.html"><strong>Asep Mandi di Kali, Dapat Kejutan yang Tidak Dia Minta</strong><small>Lucu &middot; 4 mnt baca</small></a>
             </li>
             <li>
               <span class="rank__num">3</span>
-              <a href="pura-pura-ngerti-selama-3-tahun.html"><strong>Pura-pura Ngerti Saat Ditanya Kamu Paham Selama 3 Tahun</strong><small>Lucu &middot; 3 mnt baca</small></a>
+              <a href="kucing-ketiduran-di-helm.html"><strong>Kucing Saya Ketiduran di Helm, Saya Telat Rapat 40 Menit</strong><small>Lucu &middot; 3 mnt baca</small></a>
             </li>
             <li>
               <span class="rank__num">4</span>
-              <a href="warung-mie-yang-bikin-nelpon-ibu.html"><strong>Review Jujur: Warung Mie yang Kuahnya Bikin Saya Nelpon Ibu</strong><small>Kuliner &middot; 3 mnt baca</small></a>
+              <a href="pura-pura-ngerti-selama-3-tahun.html"><strong>Pura-pura Ngerti Saat Ditanya Kamu Paham Selama 3 Tahun</strong><small>Lucu &middot; 3 mnt baca</small></a>
             </li>
           </ol>
         </section>
@@ -373,6 +373,22 @@
           </div>
         </article>
         <article class="story">
+          <a class="story__media" href="asep-mandi-di-kali.html">
+            <img src="../assets/img/kali-hijau-tebing.webp" width="960" height="640" alt="Kali lebar berair kehijauan dengan tebing tanah dan semak di kedua sisinya" loading="lazy" decoding="async">
+            <span class="chip chip--lucu">Lucu</span>
+          </a>
+          <div class="story__body">
+            <h3 class="story__title"><a href="asep-mandi-di-kali.html">Asep Mandi di Kali, Dapat Kejutan yang Tidak Dia Minta</a></h3>
+            <p class="story__excerpt">Jam setengah enam pagi, satu batu ceper, dan sesuatu yang hidup lewat di dekat betisnya. Yang bikin ceritanya panjang bukan kejutannya, tapi siapa saja yang pagi itu kebetulan ada di pinggir kali.</p>
+            <div class="meta">
+              <span class="avatar" data-tone="4" aria-hidden="true">BY</span>
+              <span class="meta__author">Bang Yudha</span>
+              <span class="meta__sep" aria-hidden="true"></span>
+              <span>4 mnt baca</span>
+            </div>
+          </div>
+        </article>
+        <article class="story">
           <a class="story__media" href="kucing-ketiduran-di-helm.html">
             <img src="../assets/img/kucing-tidur.webp" width="960" height="565" alt="Kucing tidur meringkuk dengan nyaman" loading="lazy" decoding="async">
             <span class="chip chip--lucu">Lucu</span>
@@ -380,22 +396,6 @@
           <div class="story__body">
             <h3 class="story__title"><a href="kucing-ketiduran-di-helm.html">Kucing Saya Ketiduran di Helm, Saya Telat Rapat 40 Menit</a></h3>
             <p class="story__excerpt">Ada dua pilihan: bangunkan dia dan jadi orang jahat, atau telat dan jadi orang sabar. Saya pilih yang kedua, dan bos saya tidak setuju.</p>
-            <div class="meta">
-              <span class="avatar" data-tone="4" aria-hidden="true">BY</span>
-              <span class="meta__author">Bang Yudha</span>
-              <span class="meta__sep" aria-hidden="true"></span>
-              <span>3 mnt baca</span>
-            </div>
-          </div>
-        </article>
-        <article class="story">
-          <a class="story__media" href="pura-pura-ngerti-selama-3-tahun.html">
-            <img src="../assets/img/ketawa-cowok.webp" width="960" height="677" alt="Empat orang tertawa lepas bersama" loading="lazy" decoding="async">
-            <span class="chip chip--lucu">Lucu</span>
-          </a>
-          <div class="story__body">
-            <h3 class="story__title"><a href="pura-pura-ngerti-selama-3-tahun.html">Pura-pura Ngerti Saat Ditanya Kamu Paham Selama 3 Tahun</a></h3>
-            <p class="story__excerpt">Strategi saya sederhana: mengangguk pelan, bilang</p>
             <div class="meta">
               <span class="avatar" data-tone="4" aria-hidden="true">BY</span>
               <span class="meta__author">Bang Yudha</span>
@@ -471,7 +471,7 @@
 
   <div class="container footer__bottom">
     <p>&copy; <span data-year>2026</span> CeritaRandom &middot; <a href="https://ilililililllil.com.se/">ilililililllil.com.se</a> &middot; Dibuat sambil ngopi di Indonesia.</p>
-    <p class="footer__credit">Foto oleh kontributor <a href="https://stocksnap.io/" rel="noopener noreferrer" target="_blank">StockSnap.io</a> (lisensi CC0).</p>
+    <p class="footer__credit">Foto dari kontributor <a href="https://stocksnap.io/" rel="noopener noreferrer" target="_blank">StockSnap.io</a> dan <a href="https://wordpress.org/photos/" rel="noopener noreferrer" target="_blank">Direktori Foto WordPress</a>, semuanya lisensi CC0.</p>
   </div>
 </footer>
 

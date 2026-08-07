@@ -70,7 +70,7 @@
   <div class="container topbar__inner">
     <p class="topbar__note">
       <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5v5.4l4 2.3-1 1.7-5-2.9V7h2Z"/></svg>
-      <span>Kamis, 6 Agustus 2026 &middot; cerita baru tiap hari pukul 07.00 WIB</span>
+      <span><span data-today>Kamis, 6 Agustus 2026</span> &middot; cerita baru tiap hari pukul 07.00 WIB</span>
     </p>
     <div class="topbar__right">
       <a href="#kirim">Kirim ceritamu</a>
@@ -407,6 +407,25 @@
         <div class="layout__main">
           <div class="grid" id="storyGrid">
 
+            <article class="story reveal" data-cat="lucu" data-title="Asep Mandi di Kali, Dapat Kejutan yang Tidak Dia Minta">
+              <a class="story__media" href="cerita/asep-mandi-di-kali.html">
+                <img src="assets/img/kali-hijau-tebing.webp" width="960" height="640" alt="Kali lebar berair kehijauan dengan tebing tanah dan semak di kedua sisinya" loading="lazy" decoding="async">
+                <span class="chip chip--lucu">Lucu</span>
+              </a>
+              <div class="story__body">
+                <h3 class="story__title"><a href="cerita/asep-mandi-di-kali.html">Asep Mandi di Kali, Dapat Kejutan yang Tidak Dia Minta</a></h3>
+                <p class="story__excerpt">Jam setengah enam pagi, satu batu ceper, dan sesuatu yang hidup lewat di dekat betisnya. Yang bikin ceritanya panjang bukan kejutannya, tapi siapa saja yang pagi itu kebetulan ada di pinggir kali.</p>
+                <div class="meta">
+                  <span class="avatar" data-tone="4" aria-hidden="true">BY</span>
+                  <span class="meta__author">Bang Yudha</span>
+                  <span class="meta__sep" aria-hidden="true"></span>
+                  <time datetime="2026-08-07">7 Agu 2026</time>
+                  <span class="meta__sep" aria-hidden="true"></span>
+                  <span>4 mnt baca</span>
+                </div>
+              </div>
+            </article>
+
             <article class="story reveal" data-cat="lucu" data-title="Kucing Saya Ketiduran di Helm, Saya Telat Rapat 40 Menit">
               <a class="story__media" href="cerita/kucing-ketiduran-di-helm.html">
                 <img src="assets/img/kucing-tidur.webp" width="960" height="565" alt="Kucing tidur meringkuk dengan nyaman" loading="lazy" decoding="async">
@@ -559,7 +578,7 @@
               </div>
             </article>
 
-            <article class="story reveal" data-cat="kuliner" data-title="Kopi Tubruk vs Latte: Debat Panjang di Warung Mas Yanto">
+            <article class="story reveal is-hidden" data-cat="kuliner" data-title="Kopi Tubruk vs Latte: Debat Panjang di Warung Mas Yanto" data-more="1">
               <a class="story__media" href="cerita/kopi-tubruk-vs-latte.html">
                 <img src="assets/img/latte-art.webp" width="960" height="640" alt="Segelas latte dengan motif seni di permukaannya" loading="lazy" decoding="async">
                 <span class="chip chip--kuliner">Kuliner</span>
@@ -831,11 +850,11 @@
           <p class="grid__empty" id="gridEmpty" hidden>Belum ada cerita di kategori ini. Coba kategori lain, atau tekan tombol random.</p>
 
           <div class="grid__more">
-            <button class="btn btn--outline btn--lg" id="loadMore" type="button" data-total="22">
+            <button class="btn btn--outline btn--lg" id="loadMore" type="button" data-total="23">
               Muat lebih banyak cerita
               <svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16.5 5.5 10l1.4-1.4 5.1 5.1 5.1-5.1L18.5 10 12 16.5Z"/></svg>
             </button>
-            <p class="grid__count"><strong id="shownCount">9</strong> dari 22 cerita ditampilkan</p>
+            <p class="grid__count"><strong id="shownCount">9</strong> dari 23 cerita ditampilkan</p>
           </div>
         </div>
 
@@ -1192,7 +1211,7 @@
 
   <div class="container footer__bottom">
     <p>&copy; <span data-year>2026</span> CeritaRandom &middot; <a href="https://ilililililllil.com.se/">ilililililllil.com.se</a> &middot; Dibuat sambil ngopi di Indonesia.</p>
-    <p class="footer__credit">Foto oleh kontributor <a href="https://stocksnap.io/" rel="noopener noreferrer" target="_blank">StockSnap.io</a> (lisensi CC0).</p>
+    <p class="footer__credit">Foto dari kontributor <a href="https://stocksnap.io/" rel="noopener noreferrer" target="_blank">StockSnap.io</a> dan <a href="https://wordpress.org/photos/" rel="noopener noreferrer" target="_blank">Direktori Foto WordPress</a>, semuanya lisensi CC0.</p>
   </div>
 </footer>
 
