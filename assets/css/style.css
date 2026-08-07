@@ -1694,6 +1694,18 @@ kbd {
   color: var(--brand-deep);
 }
 
+/* kalau didukung, biar peramban yang menghitung tinggi drop cap supaya pas dua baris */
+@supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
+  .prose > p:first-of-type::first-letter {
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0 .14em 0 0;
+  }
+}
+
 .prose h2 {
   font-size: clamp(1.35rem, 2.4vw, 1.8rem);
   margin: 2.5rem 0 1rem;

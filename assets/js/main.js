@@ -157,7 +157,7 @@
       chipClass: chip ? chip.className : 'chip',
       img: img ? img.getAttribute('src') : '',
       alt: img ? img.getAttribute('alt') : '',
-      href: ($('a', card) || { getAttribute: function () { return 'artikel.html'; } }).getAttribute('href')
+      href: ($('a', card) || { getAttribute: function () { return 'index.html'; } }).getAttribute('href')
     };
   }
 
@@ -176,7 +176,7 @@
       chipClass: chip.className,
       img: img.getAttribute('src'),
       alt: img.getAttribute('alt'),
-      href: ($('a', card) || { getAttribute: function () { return 'artikel.html'; } }).getAttribute('href')
+      href: ($('a', card) || { getAttribute: function () { return 'index.html'; } }).getAttribute('href')
     });
   });
 
@@ -250,16 +250,19 @@
   var randomAgain = $('#randomAgain');
   var spinCount = $('#spinCount');
   var spins = 0;
-  var lastPick = -1;
+  var terakhir = [];
 
   function spin() {
     if (!randomCard || !stories.length) return;
 
+    // hindari mengulang beberapa cerita terakhir supaya undiannya terasa berganti
+    var jeda = Math.min(3, stories.length - 1);
     var idx = Math.floor(Math.random() * stories.length);
-    if (stories.length > 1) {
-      while (idx === lastPick) idx = Math.floor(Math.random() * stories.length);
+    for (var coba = 0; coba < 20 && terakhir.indexOf(idx) !== -1; coba++) {
+      idx = Math.floor(Math.random() * stories.length);
     }
-    lastPick = idx;
+    terakhir.push(idx);
+    if (terakhir.length > jeda) terakhir.shift();
 
     var story = stories[idx];
     var img = $('#randomImg');
@@ -275,7 +278,7 @@
       $('#randomTitle').textContent = story.title;
       $('#randomExcerpt').textContent = story.excerpt;
       var link = $('.random-card__foot .btn--primary');
-      if (link) link.setAttribute('href', story.href || 'artikel.html');
+      if (link) link.setAttribute('href', story.href || 'index.html');
     }, reduceMotion ? 0 : 160);
 
     spins += 1;
@@ -335,7 +338,7 @@
     }
 
     searchResults.innerHTML = hits.map(function (story) {
-      return '<a class="search__item" href="' + (story.href || 'artikel.html') + '">' +
+      return '<a class="search__item" href="' + (story.href || 'index.html') + '">' +
         '<img src="' + story.img + '" alt="" loading="lazy">' +
         '<span><strong>' + escapeHtml(story.title) + '</strong>' +
         '<span class="' + story.chipClass + '">' + escapeHtml(story.label) + '</span></span></a>';
