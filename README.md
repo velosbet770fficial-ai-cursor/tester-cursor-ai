@@ -11,6 +11,8 @@ jadi bisa langsung diunggah ke hosting statis apa pun.
 ```
 index.html            Beranda (14 bagian)
 cerita/*.html         26 halaman cerita, satu berkas per cerita
+template/
+  cerita-baru.html    Kerangka kosong untuk menulis cerita ke-27
 assets/
   css/style.css       Seluruh gaya, memakai token desain + mode gelap
   js/main.js          Seluruh interaksi, vanilla JS tanpa dependensi
@@ -94,17 +96,21 @@ tidak perlu diubah manual.
 **Menulis cerita baru.** Semua 26 kartu di beranda sudah punya halamannya sendiri di
 folder `cerita/`, dan tautannya sudah terpasang. Untuk menambah cerita ke-27:
 
-1. Salin salah satu berkas di `cerita/` menjadi berkas baru, misalnya
-   `cerita/mancing-di-empang-sebelah.html`. Semua path di dalamnya sudah memakai `../`
-   sehingga langsung benar.
-2. Ganti bagian ini di berkas baru: `<title>`, `meta name="description"`,
+1. Salin `template/cerita-baru.html` ke folder `cerita/` dengan nama sesuai judulnya,
+   misalnya `cerita/mancing-di-empang-sebelah.html`. Pakai huruf kecil dan tanda hubung,
+   tanpa spasi. Path aset di dalamnya sudah memakai `../` sehingga langsung benar.
+2. Ganti bagian yang ditandai komentar di berkas itu: `<title>`, `meta name="description"`,
    `link rel="canonical"`, `og:url`, `og:title`, `og:description`, `og:image`,
    `link rel="preload"` gambar sampul, blok JSON-LD (`headline`, `image`, `datePublished`,
    `dateModified`, `articleSection`, `author`), lalu `<h1>`, `.article__lead`, gambar
-   sampul, dan badan ceritanya.
+   sampul, dan badan ceritanya. Template sudah berisi contoh paragraf, subjudul, kutipan
+   tarik, foto sisipan, dan kotak tips, jadi tinggal ditimpa.
 3. Salin satu blok `<article class="story">` di `#storyGrid` pada `index.html`, ubah
    isinya, dan arahkan **dua** tautannya (gambar dan judul) ke berkas baru tadi.
 4. Tambahkan URL-nya ke `sitemap.xml`.
+
+Folder `template/` tidak ditautkan dari mana pun dan sudah di-`Disallow` di `robots.txt`,
+jadi aman ikut diunggah ke hosting.
 
 Pencarian, tombol cerita random, kartu sorotan, dan daftar "cerita terkait" membaca
 tautan langsung dari kartu di halaman, jadi semuanya otomatis ikut begitu `href` kartu
