@@ -1,0 +1,111 @@
+<!-- DROP-IN: LX Review block (CSS + HTML) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+.lx-container{--lx-bg:#070707;--lx-red:#e02424;--lx-red-soft:#ff6b6b;--lx-red-deep:#6b0b0b;--lx-text:#f5f5f5;--lx-line:rgba(224,36,36,.38);--lx-radius:24px;--lx-shadow:0 22px 55px rgba(0,0,0,.55);max-width:1180px;margin:42px auto;padding:0 16px;font-family:"Outfit","Segoe UI",sans-serif;color:var(--lx-text);-webkit-font-smoothing:antialiased}
+.lx-container *{box-sizing:border-box}
+.lx-mainbox{position:relative;overflow:hidden;border-radius:var(--lx-radius);padding:36px;color:var(--lx-text);background-color:var(--lx-bg);background-image:radial-gradient(ellipse 70% 55% at 100% 0%,rgba(224,36,36,.22),transparent 55%),radial-gradient(ellipse 50% 40% at 0% 100%,rgba(224,36,36,.12),transparent 50%),linear-gradient(165deg,#121212 0%,#070707 48%,#0d0d0d 100%);border:1px solid var(--lx-line);box-shadow:var(--lx-shadow),inset 0 1px 0 rgba(255,255,255,.04)}
+.lx-mainbox:before{content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.05);border-radius:calc(var(--lx-radius) - 8px);pointer-events:none}
+.lx-mainbox:after{content:"";position:absolute;top:-120px;right:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(224,36,36,.28),transparent 68%);pointer-events:none}
+.lx-hero{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+.lx-title-card,.lx-info-panel,.highlight-box,.review-card{backdrop-filter:blur(8px)}
+.lx-title-card{border-radius:20px;padding:30px 28px;background:linear-gradient(160deg,rgba(28,28,28,.88),rgba(12,12,12,.9));border:1px solid rgba(224,36,36,.28);box-shadow:0 12px 28px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:center}
+.lx-badge{display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:7px 13px;border-radius:10px;background:rgba(224,36,36,.14);color:var(--lx-red-soft);border:1px solid rgba(224,36,36,.45);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.lx-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lx-red);box-shadow:0 0 0 3px rgba(224,36,36,.18)}
+.lx-container h1,.lx-container h3{margin:0;font-size:clamp(1.55rem,2.6vw,2.1rem);line-height:1.25;font-weight:900;letter-spacing:-.02em;color:#fff}
+.lx-divider{width:88px;height:3px;margin:20px 0 0;border-radius:999px;background:linear-gradient(90deg,var(--lx-red),var(--lx-red-deep))}
+.lx-info-panel{border-radius:20px;padding:18px;background:linear-gradient(180deg,rgba(22,22,22,.92),rgba(8,8,8,.96));border:1px solid rgba(224,36,36,.28)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0}
+.info-card{min-height:108px;padding:16px 12px;border-radius:16px;background:rgba(0,0,0,.55);border:1px solid rgba(224,36,36,.18);display:flex;flex-direction:column;justify-content:center;text-align:center;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.info-card:hover{transform:translateY(-4px);border-color:rgba(224,36,36,.7);box-shadow:0 12px 24px rgba(0,0,0,.4)}
+.info-card .label{color:var(--lx-red-soft);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.info-card .value{color:#fff;font-size:1.05rem;font-weight:800;line-height:1.3}
+.highlight-box{position:relative;z-index:1;margin:24px 0 0;padding:26px 28px;border-radius:20px;background:linear-gradient(180deg,rgba(16,16,16,.9),rgba(8,8,8,.95));border:1px solid rgba(224,36,36,.32);box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.highlight-box p{margin:0;color:#ececec;font-family:"Source Serif 4",Georgia,serif;font-size:1.02rem;line-height:1.85;text-align:justify}
+.reviews-section{position:relative;z-index:1;margin-top:32px;padding-top:28px;border-top:1px solid rgba(224,36,36,.22)}
+.lx-container h2{margin:0 0 22px;color:#fff;font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.3;font-weight:900;text-align:center;letter-spacing:.04em;text-transform:uppercase}
+.lx-container h2:after{content:"";display:block;width:110px;height:2px;margin:14px auto 0;border-radius:999px;background:linear-gradient(90deg,transparent,var(--lx-red),transparent)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.review-card{position:relative;overflow:hidden;min-height:220px;padding:22px;border-radius:18px;background:linear-gradient(180deg,rgba(22,22,22,.95),rgba(8,8,8,.98));border:1px solid rgba(224,36,36,.22);box-shadow:0 12px 28px rgba(0,0,0,.4);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.review-card:hover{transform:translateY(-5px);border-color:rgba(224,36,36,.65);box-shadow:0 18px 36px rgba(0,0,0,.5)}
+.review-card:before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lx-red),var(--lx-red-deep))}
+.review-card:after{content:"“";position:absolute;right:14px;bottom:-28px;font-family:Georgia,"Source Serif 4",serif;font-size:120px;color:rgba(224,36,36,.07);line-height:1;pointer-events:none}
+.review-header{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.review-name{color:#fff;font-size:.95rem;line-height:1.35;font-weight:800}
+.review-stars{white-space:nowrap;color:#ffd84d;font-size:13px;letter-spacing:1px}
+.review-text{position:relative;z-index:1;margin:0;color:#d9d9d9;font-size:.92rem;line-height:1.7;font-style:italic;font-family:"Source Serif 4",Georgia,serif}
+.review-date{position:relative;z-index:1;display:inline-block;margin-top:16px;padding:6px 11px;border-radius:8px;background:rgba(224,36,36,.12);border:1px solid rgba(224,36,36,.28);color:var(--lx-red-soft);font-size:11px;font-weight:800;letter-spacing:.03em}
+@media(max-width:980px){.lx-hero{grid-template-columns:1fr}.reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.lx-container{margin:24px auto;padding:0 12px}.lx-mainbox{padding:18px;border-radius:18px}.lx-mainbox:before{inset:10px}.lx-title-card,.lx-info-panel,.highlight-box{padding:18px;border-radius:16px}.info-grid,.reviews-grid{grid-template-columns:1fr}.highlight-box p{font-size:.95rem;line-height:1.75;text-align:left}}
+</style>
+
+<div class="lx-container">
+  <div class="lx-mainbox">
+    <div class="lx-hero">
+      <div class="lx-title-card">
+        <div class="lx-badge">Review Terpercaya</div>
+        <h1>Pengalaman Member tentang Platform Ini</h1>
+        <div class="lx-divider"></div>
+      </div>
+      <div class="lx-info-panel">
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="label">Rating</div>
+            <div class="value">4.9 / 5</div>
+          </div>
+          <div class="info-card">
+            <div class="label">Total Review</div>
+            <div class="value">12.480+</div>
+          </div>
+          <div class="info-card">
+            <div class="label">Withdraw</div>
+            <div class="value">Cepat &amp; Stabil</div>
+          </div>
+          <div class="info-card">
+            <div class="label">Support</div>
+            <div class="value">24 / 7 Online</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>
+        Platform ini menonjol karena proses deposit dan withdraw yang relatif mulus, antarmuka yang mudah dipahami,
+        serta layanan bantuan yang responsif. Banyak member menilai konsistensi performa dan kecepatan transaksi
+        sebagai alasan utama mereka tetap bermain di sini.
+      </p>
+    </div>
+
+    <div class="reviews-section">
+      <h2>Apa Kata Member</h2>
+      <div class="reviews-grid">
+        <article class="review-card">
+          <div class="review-header">
+            <div class="review-name">Raka Pratama</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">“Withdraw masuk cepat, gak ribet. UI-nya juga enak buat pemula.”</p>
+          <span class="review-date">12 Jul 2026</span>
+        </article>
+        <article class="review-card">
+          <div class="review-header">
+            <div class="review-name">Sinta Dewi</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">“CS responsif banget. Bonusnya jelas, tidak membingungkan.”</p>
+          <span class="review-date">03 Jul 2026</span>
+        </article>
+        <article class="review-card">
+          <div class="review-header">
+            <div class="review-name">Andi Nugroho</div>
+            <div class="review-stars">★★★★☆</div>
+          </div>
+          <p class="review-text">“Game lancar, jarang lag. Overall worth it buat main rutin.”</p>
+          <span class="review-date">28 Jun 2026</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
