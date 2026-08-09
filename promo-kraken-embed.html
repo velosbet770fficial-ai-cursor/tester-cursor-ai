@@ -1,0 +1,559 @@
+<!--
+  DROP-IN: Popup + KRAKEN ABYSS — gaya total beda
+  Overlay TRANSPARAN · tutup popup = modal hilang, FX TETAP HIDUP
+-->
+<style>
+  #kraken-root {
+    --ink: #031018;
+    --teal: #1ee6c1;
+    --lime: #c8ff4a;
+    --gold: #ffd76a;
+    --coral: #ff6b6b;
+    --foam: #e8fff8;
+    --sub: #9ec9bc;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+  }
+  #kraken-root.is-closed #popup-overlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  #kraken-root #popup-overlay {
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; box-sizing: border-box;
+    background:
+      radial-gradient(ellipse at 50% 70%, rgba(30,230,193,.12), transparent 55%),
+      rgba(2, 10, 16, .24);
+    backdrop-filter: blur(1.5px);
+    opacity: 0; visibility: hidden;
+    animation: kr-in .45s ease .55s forwards;
+  }
+  #kraken-root #popup-overlay.is-closed {
+    display: none !important; opacity: 0 !important;
+    visibility: hidden !important; pointer-events: none !important;
+    animation: none !important;
+  }
+  @keyframes kr-in { to { opacity: 1; visibility: visible; } }
+
+  #kraken-root .popup-backdrop {
+    position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
+    background: transparent; cursor: pointer; z-index: 0;
+  }
+
+  #kraken-root .popup-box {
+    position: relative; z-index: 2; width: min(372px, 93vw);
+    padding: 20px; border-radius: 22px 18px 26px 20px;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(200,255,74,.18), transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(30,230,193,.2), transparent 45%),
+      linear-gradient(165deg, #0a2a28 0%, #031018 52%, #0d2420 100%);
+    border: 2px solid rgba(30,230,193,.85);
+    box-shadow:
+      0 0 0 1px rgba(200,255,74,.2) inset,
+      0 0 48px rgba(30,230,193,.45),
+      0 0 80px rgba(200,255,74,.12),
+      0 22px 50px rgba(0,0,0,.5);
+    overflow: visible;
+    animation:
+      kr-rise .7s cubic-bezier(.2,1.4,.3,1) .55s backwards,
+      kr-bob 3.2s ease-in-out 1.3s infinite;
+  }
+  #kraken-root .popup-box::before {
+    content: ""; position: absolute; inset: -6px; z-index: 0; pointer-events: none;
+    border-radius: 26px 22px 30px 24px;
+    background: conic-gradient(from 120deg, #1ee6c1, #c8ff4a, #ffd76a, #1ee6c1, #c8ff4a);
+    opacity: .42; filter: blur(16px);
+    animation: kr-spin 3.5s linear infinite;
+  }
+  #kraken-root .popup-box::after {
+    content: ""; position: absolute; inset: 2px; z-index: 0; pointer-events: none;
+    border-radius: 20px 16px 24px 18px;
+    background:
+      linear-gradient(180deg, rgba(232,255,248,.08), transparent 28%),
+      rgba(3,16,24,.94);
+  }
+  @keyframes kr-spin { to { transform: rotate(360deg); } }
+  @keyframes kr-rise {
+    0% { transform: translateY(80px) scale(.55) rotate(-8deg); opacity: 0; filter: blur(8px); }
+    70% { transform: translateY(-8px) scale(1.04) rotate(2deg); filter: blur(0); }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes kr-bob {
+    0%,100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-7px) rotate(.6deg); }
+  }
+  #kraken-root .popup-box > * { position: relative; z-index: 1; }
+
+  #kraken-root .bubbles {
+    position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
+    pointer-events: none; z-index: 3; opacity: .55;
+  }
+  #kraken-root .bubbles i {
+    position: absolute; bottom: -10px; width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(232,255,248,.7); box-shadow: 0 0 8px rgba(30,230,193,.8);
+    animation: kr-bubble linear infinite;
+  }
+  @keyframes kr-bubble {
+    0% { transform: translateY(0) scale(.6); opacity: 0; }
+    15% { opacity: .9; }
+    100% { transform: translateY(-280px) scale(1.2); opacity: 0; }
+  }
+
+  #kraken-root .popup-close {
+    position: absolute; top: -18px; right: -18px; width: 52px; height: 52px;
+    border-radius: 50%; border: 2px solid var(--foam);
+    background: radial-gradient(circle at 35% 30%, #c8ff4a, #1ee6c1 55%, #0a4a42);
+    color: #031018; font-size: 24px; font-weight: bold; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 28px rgba(30,230,193,.95), 0 0 14px rgba(200,255,74,.6);
+    z-index: 30; padding: 0;
+    animation: kr-btn 1s ease-in-out infinite;
+  }
+  @keyframes kr-btn {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12) rotate(-8deg); }
+  }
+  #kraken-root .popup-close:hover { transform: scale(1.18) rotate(90deg); animation: none; }
+
+  #kraken-root .popup-img-wrap {
+    position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 1/1;
+    border: 2px solid rgba(30,230,193,.65);
+    box-shadow: 0 0 30px rgba(30,230,193,.35), inset 0 0 40px rgba(3,16,24,.35);
+  }
+  #kraken-root .popup-img-wrap::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(circle at 70% 20%, rgba(200,255,74,.2), transparent 35%),
+      linear-gradient(180deg, transparent 45%, rgba(3,16,24,.65));
+  }
+  #kraken-root .popup-img-wrap::after {
+    content: ""; position: absolute; inset: -20%; z-index: 2; pointer-events: none;
+    background: linear-gradient(115deg, transparent 40%, rgba(232,255,248,.28) 48%, transparent 56%);
+    animation: kr-shine 2.4s ease-in-out infinite;
+  }
+  @keyframes kr-shine {
+    0%,100% { transform: translateX(-30%) skewX(-12deg); opacity: 0; }
+    40% { opacity: 1; }
+    70% { transform: translateX(30%) skewX(-12deg); opacity: 0; }
+  }
+  #kraken-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  #kraken-root .popup-badge {
+    position: absolute; left: 12px; bottom: 12px; z-index: 3;
+    font-size: 11px; font-weight: bold; letter-spacing: .16em; text-transform: uppercase;
+    color: #031018;
+    background: linear-gradient(90deg, #c8ff4a, #1ee6c1, #ffd76a);
+    padding: 7px 12px; border-radius: 999px;
+    box-shadow: 0 0 16px rgba(200,255,74,.55);
+    animation: kr-badge .9s ease-in-out infinite;
+  }
+  @keyframes kr-badge {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-3px) scale(1.06); }
+  }
+
+  #kraken-root .popup-title {
+    margin: 16px 0 6px; font-size: 27px; font-weight: 900; letter-spacing: 1px;
+    color: var(--foam);
+    text-shadow:
+      0 0 18px rgba(30,230,193,.95),
+      0 0 34px rgba(200,255,74,.45),
+      0 2px 0 #031018;
+    animation: kr-title 1.1s ease-in-out infinite;
+  }
+  @keyframes kr-title {
+    0%,100% { letter-spacing: 1px; filter: brightness(1); }
+    50% { letter-spacing: 2.5px; filter: brightness(1.25); }
+  }
+  #kraken-root .popup-sub { margin: 0 0 16px; font-size: 13px; color: var(--sub); line-height: 1.45; }
+
+  #kraken-root .popup-buttons { display: flex; gap: 10px; }
+  #kraken-root .popup-btn {
+    flex: 1; padding: 14px 0; border-radius: 14px; font-size: 15px; font-weight: bold;
+    letter-spacing: 1px; text-decoration: none; text-align: center; transition: transform .15s;
+  }
+  #kraken-root .popup-btn:hover { transform: translateY(-3px) scale(1.03); }
+  #kraken-root .btn-login {
+    background: #031018; color: #1ee6c1; border: 2px solid #1ee6c1;
+    box-shadow: 0 0 14px rgba(30,230,193,.35);
+  }
+  #kraken-root .btn-daftar {
+    background: linear-gradient(145deg, #c8ff4a, #1ee6c1); color: #031018; border: none;
+    box-shadow: 0 0 26px rgba(200,255,74,.55);
+    animation: kr-cta .9s ease-in-out infinite;
+  }
+  @keyframes kr-cta {
+    0%,100% { box-shadow: 0 0 14px rgba(30,230,193,.4); transform: scale(1); }
+    50% { box-shadow: 0 0 34px rgba(200,255,74,.9), 0 0 18px #1ee6c1; transform: scale(1.045); }
+  }
+
+  /* ===== FX LAYER ===== */
+  #kraken-root #fx {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    z-index: 999998 !important; pointer-events: none !important;
+    overflow: hidden !important; background: transparent !important;
+  }
+  #kraken-root .abyss {
+    position: absolute; left: 50%; bottom: -8vh; width: 70vw; height: 40vh;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at 50% 100%,
+      rgba(30,230,193,.35),
+      rgba(3,16,24,.25) 40%,
+      transparent 70%);
+    filter: blur(10px);
+    animation: kr-abyss 2s ease-in-out infinite;
+  }
+  @keyframes kr-abyss {
+    0%,100% { opacity: .45; transform: translateX(-50%) scaleX(.9); }
+    50% { opacity: .9; transform: translateX(-50%) scaleX(1.25); }
+  }
+
+  #kraken-root .eye {
+    position: absolute; left: 50%; bottom: 6vh;
+    width: 90px; height: 90px; border-radius: 50%;
+    transform: translateX(-50%);
+    background:
+      radial-gradient(circle at 50% 50%, #c8ff4a 0 10%, #1ee6c1 12% 22%, #031018 28% 58%, #0a3a34 70%, transparent 72%);
+    box-shadow:
+      0 0 40px rgba(30,230,193,.7),
+      0 0 80px rgba(200,255,74,.35),
+      inset 0 0 20px rgba(200,255,74,.4);
+    animation: kr-eye 2.8s ease-in-out infinite;
+  }
+  #kraken-root .eye::after {
+    content: ""; position: absolute; inset: 18%; border-radius: 50%;
+    border: 2px solid rgba(200,255,74,.35);
+    animation: kr-spin 4s linear infinite;
+  }
+  @keyframes kr-eye {
+    0%,100% { transform: translateX(-50%) scale(1); filter: brightness(1); }
+    40% { transform: translateX(-52%) scale(1.08); filter: brightness(1.3); }
+    55% { transform: translateX(-48%) scale(.92); filter: brightness(.7); }
+    70% { transform: translateX(-50%) scale(1.12); filter: brightness(1.45); }
+  }
+
+  /* Tentacles = CSS ribbons with suckers */
+  #kraken-root .tentacle {
+    position: absolute; width: 54px; height: 120vh;
+    transform-origin: 50% 100%;
+    border-radius: 40% 40% 45% 45%;
+    background: linear-gradient(180deg,
+      rgba(30,230,193,.05),
+      rgba(14,90,80,.75) 35%,
+      rgba(8,40,38,.95) 70%,
+      rgba(3,16,24,.3));
+    box-shadow:
+      inset -10px 0 18px rgba(200,255,74,.18),
+      inset 10px 0 14px rgba(0,0,0,.35),
+      0 0 28px rgba(30,230,193,.25);
+    filter: blur(.3px);
+    opacity: .88;
+  }
+  #kraken-root .tentacle::before {
+    content: ""; position: absolute; left: 10px; top: 8%; bottom: 18%; width: 14px;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(200,255,74,.55) 0 10px,
+      transparent 10px 28px
+    );
+    border-radius: 50%;
+    filter: blur(.4px);
+    opacity: .85;
+    animation: kr-suck 1.4s ease-in-out infinite;
+  }
+  #kraken-root .tentacle::after {
+    content: ""; position: absolute; right: 12px; top: 14%; bottom: 22%; width: 9px;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(30,230,193,.45) 0 8px,
+      transparent 8px 24px
+    );
+    border-radius: 50%; opacity: .65;
+  }
+  @keyframes kr-suck {
+    0%,100% { opacity: .55; transform: scaleX(1); }
+    50% { opacity: 1; transform: scaleX(1.25); }
+  }
+
+  #kraken-root .tentacle.t1 { left: -2vw; bottom: -15vh; animation: kr-whip1 3.2s ease-in-out infinite; }
+  #kraken-root .tentacle.t2 { left: 10vw; bottom: -20vh; width: 42px; animation: kr-whip2 2.7s ease-in-out infinite .2s; }
+  #kraken-root .tentacle.t3 { right: -2vw; left: auto; bottom: -15vh; animation: kr-whip3 3s ease-in-out infinite .1s; }
+  #kraken-root .tentacle.t4 { right: 9vw; left: auto; bottom: -22vh; width: 46px; animation: kr-whip4 2.5s ease-in-out infinite .35s; }
+  #kraken-root .tentacle.t5 { left: 28vw; bottom: -28vh; width: 36px; opacity: .7; animation: kr-whip5 3.6s ease-in-out infinite .15s; }
+  #kraken-root .tentacle.t6 { right: 26vw; left: auto; bottom: -30vh; width: 34px; opacity: .68; animation: kr-whip5 3.1s ease-in-out infinite .5s reverse; }
+  #kraken-root .tentacle.t7 { left: 46vw; bottom: -35vh; width: 30px; opacity: .55; filter: blur(1px); animation: kr-whip2 4s ease-in-out infinite .4s; }
+  #kraken-root .tentacle.t8 { left: 62vw; bottom: -26vh; width: 38px; opacity: .62; animation: kr-whip1 2.9s ease-in-out infinite .6s reverse; }
+
+  @keyframes kr-whip1 {
+    0%,100% { transform: rotate(-18deg) skewX(4deg) translateX(0); }
+    50% { transform: rotate(14deg) skewX(-8deg) translateX(18px); }
+  }
+  @keyframes kr-whip2 {
+    0%,100% { transform: rotate(10deg) skewX(-3deg); }
+    50% { transform: rotate(-22deg) skewX(10deg) translateX(-14px); }
+  }
+  @keyframes kr-whip3 {
+    0%,100% { transform: rotate(16deg) skewX(-4deg); }
+    50% { transform: rotate(-12deg) skewX(7deg) translateX(-20px); }
+  }
+  @keyframes kr-whip4 {
+    0%,100% { transform: rotate(-8deg) skewX(2deg); }
+    50% { transform: rotate(20deg) skewX(-9deg) translateX(12px); }
+  }
+  @keyframes kr-whip5 {
+    0%,100% { transform: rotate(4deg) scaleY(1); }
+    50% { transform: rotate(-16deg) scaleY(1.05) translateX(10px); }
+  }
+
+  #kraken-root .ink {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(3,16,24,.75), rgba(14,60,55,.35) 45%, transparent 70%);
+    filter: blur(8px);
+    animation: kr-ink 1.8s ease-out forwards;
+  }
+  @keyframes kr-ink {
+    0% { transform: scale(.2); opacity: 0; }
+    25% { opacity: .85; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+
+  #kraken-root .loot {
+    position: absolute; will-change: transform, opacity;
+    animation: kr-loot linear forwards;
+  }
+  #kraken-root .loot.coin {
+    width: 15px; height: 15px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%, #fff4b0, #ffd76a 45%, #b8860b);
+    box-shadow: 0 0 12px rgba(255,215,106,.95);
+  }
+  #kraken-root .loot.pearl {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff, #c8ffe8 50%, #7ec9b0);
+    box-shadow: 0 0 10px rgba(232,255,248,.9);
+  }
+  #kraken-root .loot.gem {
+    width: 12px; height: 12px;
+    background: linear-gradient(135deg, #c8ff4a, #1ee6c1);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px rgba(200,255,74,.85);
+  }
+  #kraken-root .loot.bubble {
+    width: 8px; height: 8px; border-radius: 50%;
+    border: 1.5px solid rgba(232,255,248,.7);
+    background: rgba(30,230,193,.15);
+    box-shadow: 0 0 8px rgba(30,230,193,.6);
+  }
+  #kraken-root .loot.skull {
+    width: 14px; height: 14px; border-radius: 45% 45% 40% 40%;
+    background: linear-gradient(180deg, #e8fff8, #9ec9bc);
+    box-shadow: 0 0 10px rgba(232,255,248,.6);
+  }
+  #kraken-root .loot.star {
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #ffd76a;
+    filter: drop-shadow(0 0 8px #ffd76a);
+  }
+  @keyframes kr-loot {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0) scale(.4);
+      opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+      transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--spin)) scale(var(--sc));
+      opacity: 0;
+    }
+  }
+
+  #kraken-root .spark {
+    position: absolute; width: 3px; height: 18px; border-radius: 2px;
+    background: linear-gradient(180deg, #c8ff4a, transparent);
+    box-shadow: 0 0 10px #1ee6c1;
+    animation: kr-spark .55s ease-out forwards;
+  }
+  @keyframes kr-spark {
+    0% { transform: translate(0,0) scaleY(.3); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scaleY(1.2); opacity: 0; }
+  }
+
+  #kraken-root .ripple {
+    position: absolute; left: 50%; bottom: 8vh;
+    border: 2px solid rgba(30,230,193,.4);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    animation: kr-ripple 2s ease-out infinite;
+  }
+  #kraken-root .ripple.r2 { animation-delay: .65s; border-color: rgba(200,255,74,.3); }
+  #kraken-root .ripple.r3 { animation-delay: 1.3s; border-color: rgba(255,215,106,.28); }
+  @keyframes kr-ripple {
+    0% { width: 30px; height: 12px; opacity: .8; }
+    100% { width: 320px; height: 80px; opacity: 0; }
+  }
+</style>
+
+<div id="kraken-root">
+  <div id="popup-overlay">
+    <button type="button" class="popup-backdrop" id="kr-close-bg" aria-label="Tutup"></button>
+    <div class="popup-box">
+      <div class="bubbles" id="kr-bubbles" aria-hidden="true"></div>
+      <button type="button" class="popup-close" id="kr-close-btn" aria-label="Tutup">✕</button>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEitTh4uT5bosKFSq2k1EuGGy454eYrtFxO416gMJNJi8tIBM9VjWORLeUM7s3VGQoFd16VPLWQ_5Ga_qbruYPNnKvuO_nH4JJLny7-qgtnLn9-RrPsVjxP46uqtNaPhlPuWt29CYTExGVSVYGwq5N7GdhovXZYB2uhOyi1Vt816Dwcinl4sNrXYFd-HscXC=w616-h616" alt="Promo">
+        <span class="popup-badge">Abyss Deal</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Dari kedalaman abyss — klaim bonus deposit pertamamu sekarang</p>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://sflink.ink/velosbet77brand">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://sflink.my/velosbet77cuan">DAFTAR</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="fx">
+    <div class="abyss"></div>
+    <div class="ripple"></div>
+    <div class="ripple r2"></div>
+    <div class="ripple r3"></div>
+    <div class="tentacle t1"></div>
+    <div class="tentacle t2"></div>
+    <div class="tentacle t3"></div>
+    <div class="tentacle t4"></div>
+    <div class="tentacle t5"></div>
+    <div class="tentacle t6"></div>
+    <div class="tentacle t7"></div>
+    <div class="tentacle t8"></div>
+    <div class="eye"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("kraken-root");
+  if (!root) return;
+  var overlay = document.getElementById("popup-overlay");
+  var fx = root.querySelector("#fx");
+  var bubblesBox = document.getElementById("kr-bubbles");
+  var W = window.innerWidth || 1200, H = window.innerHeight || 800;
+  var timers = [];
+  var timeouts = [];
+  var closed = false;
+
+  window.addEventListener("resize", function () {
+    W = window.innerWidth || 1200; H = window.innerHeight || 800;
+  });
+
+  function trackTimeout(fn, ms) {
+    var id = setTimeout(fn, ms);
+    timeouts.push(id);
+    return id;
+  }
+
+  /* Tutup = modal saja hilang. Tentakel / mata / loot TETAP jalan. */
+  function closePopup(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (closed) return;
+    closed = true;
+    root.classList.add("is-closed");
+    if (overlay) {
+      overlay.classList.add("is-closed");
+      overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
+    }
+  }
+
+  var b1 = document.getElementById("kr-close-btn");
+  var b2 = document.getElementById("kr-close-bg");
+  if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
+  if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closePopup(e);
+  });
+
+  /* bubble accents inside modal */
+  if (bubblesBox) {
+    for (var bi = 0; bi < 10; bi++) {
+      var bub = document.createElement("i");
+      bub.style.left = (8 + Math.random() * 84) + "%";
+      bub.style.width = bub.style.height = (4 + Math.random() * 7) + "px";
+      bub.style.animationDuration = (2.2 + Math.random() * 2.5) + "s";
+      bub.style.animationDelay = (Math.random() * 2) + "s";
+      bubblesBox.appendChild(bub);
+    }
+  }
+
+  var KINDS = ["coin", "pearl", "gem", "bubble", "skull", "star"];
+
+  function loot() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    var kind = KINDS[Math.floor(Math.random() * KINDS.length)];
+    el.className = "loot " + kind;
+
+    var fromLeft = Math.random() > 0.5;
+    var x = fromLeft ? (-20 + Math.random() * 30) : (W - 10 - Math.random() * 30);
+    var y = H * (0.35 + Math.random() * 0.55);
+    var dx = (fromLeft ? 1 : -1) * (80 + Math.random() * (W * 0.45));
+    var dy = -(120 + Math.random() * (H * 0.55));
+    var dur = 1.6 + Math.random() * 1.6;
+    var spin = (Math.random() * 720 - 360) + "deg";
+    var sc = 0.7 + Math.random() * 1.3;
+
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    el.style.setProperty("--dx", dx + "px");
+    el.style.setProperty("--dy", dy + "px");
+    el.style.setProperty("--spin", spin);
+    el.style.setProperty("--sc", String(sc));
+    el.style.animationDuration = dur + "s";
+    fx.appendChild(el);
+    trackTimeout(function () { if (el.parentNode) el.remove(); }, dur * 1000 + 40);
+  }
+
+  function ink() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    el.className = "ink";
+    var size = 80 + Math.random() * 160;
+    el.style.width = size + "px";
+    el.style.height = size + "px";
+    el.style.left = (Math.random() * 90) + "vw";
+    el.style.top = (40 + Math.random() * 50) + "vh";
+    fx.appendChild(el);
+    trackTimeout(function () { if (el.parentNode) el.remove(); }, 1900);
+  }
+
+  function spark() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    el.className = "spark";
+    el.style.left = (10 + Math.random() * 80) + "vw";
+    el.style.top = (15 + Math.random() * 70) + "vh";
+    el.style.setProperty("--sx", (Math.random() * 60 - 30) + "px");
+    el.style.setProperty("--sy", (-40 - Math.random() * 80) + "px");
+    el.style.transform = "rotate(" + (Math.random() * 50 - 25) + "deg)";
+    fx.appendChild(el);
+    trackTimeout(function () { if (el.parentNode) el.remove(); }, 600);
+  }
+
+  function burst() {
+    for (var i = 0; i < 8; i++) loot();
+    ink();
+    for (var s = 0; s < 6; s++) spark();
+  }
+
+  for (var i = 0; i < 24; i++) trackTimeout(loot, i * 40);
+  trackTimeout(burst, 200);
+  timers.push(setInterval(function () {
+    loot(); loot(); loot(); loot(); loot();
+  }, 70));
+  timers.push(setInterval(function () { ink(); spark(); spark(); }, 280));
+  timers.push(setInterval(burst, 1100));
+})();
+</script>
