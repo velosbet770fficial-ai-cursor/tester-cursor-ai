@@ -10,173 +10,262 @@
     <link rel="icon" type="image/png" href="https://ilililililllil.com.se/image-vault/uploads/20260806-110413-e55f9a83.png" sizes="16x16">
     <link rel="preload" as="image" href="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg">
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
     <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <style amp-custom>
-    /* ================================================
-       VELOSBET77 — Redesign Fresh & Modern 2026
-       ================================================ */
+    /* =============================================
+       VELOSBET77 — Dark Prestige v2
+       Image-forward · Compact · Style Baru
+       ============================================= */
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-        font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-        background-color: #06060d;
-        background-image:
-            radial-gradient(ellipse 100% 55% at 50% -8%, rgba(212,175,55,0.13) 0%, transparent 58%),
-            radial-gradient(ellipse 60% 40% at 5%  90%, rgba(110,50,220,0.07) 0%, transparent 55%),
-            radial-gradient(ellipse 50% 35% at 95% 80%, rgba(30,90,60,0.05)  0%, transparent 50%);
-        color: #e8e8f0;
+        font-family: 'Inter', -apple-system, sans-serif;
         min-height: 100vh;
-        line-height: 1.6;
+        background-color: #050509;
+        background-image:
+            radial-gradient(ellipse 160% 45% at 50% 0%,   rgba(212,175,55,0.16) 0%, transparent 52%),
+            radial-gradient(ellipse 90%  60% at 0%   90%,  rgba(80,30,140,0.12)  0%, transparent 55%),
+            radial-gradient(ellipse 70%  50% at 100% 70%,  rgba(20,70,50,0.08)   0%, transparent 50%);
+        color: #ededf5;
         overflow-x: hidden;
+        line-height: 1.55;
     }
 
-    /* ---- Page layout ---- */
+    /* Page shell — padding atas minimal */
     .page {
         min-height: 100vh;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        padding: 3.5rem 1.5rem;
+        padding: 1.25rem 1.25rem 3rem;
     }
 
+    /* Main column */
     .wrap {
         width: 100%;
-        max-width: 430px;
+        max-width: 420px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
+        gap: 0;         /* gap dikontrol per-section via margin */
     }
 
     /* ---- Entry animations ---- */
     @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(26px); }
+        from { opacity: 0; transform: translateY(22px); }
         to   { opacity: 1; transform: translateY(0);    }
     }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
 
-    .a1 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.05s both; }
-    .a2 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.18s both; }
-    .a3 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
-    .a4 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.42s both; }
-    .a5 { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) 0.54s both; }
+    .a1 { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.0s  both; }
+    .a2 { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
+    .a3 { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.22s both; }
+    .a4 { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.32s both; }
+    .a5 { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.42s both; }
 
-    /* ---- LOGO ---- */
+    /* ==========================================
+       LOGO — rapat ke atas, minimal spacing
+       ========================================== */
     .logo {
         text-align: center;
         position: relative;
-        padding: 1.25rem 1.5rem;
+        padding: 0.5rem 1rem 0;
+        margin-bottom: 1rem;
+        width: 100%;
     }
 
+    /* Glow di belakang logo */
     .logo::before {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 220px;
-        height: 120px;
-        background: radial-gradient(ellipse at center, rgba(212,175,55,0.18) 0%, transparent 70%);
+        width: 200px;
+        height: 90px;
+        background: radial-gradient(ellipse at center, rgba(212,175,55,0.22) 0%, transparent 70%);
         transform: translate(-50%, -50%);
         border-radius: 50%;
-        animation: logoPulse 4.5s ease-in-out infinite;
+        animation: glowBreath 4s ease-in-out infinite;
     }
 
-    @keyframes logoPulse {
-        0%, 100% { opacity: 0.45; transform: translate(-50%,-50%) scale(0.9); }
-        50%       { opacity: 1;    transform: translate(-50%,-50%) scale(1.15); }
+    @keyframes glowBreath {
+        0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(0.88); }
+        50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.18); }
     }
 
-    /* ---- STATUS BADGE ---- */
+    /* ==========================================
+       FEATURED IMAGE — langsung di bawah logo
+       ========================================== */
+    .hero-img {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .hero-img-frame {
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        /* Layered border: gold top + subtle perimeter */
+        border: 1px solid rgba(212,175,55,0.2);
+        box-shadow:
+            0 0 0 1px rgba(255,255,255,0.03),
+            0 20px 60px rgba(0,0,0,0.6),
+            0 4px 20px rgba(212,175,55,0.08);
+        transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),
+                    box-shadow 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .hero-img-frame:hover {
+        transform: translateY(-5px);
+        box-shadow:
+            0 0 0 1px rgba(212,175,55,0.18),
+            0 30px 80px rgba(0,0,0,0.7),
+            0 0 50px rgba(212,175,55,0.14);
+    }
+
+    /* Gold shimmer border top */
+    .hero-img-frame::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(212,175,55,0.4) 20%,
+            #e2c060 50%,
+            rgba(212,175,55,0.4) 80%,
+            transparent 100%);
+        z-index: 5;
+        animation: topShine 3.5s ease-in-out infinite;
+    }
+
+    /* Vignette overlay on image */
+    .hero-img-frame::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg,
+            rgba(5,5,9,0.15) 0%,
+            transparent 30%,
+            transparent 70%,
+            rgba(5,5,9,0.35) 100%);
+        z-index: 4;
+        pointer-events: none;
+        border-radius: 16px;
+    }
+
+    @keyframes topShine {
+        0%, 100% { opacity: 0.4; }
+        50%       { opacity: 1; }
+    }
+
+    /* ==========================================
+       BADGE
+       ========================================== */
     .badge {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.45rem 1.3rem;
+        gap: 0.45rem;
+        padding: 0.4rem 1.1rem;
         border-radius: 100px;
-        border: 1px solid rgba(212,175,55,0.3);
-        background: linear-gradient(135deg, rgba(212,175,55,0.13), rgba(212,175,55,0.04));
-        font-size: 0.68rem;
+        border: 1px solid rgba(212,175,55,0.32);
+        background: linear-gradient(135deg,
+            rgba(212,175,55,0.14) 0%,
+            rgba(212,175,55,0.04) 100%);
+        font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 2.5px;
         text-transform: uppercase;
         color: #d4af37;
+        margin-bottom: 0.85rem;
     }
 
     .badge-dot {
         display: inline-block;
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         background: #d4af37;
-        animation: dotPulse 1.8s ease-in-out infinite;
+        animation: dotBlink 1.8s ease-in-out infinite;
     }
 
-    @keyframes dotPulse {
-        0%, 100% { opacity: 1; box-shadow: 0 0 0 2px rgba(212,175,55,0.3); }
-        50%       { opacity: 0.35; box-shadow: none; }
+    @keyframes dotBlink {
+        0%, 100% { opacity: 1; box-shadow: 0 0 5px 2px rgba(212,175,55,0.45); }
+        50%       { opacity: 0.25; box-shadow: none; }
     }
 
-    /* ---- HEADING ---- */
+    /* ==========================================
+       HEADING — compact, dua baris
+       ========================================== */
     .heading {
         text-align: center;
-        line-height: 1.3;
+        margin-bottom: 1.75rem;
     }
 
     .heading h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.65rem;
+        font-family: 'Cinzel', serif;
+        font-size: 1.55rem;
         font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.5px;
+        letter-spacing: 2px;
+        line-height: 1.25;
+        color: #fff;
     }
 
     .heading h1 em {
         font-style: normal;
-        background: linear-gradient(130deg, #d4af37 20%, #f5d060 50%, #d4af37 80%);
+        background: linear-gradient(130deg, #c8a020 10%, #f5d060 45%, #e2b830 80%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
     .heading p {
-        margin-top: 0.6rem;
-        font-size: 0.875rem;
-        color: rgba(255,255,255,0.38);
-        letter-spacing: 0.5px;
+        margin-top: 0.55rem;
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.3px;
     }
 
-    /* ---- DIVIDER ---- */
+    /* ==========================================
+       DIVIDER
+       ========================================== */
     .divider {
         width: 100%;
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(212,175,55,0.22), transparent);
+        background: linear-gradient(90deg,
+            transparent, rgba(212,175,55,0.2), transparent);
+        margin-bottom: 1.5rem;
     }
 
-    /* ---- BUTTONS ---- */
+    /* ==========================================
+       BUTTONS — style baru: solid gradient + ghost
+       ========================================== */
     .btns {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 0.75rem;
+        margin-bottom: 1.75rem;
     }
 
     .btn {
         display: block;
         width: 100%;
-        padding: 1.1rem 2rem;
+        padding: 1.05rem 1.75rem;
         text-align: center;
         text-decoration: none;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Cinzel', serif;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         letter-spacing: 3px;
         text-transform: uppercase;
         border-radius: 10px;
@@ -184,165 +273,119 @@
         overflow: hidden;
         border: 1px solid transparent;
         transition:
-            transform      0.38s cubic-bezier(0.16,1,0.3,1),
-            box-shadow     0.38s cubic-bezier(0.16,1,0.3,1),
-            border-color   0.38s,
-            color          0.28s;
+            transform   0.35s cubic-bezier(0.16,1,0.3,1),
+            box-shadow  0.35s cubic-bezier(0.16,1,0.3,1),
+            filter      0.35s;
     }
 
     /* Shimmer sweep */
-    .btn::after {
+    .btn::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: -80%;
-        width: 40%;
+        top: 0; left: -80%;
+        width: 45%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-        transform: skewX(-16deg);
-        animation: btnShimmer 4.2s ease-in-out infinite;
-    }
-
-    @keyframes btnShimmer {
-        0%   { left: -80%; }
-        30%  { left: 140%; }
-        100% { left: 140%; }
-    }
-
-    /* Gold — DAFTAR */
-    .btn-gold {
-        background: linear-gradient(160deg, #1c1603 0%, #2d2108 55%, #1c1603 100%);
-        color: #d4af37;
-        border-color: rgba(212,175,55,0.35);
-        box-shadow:
-            0 4px 22px rgba(0,0,0,0.38),
-            0 0 28px rgba(212,175,55,0.07),
-            inset 0 1px 0 rgba(212,175,55,0.09);
-        text-shadow: 0 0 14px rgba(212,175,55,0.35);
-    }
-
-    .btn-gold:hover {
-        transform: translateY(-4px);
-        color: #f5d060;
-        border-color: rgba(212,175,55,0.68);
-        box-shadow:
-            0 14px 40px rgba(0,0,0,0.48),
-            0 0 48px rgba(212,175,55,0.22),
-            inset 0 1px 0 rgba(212,175,55,0.18);
-        text-shadow: 0 0 22px rgba(212,175,55,0.6);
-    }
-
-    /* Purple — LOGIN */
-    .btn-purple {
-        background: linear-gradient(160deg, #110c18 0%, #1b1128 55%, #110c18 100%);
-        color: #c084fc;
-        border-color: rgba(192,132,252,0.28);
-        box-shadow:
-            0 4px 22px rgba(0,0,0,0.38),
-            0 0 28px rgba(192,132,252,0.05),
-            inset 0 1px 0 rgba(192,132,252,0.07);
-        text-shadow: 0 0 12px rgba(192,132,252,0.28);
-    }
-
-    .btn-purple:hover {
-        transform: translateY(-4px);
-        color: #d8b4fe;
-        border-color: rgba(192,132,252,0.62);
-        box-shadow:
-            0 14px 40px rgba(0,0,0,0.48),
-            0 0 48px rgba(192,132,252,0.18),
-            inset 0 1px 0 rgba(192,132,252,0.14);
-        text-shadow: 0 0 22px rgba(192,132,252,0.5);
-    }
-
-    /* Green — APK */
-    .btn-green {
-        background: linear-gradient(160deg, #091410 0%, #0e2018 55%, #091410 100%);
-        color: #4ade80;
-        border-color: rgba(74,222,128,0.24);
-        box-shadow:
-            0 4px 22px rgba(0,0,0,0.38),
-            0 0 28px rgba(74,222,128,0.04),
-            inset 0 1px 0 rgba(74,222,128,0.06);
-        text-shadow: 0 0 12px rgba(74,222,128,0.26);
-    }
-
-    .btn-green:hover {
-        transform: translateY(-4px);
-        color: #86efac;
-        border-color: rgba(74,222,128,0.58);
-        box-shadow:
-            0 14px 40px rgba(0,0,0,0.48),
-            0 0 48px rgba(74,222,128,0.15),
-            inset 0 1px 0 rgba(74,222,128,0.12);
-        text-shadow: 0 0 22px rgba(74,222,128,0.5);
-    }
-
-    /* ---- FEATURED IMAGE CARD ---- */
-    .card {
-        width: 100%;
-        position: relative;
-    }
-
-    .card-frame {
-        border-radius: 14px;
-        overflow: hidden;
-        position: relative;
-        background: #0d0d18;
-        border: 1px solid rgba(212,175,55,0.14);
-        box-shadow:
-            0 28px 70px rgba(0,0,0,0.55),
-            0 0 0 1px rgba(255,255,255,0.02);
-        transition:
-            transform   0.55s cubic-bezier(0.16,1,0.3,1),
-            box-shadow  0.55s cubic-bezier(0.16,1,0.3,1);
-    }
-
-    .card-frame:hover {
-        transform: translateY(-7px);
-        box-shadow:
-            0 42px 90px rgba(0,0,0,0.65),
-            0 0 60px rgba(212,175,55,0.11),
-            0 0 0 1px rgba(212,175,55,0.14);
-    }
-
-    /* Animated gold top-line */
-    .card-frame::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
         background: linear-gradient(90deg,
-            transparent 0%,
-            #d4af37     30%,
-            #f5d060     50%,
-            #d4af37     70%,
-            transparent 100%);
-        z-index: 10;
-        animation: scanGold 3.2s ease-in-out infinite;
+            transparent, rgba(255,255,255,0.14), transparent);
+        transform: skewX(-18deg);
+        animation: shimmerBtn 4s ease-in-out infinite;
     }
 
-    @keyframes scanGold {
-        0%, 100% { opacity: 0.3; }
-        50%       { opacity: 1;   }
+    @keyframes shimmerBtn {
+        0%   { left: -80%; }
+        28%  { left: 130%; }
+        100% { left: 130%; }
     }
 
-    /* ---- FOOTER ---- */
+    /* PRIMARY — Solid gold gradient (DAFTAR) */
+    .btn-primary {
+        background: linear-gradient(135deg, #b8860b 0%, #d4af37 40%, #f5d060 60%, #c8960a 100%);
+        color: #1a1200;
+        border-color: rgba(245,208,96,0.5);
+        font-weight: 700;
+        box-shadow:
+            0 6px 28px rgba(212,175,55,0.35),
+            0 2px 8px rgba(0,0,0,0.4),
+            inset 0 1px 0 rgba(255,255,255,0.25);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-4px);
+        box-shadow:
+            0 14px 44px rgba(212,175,55,0.55),
+            0 4px 12px rgba(0,0,0,0.4),
+            inset 0 1px 0 rgba(255,255,255,0.3);
+        filter: brightness(1.08);
+    }
+
+    /* SECONDARY — Ghost purple (LOGIN) */
+    .btn-secondary {
+        background: rgba(140,70,220,0.09);
+        color: #c084fc;
+        border-color: rgba(192,132,252,0.4);
+        box-shadow:
+            0 4px 20px rgba(0,0,0,0.35),
+            0 0 20px rgba(192,132,252,0.08),
+            inset 0 1px 0 rgba(192,132,252,0.08);
+        text-shadow: 0 0 16px rgba(192,132,252,0.4);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-4px);
+        background: rgba(140,70,220,0.17);
+        border-color: rgba(192,132,252,0.72);
+        box-shadow:
+            0 12px 36px rgba(0,0,0,0.45),
+            0 0 44px rgba(192,132,252,0.22),
+            inset 0 1px 0 rgba(192,132,252,0.15);
+        color: #dbb6fe;
+    }
+
+    /* TERTIARY — Ghost teal (APK) */
+    .btn-tertiary {
+        background: rgba(6,182,212,0.07);
+        color: #22d3ee;
+        border-color: rgba(6,182,212,0.32);
+        box-shadow:
+            0 4px 20px rgba(0,0,0,0.35),
+            0 0 20px rgba(6,182,212,0.06),
+            inset 0 1px 0 rgba(6,182,212,0.07);
+        text-shadow: 0 0 14px rgba(6,182,212,0.35);
+    }
+
+    .btn-tertiary:hover {
+        transform: translateY(-4px);
+        background: rgba(6,182,212,0.14);
+        border-color: rgba(6,182,212,0.65);
+        box-shadow:
+            0 12px 36px rgba(0,0,0,0.45),
+            0 0 44px rgba(6,182,212,0.18),
+            inset 0 1px 0 rgba(6,182,212,0.12);
+        color: #67e8f9;
+    }
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
     .footer {
         text-align: center;
-        color: rgba(255,255,255,0.28);
-        font-size: 0.73rem;
-        letter-spacing: 0.5px;
+        color: rgba(255,255,255,0.25);
+        font-size: 0.7rem;
+        letter-spacing: 0.3px;
     }
 
-    /* ---- Responsive ---- */
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
     @media (max-width: 400px) {
-        .page  { padding: 2.5rem 1.25rem; }
-        .wrap  { gap: 1.75rem; }
-        .heading h1 { font-size: 1.4rem; }
-        .btn   { padding: 1rem 1.5rem; font-size: 0.85rem; letter-spacing: 2px; }
+        .page { padding: 1rem 1rem 2.5rem; }
+        .heading h1 { font-size: 1.35rem; }
+        .btn {
+            padding: 0.95rem 1.25rem;
+            font-size: 0.76rem;
+            letter-spacing: 2px;
+        }
     }
     </style>
 
@@ -372,7 +415,7 @@
     <div class="page">
         <div class="wrap">
 
-            <!-- Logo -->
+            <!-- Logo — rapat ke atas -->
             <div class="logo a1">
                 <amp-img
                     src="https://ilililililllil.com.se/image-vault/uploads/20260806-110552-ced6a2a2.png"
@@ -383,47 +426,9 @@
                 </amp-img>
             </div>
 
-            <!-- Status badge -->
-            <div class="badge a2">
-                <span class="badge-dot"></span>
-                TOP #1 Situs Terbaik 2026
-            </div>
-
-            <!-- Heading -->
-            <div class="heading a2">
-                <h1><em>VELOSBET77</em><br>Situs Resmi Terpercaya</h1>
-                <p>Link Online Terbaik &amp; Terpercaya di Indonesia</p>
-            </div>
-
-            <div class="divider a3"></div>
-
-            <!-- CTA Buttons -->
-            <div class="btns a3">
-                <a href="https://sflink.my/velosbet77cuan"
-                   class="btn btn-gold"
-                   rel="nofollow noreferrer"
-                   target="_blank">
-                    Daftar VelosBet77
-                </a>
-                <a href="https://sflink.my/velosbet77cuan"
-                   class="btn btn-purple"
-                   rel="nofollow noreferrer"
-                   target="_blank">
-                    Login VelosBet77
-                </a>
-                <a href="https://sflink.ink/apkgamesvelosbet77"
-                   class="btn btn-green"
-                   rel="nofollow noreferrer"
-                   target="_blank">
-                    APK VelosBet77
-                </a>
-            </div>
-
-            <div class="divider a4"></div>
-
-            <!-- Featured image -->
-            <div class="card a4">
-                <div class="card-frame">
+            <!-- Featured image — langsung di bawah logo -->
+            <div class="hero-img a2">
+                <div class="hero-img-frame">
                     <amp-img
                         src="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg"
                         width="500"
@@ -432,6 +437,42 @@
                         layout="responsive">
                     </amp-img>
                 </div>
+            </div>
+
+            <!-- Badge -->
+            <div class="badge a3">
+                <span class="badge-dot"></span>
+                TOP #1 Situs Terbaik 2026
+            </div>
+
+            <!-- Heading -->
+            <div class="heading a3">
+                <h1><em>VELOSBET77</em><br>Situs Resmi Terpercaya</h1>
+                <p>Link Online Terbaik &amp; Terpercaya di Indonesia</p>
+            </div>
+
+            <div class="divider a4"></div>
+
+            <!-- Buttons -->
+            <div class="btns a4">
+                <a href="https://sflink.my/velosbet77cuan"
+                   class="btn btn-primary"
+                   rel="nofollow noreferrer"
+                   target="_blank">
+                    Daftar VelosBet77
+                </a>
+                <a href="https://sflink.my/velosbet77cuan"
+                   class="btn btn-secondary"
+                   rel="nofollow noreferrer"
+                   target="_blank">
+                    Login VelosBet77
+                </a>
+                <a href="https://sflink.ink/apkgamesvelosbet77"
+                   class="btn btn-tertiary"
+                   rel="nofollow noreferrer"
+                   target="_blank">
+                    APK VelosBet77
+                </a>
             </div>
 
             <!-- Footer -->
