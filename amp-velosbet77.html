@@ -10,370 +10,462 @@
     <link rel="icon" type="image/png" href="https://ilililililllil.com.se/image-vault/uploads/20260806-110413-e55f9a83.png" sizes="16x16">
     <link rel="preload" as="image" href="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg">
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
     <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <style amp-custom>
     /* =====================================================
-       VELOSBET77 — "VINTAGE CASINO CABINET" v7
-       Terinspirasi dari desain vintage radio cabinet
-       Adaptasi: Slot Machine · Gold & Crimson · Retro
+       VELOSBET77 — "VINTAGE TV CABINET" v8
+       Rabbit ears · CRT Screen · Wood grain · Channel dial
        ===================================================== */
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
 
     body {
-        background-color: #0d0005;
-        background-image: radial-gradient(circle at 50% 50%, #1a000a 0%, #050001 100%);
+        background-color: #0a0806;
+        background-image: radial-gradient(ellipse at 50% 40%, #1c1408 0%, #060402 100%);
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        padding: 20px;
+        padding: 30px 16px;
         overscroll-behavior-y: none;
     }
 
     /* =============================================
-       MAIN CABINET — dark crimson mahogany
+       TV CABINET BODY — dark walnut wood grain
        ============================================= */
-    .cabinet {
-        background: linear-gradient(180deg, #5c0a18 0%, #2e0609 100%);
+    .tv-cabinet {
+        /* Wood grain via repeating-linear-gradient */
+        background:
+            repeating-linear-gradient(
+                92deg,
+                rgba(200,140,50,0.055) 0px,
+                rgba(200,140,50,0.055) 1px,
+                transparent 1px,
+                transparent 20px
+            ),
+            repeating-linear-gradient(
+                180deg,
+                rgba(0,0,0,0.14) 0px,
+                rgba(0,0,0,0.14) 1px,
+                transparent 1px,
+                transparent 55px
+            ),
+            linear-gradient(180deg, #2c1808 0%, #180e04 100%);
         width: 100%;
-        max-width: 700px;
-        padding: 15px 35px 25px 35px;
-        border-radius: 30px 30px 10px 10px;
-        border: 6px solid #1a0005;
+        max-width: 650px;
+        padding: 18px 28px 22px 28px;
+        border-radius: 24px 24px 12px 12px;
+        border: 7px solid #0e0804;
         box-shadow:
-            0 25px 60px rgba(0,0,0,0.9),
-            inset 0 0 0 2px #8a2740,
-            inset 0 5px 15px rgba(255,255,255,0.06),
-            inset 0 -15px 40px rgba(0,0,0,0.9);
+            0 30px 80px rgba(0,0,0,0.95),
+            inset 0 0 0 2px #6a4a18,
+            inset 0 4px 12px rgba(255,200,100,0.05),
+            inset 0 -20px 50px rgba(0,0,0,0.8);
         user-select: none;
         position: relative;
         z-index: 1;
     }
 
-    /* Cabinet feet */
-    .cabinet::before, .cabinet::after {
+    /* Cabinet bottom legs */
+    .tv-cabinet::before, .tv-cabinet::after {
         content: '';
         position: absolute;
-        bottom: -12px;
-        width: 60px;
-        height: 15px;
-        background: linear-gradient(180deg, #1f0005, #000);
-        border-radius: 0 0 8px 8px;
-        box-shadow: 2px 5px 10px rgba(0,0,0,0.8);
+        bottom: -18px;
+        width: 70px; height: 20px;
+        background: linear-gradient(180deg, #140a02, #000);
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.9);
         z-index: -1;
     }
-    .cabinet::before { left: 50px; }
-    .cabinet::after  { right: 50px; }
+    .tv-cabinet::before { left: 60px; }
+    .tv-cabinet::after  { right: 60px; }
 
     /* =============================================
-       LUCKY STAR DECO — menggantikan antenna
+       RABBIT EAR ANTENNAS
        ============================================= */
-    .lucky-deco {
+    .antennas {
         position: absolute;
-        top: -82px;
-        right: 45px;
+        top: -95px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 95px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
         z-index: -1;
     }
-    .lucky-rod {
+
+    .ant {
+        width: 5px;
+        height: 85px;
+        background: linear-gradient(90deg, #666, #e0e0e0, #888, #ccc, #666);
+        border-radius: 3px 3px 1px 1px;
+        box-shadow: inset 1px 0 2px rgba(255,255,255,0.6), 2px 0 5px rgba(0,0,0,0.4);
+        position: absolute;
+        bottom: 12px;
+    }
+    .ant-l {
+        left: 28px;
+        transform-origin: bottom center;
+        transform: rotate(-38deg);
+    }
+    .ant-r {
+        right: 28px;
+        transform-origin: bottom center;
+        transform: rotate(38deg);
+    }
+    /* Antenna tip ball */
+    .ant::before {
+        content: '';
+        position: absolute;
+        top: -6px; left: 50%;
+        transform: translateX(-50%);
+        width: 10px; height: 10px;
+        background: radial-gradient(circle at 35% 30%, #fff, #aaa);
+        border-radius: 50%;
+        box-shadow: 1px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    /* Antenna base / joint */
+    .ant-base {
+        width: 26px; height: 20px;
+        background: linear-gradient(180deg, #888, #555);
+        border-radius: 4px 4px 2px 2px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.7), inset 0 1px 2px rgba(255,255,255,0.3);
         position: absolute;
         bottom: 0; left: 50%;
-        transform: translateX(-50%) rotate(20deg);
-        transform-origin: bottom center;
-        width: 5px; height: 80px;
-        background: linear-gradient(90deg, #7a7a7a, #e0e0e0, #666);
-        box-shadow: inset 1px 0 2px rgba(255,255,255,0.7), inset -1px 0 2px rgba(0,0,0,0.5);
-    }
-    .lucky-tip {
-        position: absolute;
-        top: 0; left: 50%;
         transform: translateX(-50%);
-        font-size: 1.5rem;
-        color: #d4af37;
-        text-shadow: 0 0 12px rgba(212,175,55,0.9), 0 0 25px rgba(212,175,55,0.5);
-        animation: tipGlow 2s ease-in-out infinite;
-        line-height: 1;
     }
-    @keyframes tipGlow {
-        0%, 100% { opacity: 0.7; text-shadow: 0 0 8px rgba(212,175,55,0.7); }
-        50%       { opacity: 1;   text-shadow: 0 0 20px rgba(212,175,55,1), 0 0 40px rgba(212,175,55,0.5); }
-    }
-    .lucky-base {
+    /* Joint hinge marks */
+    .ant-base::before, .ant-base::after {
+        content: '';
         position: absolute;
-        bottom: -3px; left: 50%;
-        transform: translateX(-50%);
-        width: 10px; height: 18px;
-        background: linear-gradient(90deg, #444, #999, #333);
-        border-radius: 2px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+        top: 5px;
+        width: 6px; height: 6px;
+        background: radial-gradient(circle at 35% 30%, #bbb, #555);
+        border-radius: 50%;
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
+    .ant-base::before { left: 3px; }
+    .ant-base::after  { right: 3px; }
 
     /* =============================================
-       LOGO SECTION
+       LOGO SECTION — top of TV
        ============================================= */
     .logo-section {
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 60px;
+        min-height: 55px;
     }
     .logo-section amp-img {
-        filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.9)) drop-shadow(-1px -1px 1px rgba(255,180,80,0.1));
-        opacity: 0.95;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 0 8px rgba(200,160,60,0.12));
+        opacity: 0.92;
     }
 
     /* =============================================
-       CONTROL PANEL — knobs → koin emas
+       TV SCREEN OUTER — thick CRT bezel
        ============================================= */
-    .control-panel {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 15px 20px;
-        border-radius: 15px;
-        border: 3px solid #7a2030;
-        box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
-        margin-bottom: 15px;
+    .tv-screen-outer {
         background:
-            radial-gradient(circle at 14px 14px, #8a2740 3px, #3d0a12 4px, transparent 5px),
-            radial-gradient(circle at calc(100% - 14px) 14px, #8a2740 3px, #3d0a12 4px, transparent 5px),
-            radial-gradient(circle at 14px calc(100% - 14px), #8a2740 3px, #3d0a12 4px, transparent 5px),
-            radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #8a2740 3px, #3d0a12 4px, transparent 5px),
-            #140002;
+            radial-gradient(ellipse at 50% 50%, #0f0a04, #040200);
+        border-radius: 18px;
+        padding: 14px;
+        margin-bottom: 14px;
+        border: 4px solid #080502;
+        box-shadow:
+            inset 0 0 60px rgba(0,0,0,0.99),
+            inset 0 -8px 20px rgba(0,0,0,0.8),
+            0 4px 12px rgba(0,0,0,0.6);
     }
 
-    /* Gold coin decoration */
-    .coin {
-        width: 52px; height: 52px;
-        background: radial-gradient(circle at 35% 30%,
-            #fff8c0 5%, #f5d060 25%, #d4af37 55%, #8a6420 80%, #3d2a0a 100%);
-        border-radius: 50%;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.4rem;
-        color: #5a3a00;
-        position: relative;
-        animation: coinGlow 4s ease-in-out infinite;
-    }
-    @keyframes coinGlow {
-        0%, 100% { box-shadow: 0 6px 14px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.5); }
-        50%       { box-shadow: 0 6px 14px rgba(0,0,0,0.8), 0 0 18px rgba(212,175,55,0.55), inset 0 2px 5px rgba(255,255,255,0.7); }
-    }
-
-    /* RTP Display — menggantikan glass dial */
-    .rtp-display {
-        background: radial-gradient(circle at 50% 40%, #f8efd0 0%, #d8c090 100%);
-        flex: 1;
-        margin: 0 18px;
-        padding: 10px 14px;
-        border-radius: 8px;
-        box-shadow: inset 0 0 20px rgba(80,0,10,0.7), 0 3px 6px rgba(0,0,0,0.6);
-        border: 2px solid #5a1020;
-        position: relative;
-        text-align: center;
-        overflow: hidden;
-    }
-    .rtp-freqs {
-        font-family: 'Courier Prime', 'Courier New', monospace;
-        font-size: 0.78rem;
-        color: #4a0010;
-        font-weight: bold;
-        letter-spacing: 3px;
-        border-bottom: 2px solid #8a2740;
-        padding-bottom: 3px;
-        margin-bottom: 3px;
-        white-space: nowrap;
-    }
-    .rtp-status {
-        font-family: 'Courier Prime', 'Courier New', monospace;
-        font-size: 0.75rem;
-        color: #cc2040;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    .rtp-needle {
-        position: absolute;
-        top: 4px; bottom: 20px;
-        left: 50%;
-        width: 2px;
-        background: #cc0020;
-        box-shadow: 1px 0 4px rgba(200,0,30,0.6);
-        animation: sweepNeedle 9s infinite alternate ease-in-out;
-    }
-    @keyframes sweepNeedle {
-        0%   { left: 14%; }
-        100% { left: 86%; }
-    }
-
-    /* =============================================
-       CRT DISPLAY — game window
-       ============================================= */
-    .display-container {
-        background: #110001;
-        padding: 12px;
-        border-radius: 12px;
-        margin-bottom: 15px;
-        border-top: 5px solid #0a0000;
-        border-bottom: 3px solid #3a0a10;
-        border-left: 4px solid #140002;
-        border-right: 4px solid #140002;
-        box-shadow: inset 0 15px 25px rgba(0,0,0,0.9), 0 2px 2px rgba(255,255,255,0.03);
-    }
-    .display-screen {
+    /* Inner screen glass */
+    .tv-screen-inner {
         position: relative;
         background: #000;
-        border-radius: 8px;
+        border-radius: 10px;
         overflow: hidden;
-        border: 2px solid #000;
-        box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        border: 2px solid #080402;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
         display: block;
     }
-    .display-screen .main-img {
-        filter: contrast(1.12) sepia(20%);
-        transition: filter 0.3s ease;
+
+    /* Sepia CRT image filter */
+    .tv-screen-inner .main-img {
+        filter: contrast(1.1) brightness(0.95) sepia(25%);
+        transition: filter 0.4s ease;
         display: block;
     }
-    .display-screen:hover .main-img,
-    .display-screen:active .main-img {
-        filter: contrast(1.12) sepia(0%);
+    .tv-screen-inner:hover .main-img,
+    .tv-screen-inner:active .main-img {
+        filter: contrast(1.1) brightness(1) sepia(0%);
+    }
+
+    /* CRT Overlay: scanlines + curved vignette + reflection */
+    .crt-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none;
+        z-index: 4;
+        border-radius: 10px;
+        /* Scanlines + strong barrel vignette */
+        background:
+            linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.3) 50%),
+            radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,0.92) 100%),
+            linear-gradient(110deg, rgba(255,255,255,0.04) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.02) 100%);
+        background-size: 100% 3px, 100% 100%, 100% 100%;
+        box-shadow: inset 0 0 60px rgba(0,0,0,0.85);
+    }
+
+    /* Green phosphor flicker on CRT */
+    .crt-flicker {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none;
+        z-index: 3;
+        background: rgba(40,80,20,0.04);
+        animation: phosphor 0.14s infinite;
+        border-radius: 10px;
+    }
+    @keyframes phosphor {
+        0%   { opacity: 0; }
+        50%  { opacity: 1; }
+        100% { opacity: 0; }
     }
 
     /* Marquee overlay */
     .marquee-overlay {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        background: rgba(10,0,2,0.9);
-        border-top: 2px solid #3a0a10;
+        background: rgba(5,3,0,0.92);
+        border-top: 2px solid #2a1a06;
         padding: 5px 0;
-        z-index: 3;
+        z-index: 5;
         overflow: hidden;
     }
     .marquee-text {
-        font-family: 'Courier Prime', 'Courier New', monospace;
-        font-size: 0.72rem;
-        font-weight: bold;
-        color: #ff6688;
-        text-shadow: 0 0 8px rgba(255,100,136,0.7);
+        font-family: 'VT323', monospace;
+        font-size: 0.88rem;
+        color: #00e060;
+        text-shadow: 0 0 8px rgba(0,220,80,0.8), 0 0 16px rgba(0,220,80,0.3);
         white-space: nowrap;
         display: inline-block;
         padding-left: 100%;
-        animation: scrollMarquee 24s linear infinite;
-        letter-spacing: 1px;
+        animation: scrollText 26s linear infinite;
+        letter-spacing: 1.5px;
     }
-    @keyframes scrollMarquee {
+    @keyframes scrollText {
         0%   { transform: translate(0, 0); }
         100% { transform: translate(-100%, 0); }
     }
 
-    /* CRT scanline + vignette overlay */
-    .screen-overlay {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        pointer-events: none;
-        z-index: 2;
-        box-shadow: inset 0 0 50px rgba(0,0,0,0.85);
-        background:
-            linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.22) 50%),
-            linear-gradient(105deg, rgba(255,80,80,0.06) 0%, rgba(255,255,255,0) 35%, transparent 65%, rgba(255,80,80,0.03) 100%);
-        background-size: 100% 4px, 100% 100%;
-    }
-
     /* =============================================
-       BOTTOM SECTION — grills + controls
+       CONTROL PANEL ROW — knobs + channel display
        ============================================= */
-    .bottom-section {
+    .control-panel {
         display: flex;
-        gap: 15px;
-        align-items: stretch;
-    }
-
-    /* Gold diamond grill */
-    .side-grill {
-        flex: 0.55;
-        background:
-            linear-gradient(45deg, rgba(70,0,15,0.85) 25%, transparent 25%, transparent 75%, rgba(70,0,15,0.85) 75%, rgba(70,0,15,0.85)),
-            linear-gradient(45deg, rgba(70,0,15,0.85) 25%, transparent 25%, transparent 75%, rgba(70,0,15,0.85) 75%, rgba(70,0,15,0.85));
-        background-color: #d4af37;
-        background-size: 6px 6px;
-        background-position: 0 0, 3px 3px;
-        border-radius: 8px;
-        border: 3px solid #1a0005;
-        box-shadow: inset 0 0 25px rgba(0,0,0,0.95);
-        min-height: 80px;
-    }
-
-    /* Center controls */
-    .center-controls {
-        flex: 1.9;
-        display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: space-between;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 3px solid #3a2208;
+        background:
+            radial-gradient(circle at 12px 12px, #6a4018 3px, #2e1608 4px, transparent 5px),
+            radial-gradient(circle at calc(100% - 12px) 12px, #6a4018 3px, #2e1608 4px, transparent 5px),
+            radial-gradient(circle at 12px calc(100% - 12px), #6a4018 3px, #2e1608 4px, transparent 5px),
+            radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #6a4018 3px, #2e1608 4px, transparent 5px),
+            #100804;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+        margin-bottom: 12px;
+    }
+
+    /* TV Knob */
+    .tv-knob {
+        width: 52px; height: 52px;
+        background: radial-gradient(circle at 35% 28%,
+            #f8e88a 5%, #d4af37 30%, #9a7820 65%, #4a3408 88%, #1c1004 100%);
+        border-radius: 50%;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.85), inset 0 2px 5px rgba(255,255,255,0.55);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        animation: knobGlow 5s ease-in-out infinite;
+    }
+    @keyframes knobGlow {
+        0%, 100% { box-shadow: 0 6px 16px rgba(0,0,0,0.85), inset 0 2px 5px rgba(255,255,255,0.5); }
+        50%       { box-shadow: 0 6px 16px rgba(0,0,0,0.85), 0 0 18px rgba(212,175,55,0.45), inset 0 2px 5px rgba(255,255,255,0.7); }
+    }
+    /* Knob marker line */
+    .tv-knob::after {
+        content: '';
+        position: absolute;
+        top: 6px; left: 50%;
+        transform: translateX(-50%);
+        width: 3px; height: 12px;
+        background: rgba(0,0,0,0.55);
+        border-radius: 2px;
+    }
+    .knob-label {
+        position: absolute;
+        bottom: -18px;
+        font-family: 'VT323', monospace;
+        font-size: 0.8rem;
+        color: #8a6030;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+    .knob-vol { transform: rotate(-25deg); }
+    .knob-ch  { transform: rotate(15deg); }
+
+    /* Channel Display — amber LCD */
+    .ch-display {
+        flex: 1;
+        margin: 0 18px;
+        padding: 8px 12px;
+        background: radial-gradient(circle at 50% 40%, #f0d870 0%, #b89030 100%);
+        border-radius: 6px;
+        border: 2px solid #3a2a08;
+        box-shadow:
+            inset 0 0 18px rgba(80,40,0,0.6),
+            0 3px 6px rgba(0,0,0,0.6);
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+    }
+    .ch-freqs {
+        font-family: 'VT323', monospace;
+        font-size: 0.85rem;
+        color: #3a1a00;
+        font-weight: bold;
+        letter-spacing: 4px;
+        border-bottom: 1px solid rgba(80,40,0,0.4);
+        padding-bottom: 3px;
+        margin-bottom: 3px;
+    }
+    .ch-now {
+        font-family: 'VT323', monospace;
+        font-size: 0.95rem;
+        color: #8a1a00;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    .ch-needle {
+        position: absolute;
+        top: 5px; bottom: 18px; left: 50%;
+        width: 2px;
+        background: #aa1800;
+        box-shadow: 1px 0 4px rgba(180,20,0,0.5);
+        animation: needleSweep 10s alternate ease-in-out infinite;
+    }
+    @keyframes needleSweep {
+        0%   { left: 14%; }
+        100% { left: 86%; }
     }
 
     /* =============================================
-       SERVER SELECTORS — menggantikan band (FM/AM)
+       POWER ROW — LED + brand plate
+       ============================================= */
+    .power-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 8px 10px;
+    }
+    .power-led-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .power-led {
+        width: 9px; height: 9px;
+        border-radius: 50%;
+        background: #ff2200;
+        box-shadow: 0 0 6px rgba(255,34,0,0.9), 0 0 14px rgba(255,34,0,0.4);
+        animation: ledBlink 2.2s ease-in-out infinite;
+    }
+    @keyframes ledBlink {
+        0%, 100% { opacity: 0.55; box-shadow: 0 0 4px rgba(255,34,0,0.7); }
+        50%       { opacity: 1;    box-shadow: 0 0 10px rgba(255,34,0,1), 0 0 20px rgba(255,34,0,0.5); }
+    }
+    .power-label {
+        font-family: 'VT323', monospace;
+        font-size: 0.7rem;
+        color: #6a4020;
+        letter-spacing: 1.5px;
+    }
+    .tv-brand-plate {
+        font-family: 'Oswald', sans-serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 4px;
+        color: #8a6030;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    /* =============================================
+       CHANNEL PRESETS — CSS-only toggle
        ============================================= */
     .hidden-radio { display: none; }
 
-    .server-selectors {
+    .ch-presets {
         display: flex;
-        justify-content: space-between;
         gap: 8px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         padding: 6px 8px;
-        background: #1a0005;
+        background: #100806;
         border-radius: 5px;
-        border: 2px solid #0d0001;
-        box-shadow: inset 0 0 8px rgba(0,0,0,0.9), 0 1px 1px rgba(255,255,255,0.04);
-        width: 100%;
+        border: 2px solid #080402;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
     }
-    .sv-btn {
+    .ch-btn {
         flex: 1;
         padding: 5px 0;
-        background: linear-gradient(180deg, #6e1020 0%, #400810 100%);
-        color: #d4af37;
+        background: linear-gradient(180deg, #4a2c0c 0%, #2a1806 100%);
+        color: #c09040;
         border: none;
         border-radius: 3px;
-        font-family: 'Courier Prime', 'Courier New', monospace;
-        font-size: 0.68rem;
+        font-family: 'VT323', monospace;
+        font-size: 0.9rem;
         font-weight: bold;
         cursor: pointer;
-        box-shadow: 0 2px 0 #0d0001, 0 3px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.07);
+        box-shadow: 0 2px 0 #060402, 0 3px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.06);
         transition: all 0.1s;
         text-align: center;
         display: block;
-        letter-spacing: 1.5px;
+        letter-spacing: 2px;
     }
-    .hidden-radio:checked + .sv-btn {
+    .hidden-radio:checked + .ch-btn {
         transform: translateY(2px);
-        box-shadow: 0 0 0 #0d0001, 0 1px 2px rgba(0,0,0,0.6), inset 0 2px 4px rgba(0,0,0,0.7);
-        color: #f5d060;
-        background: #280510;
-        border-top: 1px solid rgba(212,175,55,0.3);
+        box-shadow: 0 0 0 #060402, 0 1px 2px rgba(0,0,0,0.6), inset 0 2px 4px rgba(0,0,0,0.7);
+        color: #f0c040;
+        background: #1e1004;
+        border-top: 1px solid rgba(200,150,30,0.25);
     }
 
     /* =============================================
-       ACTION BUTTONS — casino piano key style
+       ACTION BUTTONS — 3D piano-key style
        ============================================= */
     .action-btns {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
+        margin-bottom: 14px;
     }
 
-    /* Base piano-key button */
-    .btn-casino {
+    .btn-tv {
         padding: 12px 8px;
-        background: linear-gradient(180deg, #f2e2c4 0%, #d6c4a0 100%);
-        color: #2a0800;
+        background: linear-gradient(180deg, #eedfc0 0%, #d0bf9a 100%);
+        color: #2a1400;
         border: none;
         border-radius: 5px;
         font-weight: 900;
@@ -381,7 +473,7 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         cursor: pointer;
-        box-shadow: 0 5px 0 #8a7050, 0 7px 9px rgba(0,0,0,0.7);
+        box-shadow: 0 5px 0 #8a7040, 0 7px 10px rgba(0,0,0,0.7);
         transition: all 0.12s ease;
         text-decoration: none;
         display: flex;
@@ -389,66 +481,90 @@
         justify-content: center;
         gap: 5px;
         text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
-        font-family: 'Georgia', serif;
     }
-    .btn-casino:active {
+    .btn-tv:active {
         transform: translateY(5px);
-        box-shadow: 0 0 0 #8a7050, 0 2px 4px rgba(0,0,0,0.7);
+        box-shadow: 0 0 0 #8a7040, 0 2px 4px rgba(0,0,0,0.7);
     }
+    .btn-icon { font-size: 0.95rem; line-height: 1; }
 
-    /* HOT button — orange-red gradient */
+    /* HOT — orange */
     .btn-hot {
-        background: linear-gradient(180deg, #ff8844 0%, #cc2200 100%);
+        background: linear-gradient(180deg, #ff9955 0%, #cc3300 100%);
         color: #fff;
-        box-shadow: 0 5px 0 #660000, 0 7px 9px rgba(0,0,0,0.7);
+        box-shadow: 0 5px 0 #660000, 0 7px 10px rgba(0,0,0,0.7);
         text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     }
     .btn-hot:active { box-shadow: 0 0 0 #660000, 0 2px 4px rgba(0,0,0,0.7); }
 
     .fire-icon {
         display: inline-block;
-        animation: burn 1.1s ease-in-out infinite alternate;
+        animation: burn 1s ease-in-out infinite alternate;
     }
     @keyframes burn {
         from { transform: scale(0.85); }
-        to   { transform: scale(1.15); filter: drop-shadow(0 0 4px rgba(255,160,0,0.8)); }
+        to   { transform: scale(1.15); filter: drop-shadow(0 0 4px rgba(255,140,0,0.9)); }
     }
 
-    /* Full-width chat button row */
-    .chat-wrapper {
-        grid-column: 1 / -1;
-        display: flex;
-    }
+    /* Full-width chat */
+    .chat-wrapper { grid-column: 1 / -1; display: flex; }
     .btn-chat {
         width: 100%;
-        background: linear-gradient(180deg, #1a2a08 0%, #0a1500 100%);
+        background: linear-gradient(180deg, #1e2e0c 0%, #0c1806 100%);
         color: #00fa53;
-        box-shadow: 0 5px 0 #000, 0 7px 9px rgba(0,0,0,0.7);
-        text-shadow: 0 0 8px rgba(0,250,83,0.5);
+        box-shadow: 0 5px 0 #000, 0 7px 10px rgba(0,0,0,0.7);
+        text-shadow: 0 0 10px rgba(0,250,83,0.6);
         letter-spacing: 2px;
     }
     .btn-chat:active { box-shadow: 0 0 0 #000, 0 2px 4px rgba(0,0,0,0.7); }
 
-    .btn-icon { font-size: 1rem; line-height: 1; }
+    /* =============================================
+       SPEAKER GRILL — horizontal lines (TV style)
+       ============================================= */
+    .speaker-grill-h {
+        width: 100%;
+        height: 44px;
+        border-radius: 6px;
+        border: 2px solid #0e0802;
+        overflow: hidden;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.95);
+        margin-bottom: 16px;
+        background:
+            repeating-linear-gradient(
+                180deg,
+                #0a0602 0px,
+                #0a0602 3px,
+                #281808 3px,
+                #281808 5px
+            );
+    }
+    /* Speaker dots inside grill */
+    .speaker-grill-h::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(circle at 50% 50%, rgba(200,150,50,0.08) 0%, transparent 60%);
+    }
 
     /* =============================================
-       BRAND FOOTER
+       TV FOOTER
        ============================================= */
-    .brand-footer {
+    .tv-footer {
         text-align: center;
-        margin-top: 22px;
-        padding-top: 10px;
-        border-top: 2px solid #3a0010;
-        box-shadow: inset 0 2px 0 rgba(255,255,255,0.03);
+        padding-top: 8px;
+        border-top: 2px solid #2e1a08;
+        box-shadow: inset 0 2px 0 rgba(255,255,255,0.02);
     }
-    .brand-footer h1 {
-        color: #d4af37;
-        font-size: 0.95rem;
+    .tv-footer h1 {
+        color: #c09040;
+        font-size: 0.9rem;
         text-transform: uppercase;
-        letter-spacing: 6px;
+        letter-spacing: 5px;
         font-style: italic;
         font-family: 'Times New Roman', Times, serif;
-        text-shadow: 1px 1px 1px rgba(0,0,0,0.9), -1px -1px 1px rgba(255,200,80,0.08);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
         margin: 0;
     }
 
@@ -456,31 +572,35 @@
        RESPONSIVE — mobile
        ============================================= */
     @media (max-width: 600px) {
-        .cabinet { padding: 12px 18px 20px 18px; }
+        .tv-cabinet  { padding: 14px 16px 18px 16px; }
+
+        .antennas {
+            top: -72px;
+            width: 140px;
+            height: 72px;
+        }
+        .ant { height: 62px; width: 4px; }
+        .ant-l { left: 20px; }
+        .ant-r { right: 20px; }
 
         .control-panel {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
+            padding: 10px 10px;
+            flex-wrap: wrap;
             gap: 10px;
-            padding: 10px;
         }
-        .coin { width: 44px; height: 44px; font-size: 1.1rem; }
-        .rtp-display { margin: 0 8px; }
-        .rtp-freqs { font-size: 0.68rem; letter-spacing: 2px; }
+        .tv-knob { width: 44px; height: 44px; }
+        .ch-display { margin: 0 10px; }
+        .ch-freqs { font-size: 0.72rem; letter-spacing: 2px; }
 
-        .bottom-section { flex-direction: column; }
-        .side-grill { height: 48px; min-height: unset; }
+        .action-btns { gap: 8px; }
+        .btn-tv { padding: 10px 6px; font-size: 0.76rem; }
+        .tv-footer h1 { font-size: 0.76rem; letter-spacing: 3px; }
+    }
 
-        .server-selectors { gap: 5px; padding: 5px 6px; }
-        .sv-btn { font-size: 0.6rem; padding: 4px 0; }
-
-        .btn-casino { padding: 10px 6px; font-size: 0.75rem; }
-        .brand-footer h1 { font-size: 0.8rem; letter-spacing: 3px; }
-
-        .lucky-deco {
-            transform: scale(0.75);
-            top: -65px; right: 20px;
-        }
+    @media (max-width: 380px) {
+        .power-row { flex-direction: column; gap: 4px; align-items: flex-start; }
+        .ch-freqs { letter-spacing: 1px; font-size: 0.65rem; }
+        .btn-tv { font-size: 0.7rem; letter-spacing: 0.5px; }
     }
     </style>
 
@@ -511,9 +631,8 @@
           "url": "https://velosbet77.com/",
           "logo": {
             "@type": "ImageObject",
-            "@id": "https://velosbet77.com/#logo",
             "url": "https://ilililililllil.com.se/image-vault/uploads/20260806-110413-e55f9a83.png",
-            "width": 250, "height": 60, "caption": "Velosbet77"
+            "width": 250, "height": 60
           },
           "description": "Platform slot gacor terpercaya di Indonesia dengan ribuan pilihan game dari provider terbaik dunia.",
           "foundingDate": "2020",
@@ -538,13 +657,12 @@
           "applicationCategory": "GameApplication",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IDR" },
           "url": "https://sflink.ink/apkgamesvelosbet77",
-          "description": "Aplikasi mobile VelosBet77 untuk Android. Download gratis, ringan, dan performa smooth.",
+          "description": "Aplikasi mobile VelosBet77 untuk Android. Download gratis, ringan, performa smooth.",
           "publisher": { "@id": "https://velosbet77.com/#organization" }
         },
         {
           "@type": "ItemList",
           "name": "Provider Game Slot di Velosbet77",
-          "description": "Daftar provider game slot terbaik yang tersedia di Velosbet77",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Pragmatic Play" },
             { "@type": "ListItem", "position": 2, "name": "PG Soft" },
@@ -559,7 +677,7 @@
         {
           "@type": "Offer",
           "name": "Bonus New Member Velosbet77",
-          "description": "Bonus 100% untuk member baru. Minimal deposit Rp 10.000 untuk klaim bonus.",
+          "description": "Bonus 100% untuk member baru. Min deposit Rp 10.000.",
           "url": "https://velosbet77.com/",
           "seller": { "@id": "https://velosbet77.com/#organization" },
           "priceCurrency": "IDR", "price": "10000",
@@ -572,39 +690,39 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Apa yang membuat Velosbet77 berbeda dari situs slot lain?",
+              "name": "Apa yang membuat Velosbet77 berbeda?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Velosbet77 menawarkan RTP tertinggi hingga 99%, transaksi tercepat, koleksi game terlengkap dari 8+ provider premium, dan bonus terbesar. Didukung server kapasitas tinggi untuk zero downtime." }
+                "text": "Velosbet77 menawarkan RTP 99%, transaksi tercepat, 8+ provider premium, dan bonus terbesar dengan zero downtime." }
             },
             {
               "@type": "Question",
-              "name": "Bagaimana cara klaim bonus new member 100%?",
+              "name": "Cara klaim bonus new member 100%?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Daftar akun baru, lakukan deposit pertama minimal Rp 10.000, dan bonus 100% langsung dikreditkan otomatis. Tidak perlu kode promo atau konfirmasi tambahan." }
+                "text": "Daftar, deposit pertama minimal Rp 10.000, bonus langsung dikreditkan otomatis tanpa kode promo." }
             },
             {
               "@type": "Question",
-              "name": "Berapa lama proses withdraw di Velosbet77?",
+              "name": "Berapa lama proses withdraw?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Proses withdraw rata-rata hanya 3-5 menit setelah pengajuan disetujui. Tersedia 24 jam sehari, 7 hari seminggu." }
+                "text": "Rata-rata 3-5 menit setelah disetujui, tersedia 24/7." }
             },
             {
               "@type": "Question",
-              "name": "Game slot apa yang paling populer di Velosbet77?",
+              "name": "Game apa yang paling populer?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Game terpopuler: Mahjong Ways, Gates of Olympus, Starlight Princess, Sweet Bonanza, dan Wild West Gold dari Pragmatic Play dan PG Soft." }
+                "text": "Mahjong Ways, Gates of Olympus, Starlight Princess, Sweet Bonanza, Wild West Gold." }
             },
             {
               "@type": "Question",
-              "name": "Apakah ada aplikasi Velosbet77 untuk HP?",
+              "name": "Ada APK untuk Android?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Ya! APK Velosbet77 untuk Android tersedia gratis. Download dari tombol APK di halaman ini. Ukuran ringan dan performa smooth di semua ukuran layar." }
+                "text": "Ya, APK gratis tersedia. Download lewat tombol APK di halaman ini, ukuran ringan dan smooth." }
             },
             {
               "@type": "Question",
-              "name": "Metode pembayaran apa saja yang diterima Velosbet77?",
+              "name": "Metode pembayaran apa saja?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Velosbet77 menerima transfer bank (BCA, BNI, BRI, Mandiri), e-wallet (Dana, OVO, GoPay, LinkAja), dan deposit pulsa Telkomsel dan XL." }
+                "text": "Transfer bank (BCA, BNI, BRI, Mandiri), e-wallet (Dana, OVO, GoPay, LinkAja), dan pulsa Telkomsel/XL." }
             }
           ]
         }
@@ -613,13 +731,13 @@
     </script>
 </head>
 <body>
-    <main class="cabinet" aria-label="VelosBet77 Casino Cabinet">
+    <main class="tv-cabinet" aria-label="VelosBet77 Vintage TV">
 
-        <!-- Lucky star deco — menggantikan antenna -->
-        <div class="lucky-deco" aria-hidden="true">
-            <span class="lucky-tip">★</span>
-            <div class="lucky-rod"></div>
-            <div class="lucky-base"></div>
+        <!-- Rabbit ear antennas -->
+        <div class="antennas" aria-hidden="true">
+            <div class="ant ant-l"></div>
+            <div class="ant-base"></div>
+            <div class="ant ant-r"></div>
         </div>
 
         <!-- Logo -->
@@ -632,22 +750,9 @@
             </amp-img>
         </div>
 
-        <!-- Control panel: koin + RTP meter + koin -->
-        <section class="control-panel" aria-hidden="true">
-            <div class="coin">★</div>
-
-            <div class="rtp-display">
-                <div class="rtp-freqs">80 &bull; 85 &bull; 90 &bull; 95 &bull; 99</div>
-                <div class="rtp-needle"></div>
-                <div class="rtp-status">RTP LIVE 99%</div>
-            </div>
-
-            <div class="coin">♠</div>
-        </section>
-
-        <!-- CRT display / game window -->
-        <div class="display-container" aria-label="Layar Utama">
-            <div class="display-screen">
+        <!-- CRT TV Screen -->
+        <div class="tv-screen-outer" aria-label="Layar TV Utama">
+            <div class="tv-screen-inner">
                 <a href="https://sflink.my/velosbet77cuan" target="_blank" rel="nofollow noreferrer">
                     <amp-img
                         src="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg"
@@ -659,79 +764,97 @@
                 </a>
                 <div class="marquee-overlay">
                     <div class="marquee-text">
-                        ★ JACKPOT MAXWIN SETIAP HARI &nbsp;|&nbsp; BONUS NEW MEMBER 100% &nbsp;|&nbsp; MIN DEPOSIT Rp 10.000 &nbsp;|&nbsp; RTP 99% HARI INI &nbsp;|&nbsp; WITHDRAW 3 MENIT &nbsp;|&nbsp; DAFTAR GRATIS &nbsp;|&nbsp; CASHBACK HARIAN &nbsp;|&nbsp; SLOT GACOR 777 &nbsp;|&nbsp; SERVER THAILAND &nbsp;★
+                        ► JACKPOT MAXWIN SETIAP HARI &nbsp;|&nbsp; BONUS NEW MEMBER 100% &nbsp;|&nbsp; MIN DEPOSIT Rp 10.000 &nbsp;|&nbsp; RTP 99% HARI INI &nbsp;|&nbsp; WITHDRAW 3 MENIT &nbsp;|&nbsp; DAFTAR GRATIS &nbsp;|&nbsp; SERVER THAILAND &nbsp;|&nbsp; SLOT GACOR 777 ◄
                     </div>
                 </div>
-                <div class="screen-overlay"></div>
+                <div class="crt-flicker"></div>
+                <div class="crt-overlay"></div>
             </div>
         </div>
 
-        <!-- Bottom: grills + controls -->
-        <div class="bottom-section">
-            <section class="side-grill" aria-hidden="true"></section>
-
-            <div class="center-controls">
-                <!-- Server selectors (CSS-only toggle) -->
-                <div class="server-selectors" aria-hidden="true">
-                    <input type="radio" id="sv-idn" name="server" class="hidden-radio" checked>
-                    <label for="sv-idn" class="sv-btn">IDN</label>
-
-                    <input type="radio" id="sv-thai" name="server" class="hidden-radio">
-                    <label for="sv-thai" class="sv-btn">THAI</label>
-
-                    <input type="radio" id="sv-sgp" name="server" class="hidden-radio">
-                    <label for="sv-sgp" class="sv-btn">SGP</label>
-
-                    <input type="radio" id="sv-vip" name="server" class="hidden-radio">
-                    <label for="sv-vip" class="sv-btn">VIP</label>
-                </div>
-
-                <!-- Action buttons -->
-                <nav class="action-btns" aria-label="Navigasi Utama">
-                    <a href="https://sflink.my/velosbet77cuan"
-                       class="btn-casino"
-                       rel="nofollow noreferrer" target="_blank"
-                       aria-label="Daftar Akun Baru">
-                        <span class="btn-icon">✚</span> Daftar
-                    </a>
-
-                    <a href="https://sflink.my/velosbet77cuan"
-                       class="btn-casino"
-                       rel="nofollow noreferrer" target="_blank"
-                       aria-label="Login ke Akun">
-                        <span class="btn-icon">▶</span> Login
-                    </a>
-
-                    <a href="https://sflink.my/velosbet77cuan"
-                       class="btn-casino btn-hot"
-                       rel="nofollow noreferrer" target="_blank"
-                       aria-label="Link Alternatif 1">
-                        <span class="btn-icon fire-icon">⚡</span> Alt 1
-                    </a>
-
-                    <a href="https://sflink.ink/apkgamesvelosbet77"
-                       class="btn-casino btn-hot"
-                       rel="nofollow noreferrer" target="_blank"
-                       aria-label="Download APK">
-                        <span class="btn-icon fire-icon">⬇</span> APK
-                    </a>
-
-                    <div class="chat-wrapper">
-                        <a href="https://sflink.my/velosbet77cuan"
-                           class="btn-casino btn-chat"
-                           rel="nofollow noreferrer" target="_blank"
-                           aria-label="Live Chat CS">
-                            <span class="btn-icon">◉</span> Live Chat CS 24/7
-                        </a>
-                    </div>
-                </nav>
+        <!-- Control panel: knob VOL + channel display + knob CH -->
+        <section class="control-panel" aria-hidden="true">
+            <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
+                <div class="tv-knob knob-vol"></div>
+                <span class="knob-label">VOL</span>
             </div>
 
-            <section class="side-grill" aria-hidden="true"></section>
+            <div class="ch-display">
+                <div class="ch-freqs">7 &bull; 14 &bull; 21 &bull; 77 &bull; 99</div>
+                <div class="ch-needle"></div>
+                <div class="ch-now">CH 77 &middot; VELOS</div>
+            </div>
+
+            <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
+                <div class="tv-knob knob-ch"></div>
+                <span class="knob-label">CHANNEL</span>
+            </div>
+        </section>
+
+        <!-- Power LED + brand plate -->
+        <div class="power-row" aria-hidden="true">
+            <div class="power-led-wrap">
+                <div class="power-led"></div>
+                <span class="power-label">POWER ON</span>
+            </div>
+            <div class="tv-brand-plate">VELOSBET77 &middot; COLOR TV</div>
         </div>
 
-        <!-- Brand footer -->
-        <footer class="brand-footer">
+        <!-- Channel presets (CSS-only toggle) -->
+        <div class="ch-presets" aria-hidden="true">
+            <input type="radio" id="ch-idn"  name="channel" class="hidden-radio" checked>
+            <label for="ch-idn"  class="ch-btn">IDN</label>
+
+            <input type="radio" id="ch-thai" name="channel" class="hidden-radio">
+            <label for="ch-thai" class="ch-btn">THAI</label>
+
+            <input type="radio" id="ch-sgp"  name="channel" class="hidden-radio">
+            <label for="ch-sgp"  class="ch-btn">SGP</label>
+
+            <input type="radio" id="ch-vip"  name="channel" class="hidden-radio">
+            <label for="ch-vip"  class="ch-btn">VIP</label>
+        </div>
+
+        <!-- Action buttons -->
+        <nav class="action-btns" aria-label="Navigasi Utama">
+            <a href="https://sflink.my/velosbet77cuan"
+               class="btn-tv" rel="nofollow noreferrer" target="_blank"
+               aria-label="Daftar Akun Baru">
+                <span class="btn-icon">✚</span> Daftar
+            </a>
+
+            <a href="https://sflink.my/velosbet77cuan"
+               class="btn-tv" rel="nofollow noreferrer" target="_blank"
+               aria-label="Login ke Akun">
+                <span class="btn-icon">▶</span> Login
+            </a>
+
+            <a href="https://sflink.my/velosbet77cuan"
+               class="btn-tv btn-hot" rel="nofollow noreferrer" target="_blank"
+               aria-label="Link Alternatif">
+                <span class="btn-icon fire-icon">⚡</span> Alt Link
+            </a>
+
+            <a href="https://sflink.ink/apkgamesvelosbet77"
+               class="btn-tv btn-hot" rel="nofollow noreferrer" target="_blank"
+               aria-label="Download APK">
+                <span class="btn-icon fire-icon">⬇</span> APK
+            </a>
+
+            <div class="chat-wrapper">
+                <a href="https://sflink.my/velosbet77cuan"
+                   class="btn-tv btn-chat" rel="nofollow noreferrer" target="_blank"
+                   aria-label="Live Chat CS 24/7">
+                    <span class="btn-icon">◉</span> Live Chat CS 24/7
+                </a>
+            </div>
+        </nav>
+
+        <!-- Horizontal speaker grill -->
+        <div class="speaker-grill-h" aria-hidden="true"></div>
+
+        <!-- TV footer tagline -->
+        <footer class="tv-footer">
             <h1>Jackpot &amp; Maxwin Menanti Anda Disini !!!</h1>
         </footer>
 
