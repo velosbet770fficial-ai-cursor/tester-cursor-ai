@@ -10,597 +10,491 @@
     <link rel="icon" type="image/png" href="https://ilililililllil.com.se/image-vault/uploads/20260806-110413-e55f9a83.png" sizes="16x16">
     <link rel="preload" as="image" href="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg">
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
     <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <style amp-custom>
     /* =====================================================
-       VELOSBET77 — "VINTAGE TV CABINET" v8
-       Rabbit ears · CRT Screen · Wood grain · Channel dial
+       VELOSBET77 — "GAME BOY COLOR" v9
+       Atomic Purple · Press Start 2P · Dot Matrix Screen
+       D-Pad · ABXY Buttons · Speaker Dots · Pixel Art
        ===================================================== */
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-        background-color: #0a0806;
-        background-image: radial-gradient(ellipse at 50% 40%, #1c1408 0%, #060402 100%);
+        background: #0d0010;
+        background-image:
+            radial-gradient(ellipse 90% 60% at 50% 0%, rgba(120,60,200,0.18) 0%, transparent 55%),
+            radial-gradient(ellipse 60% 40% at 0% 100%, rgba(80,0,150,0.12) 0%, transparent 50%);
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         min-height: 100vh;
-        padding: 30px 16px;
-        overscroll-behavior-y: none;
+        padding: 24px 16px 48px;
+        font-family: 'Press Start 2P', monospace;
     }
 
     /* =============================================
-       TV CABINET BODY — dark walnut wood grain
+       CONSOLE SHELL — Atomic Purple GBC body
+       diagonal corner bottom-right (iconic GBC cut)
        ============================================= */
-    .tv-cabinet {
-        /* Wood grain via repeating-linear-gradient */
-        background:
-            repeating-linear-gradient(
-                92deg,
-                rgba(200,140,50,0.055) 0px,
-                rgba(200,140,50,0.055) 1px,
-                transparent 1px,
-                transparent 20px
-            ),
-            repeating-linear-gradient(
-                180deg,
-                rgba(0,0,0,0.14) 0px,
-                rgba(0,0,0,0.14) 1px,
-                transparent 1px,
-                transparent 55px
-            ),
-            linear-gradient(180deg, #2c1808 0%, #180e04 100%);
+    .console {
         width: 100%;
-        max-width: 650px;
-        padding: 18px 28px 22px 28px;
-        border-radius: 24px 24px 12px 12px;
-        border: 7px solid #0e0804;
+        max-width: 380px;
+        background: linear-gradient(160deg, #4a3278 0%, #2e1a52 50%, #1e1038 100%);
+        border-radius: 22px 22px 6px 22px;
+        /* Diagonal corner via clip-path */
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 40px),
+            calc(100% - 40px) 100%,
+            0 100%
+        );
+        padding: 18px 18px 28px;
         box-shadow:
-            0 30px 80px rgba(0,0,0,0.95),
-            inset 0 0 0 2px #6a4a18,
-            inset 0 4px 12px rgba(255,200,100,0.05),
-            inset 0 -20px 50px rgba(0,0,0,0.8);
-        user-select: none;
+            0 0 0 3px #3a2060,
+            0 0 0 6px #1a0e30,
+            0 30px 80px rgba(0,0,0,0.9),
+            inset 0 2px 4px rgba(255,255,255,0.08),
+            inset 0 -4px 12px rgba(0,0,0,0.5);
         position: relative;
-        z-index: 1;
+        user-select: none;
     }
-
-    /* Cabinet bottom legs */
-    .tv-cabinet::before, .tv-cabinet::after {
-        content: '';
-        position: absolute;
-        bottom: -18px;
-        width: 70px; height: 20px;
-        background: linear-gradient(180deg, #140a02, #000);
-        border-radius: 0 0 10px 10px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.9);
-        z-index: -1;
-    }
-    .tv-cabinet::before { left: 60px; }
-    .tv-cabinet::after  { right: 60px; }
 
     /* =============================================
-       RABBIT EAR ANTENNAS
+       TOP BAR — brand + power LED
        ============================================= */
-    .antennas {
-        position: absolute;
-        top: -95px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 180px;
-        height: 95px;
+    .top-bar {
         display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        z-index: -1;
-    }
-
-    .ant {
-        width: 5px;
-        height: 85px;
-        background: linear-gradient(90deg, #666, #e0e0e0, #888, #ccc, #666);
-        border-radius: 3px 3px 1px 1px;
-        box-shadow: inset 1px 0 2px rgba(255,255,255,0.6), 2px 0 5px rgba(0,0,0,0.4);
-        position: absolute;
-        bottom: 12px;
-    }
-    .ant-l {
-        left: 28px;
-        transform-origin: bottom center;
-        transform: rotate(-38deg);
-    }
-    .ant-r {
-        right: 28px;
-        transform-origin: bottom center;
-        transform: rotate(38deg);
-    }
-    /* Antenna tip ball */
-    .ant::before {
-        content: '';
-        position: absolute;
-        top: -6px; left: 50%;
-        transform: translateX(-50%);
-        width: 10px; height: 10px;
-        background: radial-gradient(circle at 35% 30%, #fff, #aaa);
-        border-radius: 50%;
-        box-shadow: 1px 2px 4px rgba(0,0,0,0.6);
-    }
-
-    /* Antenna base / joint */
-    .ant-base {
-        width: 26px; height: 20px;
-        background: linear-gradient(180deg, #888, #555);
-        border-radius: 4px 4px 2px 2px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.7), inset 0 1px 2px rgba(255,255,255,0.3);
-        position: absolute;
-        bottom: 0; left: 50%;
-        transform: translateX(-50%);
-    }
-    /* Joint hinge marks */
-    .ant-base::before, .ant-base::after {
-        content: '';
-        position: absolute;
-        top: 5px;
-        width: 6px; height: 6px;
-        background: radial-gradient(circle at 35% 30%, #bbb, #555);
-        border-radius: 50%;
-        box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
-    .ant-base::before { left: 3px; }
-    .ant-base::after  { right: 3px; }
-
-    /* =============================================
-       LOGO SECTION — top of TV
-       ============================================= */
-    .logo-section {
-        text-align: center;
-        margin-bottom: 12px;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        min-height: 55px;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 0 4px;
     }
-    .logo-section amp-img {
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 0 8px rgba(200,160,60,0.12));
-        opacity: 0.92;
+    .console-brand {
+        font-size: 0.45rem;
+        color: rgba(200,180,255,0.5);
+        letter-spacing: 2px;
+        line-height: 1;
+    }
+    .console-brand em {
+        font-style: normal;
+        font-size: 0.55rem;
+        color: rgba(220,200,255,0.7);
+        display: block;
+        margin-top: 3px;
+    }
+    .power-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 3px;
+    }
+    .power-led {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #ff0040;
+        box-shadow: 0 0 6px rgba(255,0,64,0.9), 0 0 14px rgba(255,0,64,0.4);
+        animation: ledPulse 2s ease-in-out infinite;
+    }
+    @keyframes ledPulse {
+        0%, 100% { opacity: 0.6; }
+        50%       { opacity: 1; box-shadow: 0 0 10px rgba(255,0,64,1), 0 0 20px rgba(255,0,64,0.5); }
+    }
+    .power-text {
+        font-size: 0.3rem;
+        color: rgba(200,180,255,0.4);
+        letter-spacing: 1.5px;
     }
 
     /* =============================================
-       TV SCREEN OUTER — thick CRT bezel
+       LOGO SECTION
        ============================================= */
-    .tv-screen-outer {
-        background:
-            radial-gradient(ellipse at 50% 50%, #0f0a04, #040200);
-        border-radius: 18px;
-        padding: 14px;
+    .logo-wrap {
+        text-align: center;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    .logo-wrap::before {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 180px; height: 50px;
+        background: radial-gradient(ellipse at center, rgba(180,120,255,0.2) 0%, transparent 70%);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+    }
+    .logo-wrap amp-img { opacity: 0.9; }
+
+    /* =============================================
+       SCREEN UNIT — dark bezel + GBC display
+       ============================================= */
+    .screen-unit {
+        background: #0e0820;
+        border-radius: 12px;
+        padding: 10px 10px 8px;
         margin-bottom: 14px;
-        border: 4px solid #080502;
+        border: 3px solid #1a1030;
         box-shadow:
-            inset 0 0 60px rgba(0,0,0,0.99),
-            inset 0 -8px 20px rgba(0,0,0,0.8),
-            0 4px 12px rgba(0,0,0,0.6);
+            inset 0 0 30px rgba(0,0,0,0.95),
+            0 4px 10px rgba(0,0,0,0.6);
+        position: relative;
     }
 
-    /* Inner screen glass */
-    .tv-screen-inner {
+    /* GBC screen label above screen */
+    .screen-label {
+        text-align: center;
+        font-size: 0.32rem;
+        color: rgba(180,160,220,0.45);
+        letter-spacing: 3px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
+
+    /* The screen glass */
+    .screen-glass {
+        border-radius: 6px;
+        overflow: hidden;
         position: relative;
         background: #000;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 2px solid #080402;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
-        display: block;
+        border: 2px solid #080614;
     }
 
-    /* Sepia CRT image filter */
-    .tv-screen-inner .main-img {
-        filter: contrast(1.1) brightness(0.95) sepia(25%);
-        transition: filter 0.4s ease;
+    /* Main image — GBC-style saturated */
+    .screen-glass .game-img {
+        filter: contrast(1.15) saturate(1.2) brightness(0.9);
         display: block;
+        transition: filter 0.3s;
     }
-    .tv-screen-inner:hover .main-img,
-    .tv-screen-inner:active .main-img {
-        filter: contrast(1.1) brightness(1) sepia(0%);
+    .screen-glass:hover .game-img,
+    .screen-glass:active .game-img {
+        filter: contrast(1.1) saturate(1.0) brightness(1);
     }
 
-    /* CRT Overlay: scanlines + curved vignette + reflection */
-    .crt-overlay {
+    /* Dot matrix overlay — classic GBC pixel grid */
+    .dot-matrix {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        pointer-events: none;
-        z-index: 4;
-        border-radius: 10px;
-        /* Scanlines + strong barrel vignette */
-        background:
-            linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.3) 50%),
-            radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,0.92) 100%),
-            linear-gradient(110deg, rgba(255,255,255,0.04) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.02) 100%);
-        background-size: 100% 3px, 100% 100%, 100% 100%;
-        box-shadow: inset 0 0 60px rgba(0,0,0,0.85);
-    }
-
-    /* Green phosphor flicker on CRT */
-    .crt-flicker {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
+        background-image:
+            radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1px);
+        background-size: 3px 3px;
         pointer-events: none;
         z-index: 3;
-        background: rgba(40,80,20,0.04);
-        animation: phosphor 0.14s infinite;
-        border-radius: 10px;
-    }
-    @keyframes phosphor {
-        0%   { opacity: 0; }
-        50%  { opacity: 1; }
-        100% { opacity: 0; }
     }
 
-    /* Marquee overlay */
-    .marquee-overlay {
+    /* Screen vignette */
+    .screen-vignette {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+        pointer-events: none;
+        z-index: 4;
+    }
+
+    /* Scrolling marquee at bottom of screen */
+    .screen-marquee {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        background: rgba(5,3,0,0.92);
-        border-top: 2px solid #2a1a06;
-        padding: 5px 0;
         z-index: 5;
+        background: rgba(0,0,0,0.88);
+        border-top: 1px solid rgba(120,80,200,0.4);
+        padding: 3px 0;
         overflow: hidden;
     }
-    .marquee-text {
-        font-family: 'VT323', monospace;
-        font-size: 0.88rem;
-        color: #00e060;
-        text-shadow: 0 0 8px rgba(0,220,80,0.8), 0 0 16px rgba(0,220,80,0.3);
+    .marquee-txt {
+        font-size: 0.3rem;
+        color: #a0ff60;
+        text-shadow: 0 0 6px rgba(120,255,60,0.8);
         white-space: nowrap;
         display: inline-block;
         padding-left: 100%;
-        animation: scrollText 26s linear infinite;
+        animation: scrollTxt 24s linear infinite;
         letter-spacing: 1.5px;
     }
-    @keyframes scrollText {
-        0%   { transform: translate(0, 0); }
-        100% { transform: translate(-100%, 0); }
+    @keyframes scrollTxt {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-100%); }
+    }
+
+    /* Status bar below screen */
+    .screen-status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 6px;
+        padding: 4px 6px;
+        background: rgba(0,0,0,0.35);
+        border-radius: 4px;
+    }
+    .screen-status span {
+        font-size: 0.28rem;
+        color: rgba(200,180,255,0.55);
+        letter-spacing: 1px;
     }
 
     /* =============================================
-       CONTROL PANEL ROW — knobs + channel display
+       CONTROLS AREA — D-pad · buttons · speaker
        ============================================= */
-    .control-panel {
+    .controls-area {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 12px 16px;
-        border-radius: 12px;
-        border: 3px solid #3a2208;
-        background:
-            radial-gradient(circle at 12px 12px, #6a4018 3px, #2e1608 4px, transparent 5px),
-            radial-gradient(circle at calc(100% - 12px) 12px, #6a4018 3px, #2e1608 4px, transparent 5px),
-            radial-gradient(circle at 12px calc(100% - 12px), #6a4018 3px, #2e1608 4px, transparent 5px),
-            radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #6a4018 3px, #2e1608 4px, transparent 5px),
-            #100804;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
-        margin-bottom: 12px;
+        padding: 4px 0 10px;
     }
 
-    /* TV Knob */
-    .tv-knob {
-        width: 52px; height: 52px;
-        background: radial-gradient(circle at 35% 28%,
-            #f8e88a 5%, #d4af37 30%, #9a7820 65%, #4a3408 88%, #1c1004 100%);
-        border-radius: 50%;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.85), inset 0 2px 5px rgba(255,255,255,0.55);
+    /* ---- D-PAD ---- */
+    .dpad-wrap { position: relative; }
+    .dpad {
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        animation: knobGlow 5s ease-in-out infinite;
+        width: 68px; height: 68px;
     }
-    @keyframes knobGlow {
-        0%, 100% { box-shadow: 0 6px 16px rgba(0,0,0,0.85), inset 0 2px 5px rgba(255,255,255,0.5); }
-        50%       { box-shadow: 0 6px 16px rgba(0,0,0,0.85), 0 0 18px rgba(212,175,55,0.45), inset 0 2px 5px rgba(255,255,255,0.7); }
+    .dpad-h, .dpad-v {
+        position: absolute;
+        background: linear-gradient(180deg, #2a1e40, #1a1230);
+        border-radius: 4px;
+        box-shadow: 0 4px 0 #0d0820, inset 0 1px 2px rgba(255,255,255,0.1);
     }
-    /* Knob marker line */
-    .tv-knob::after {
+    .dpad-h {
+        top: 50%; left: 0;
+        transform: translateY(-50%);
+        width: 100%; height: 30%;
+    }
+    .dpad-v {
+        top: 0; left: 50%;
+        transform: translateX(-50%);
+        width: 30%; height: 100%;
+    }
+    /* Center diamond */
+    .dpad::after {
         content: '';
         position: absolute;
-        top: 6px; left: 50%;
-        transform: translateX(-50%);
-        width: 3px; height: 12px;
-        background: rgba(0,0,0,0.55);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%; height: 30%;
+        background: #1a1230;
         border-radius: 2px;
     }
-    .knob-label {
+    /* Arrow labels */
+    .dpad-arrows {
         position: absolute;
-        bottom: -18px;
-        font-family: 'VT323', monospace;
-        font-size: 0.8rem;
-        color: #8a6030;
-        letter-spacing: 1px;
+        top: 0; left: 0;
+        width: 68px; height: 68px;
+        pointer-events: none;
+    }
+    .dpad-arrows span {
+        position: absolute;
+        font-size: 0.35rem;
+        color: rgba(180,160,220,0.4);
+        line-height: 1;
+    }
+    .arr-up    { top: 6px; left: 50%; transform: translateX(-50%); }
+    .arr-down  { bottom: 6px; left: 50%; transform: translateX(-50%); }
+    .arr-left  { left: 6px; top: 50%; transform: translateY(-50%); }
+    .arr-right { right: 6px; top: 50%; transform: translateY(-50%); }
+
+    /* ---- CENTER: start/select ---- */
+    .center-ctrl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    .start-select {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .ss-btn-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        text-decoration: none;
+    }
+    .ss-btn {
+        width: 28px; height: 10px;
+        background: linear-gradient(180deg, #3a2858, #221840);
+        border-radius: 5px;
+        box-shadow: 0 2px 0 #0d0820, inset 0 1px 1px rgba(255,255,255,0.08);
+        display: block;
+        transition: transform 0.1s;
+    }
+    .ss-btn:active { transform: translateY(2px); box-shadow: none; }
+    .ss-label {
+        font-size: 0.22rem;
+        color: rgba(180,160,220,0.45);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    /* ---- SPEAKER DOTS ---- */
+    .speaker-dots {
+        width: 36px;
+        height: 36px;
+        background-image:
+            radial-gradient(circle, rgba(80,60,120,0.8) 1.8px, transparent 1.8px);
+        background-size: 7px 7px;
+        background-position: 0 0;
+        transform: rotate(-15deg);
+        opacity: 0.7;
+    }
+
+    /* ---- ACTION BUTTONS — ABXY diamond ---- */
+    .abxy-wrap {
+        position: relative;
+        width: 90px; height: 90px;
+    }
+    /* Each button is a circle link */
+    .game-btn {
+        position: absolute;
+        width: 34px; height: 34px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border: none;
+        box-shadow: 0 4px 0 rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.18);
+        transition: transform 0.1s, box-shadow 0.1s;
+        gap: 2px;
+        cursor: pointer;
+    }
+    .game-btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.1);
+    }
+    .btn-letter {
+        font-size: 0.45rem;
+        font-weight: bold;
+        line-height: 1;
+        color: rgba(255,255,255,0.9);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    }
+    .btn-sublabel {
+        font-size: 0.18rem;
+        color: rgba(255,255,255,0.65);
+        letter-spacing: 0.5px;
+        line-height: 1;
+        text-align: center;
         white-space: nowrap;
     }
-    .knob-vol { transform: rotate(-25deg); }
-    .knob-ch  { transform: rotate(15deg); }
 
-    /* Channel Display — amber LCD */
-    .ch-display {
-        flex: 1;
-        margin: 0 18px;
-        padding: 8px 12px;
-        background: radial-gradient(circle at 50% 40%, #f0d870 0%, #b89030 100%);
-        border-radius: 6px;
-        border: 2px solid #3a2a08;
-        box-shadow:
-            inset 0 0 18px rgba(80,40,0,0.6),
-            0 3px 6px rgba(0,0,0,0.6);
-        position: relative;
-        text-align: center;
-        overflow: hidden;
+    /* DIAMOND layout: top=X, left=Y, right=A, bottom=B */
+    .btn-x { top: 0;   left: 50%; transform: translateX(-50%); }
+    .btn-y { top: 50%; left: 0;   transform: translateY(-50%); }
+    .btn-a { top: 50%; right: 0;  transform: translateY(-50%); }
+    .btn-b { bottom: 0; left: 50%; transform: translateX(-50%); }
+
+    /* X = DAFTAR — hot red */
+    .btn-x {
+        background: radial-gradient(circle at 35% 30%, #ff8888, #ee2244, #990022);
+        box-shadow: 0 4px 0 #660011, 0 0 10px rgba(238,34,68,0.4), inset 0 2px 3px rgba(255,255,255,0.2);
     }
-    .ch-freqs {
-        font-family: 'VT323', monospace;
-        font-size: 0.85rem;
-        color: #3a1a00;
-        font-weight: bold;
-        letter-spacing: 4px;
-        border-bottom: 1px solid rgba(80,40,0,0.4);
-        padding-bottom: 3px;
-        margin-bottom: 3px;
+    /* A = LOGIN — electric blue */
+    .btn-a {
+        background: radial-gradient(circle at 35% 30%, #88aaff, #2255ee, #001199);
+        box-shadow: 0 4px 0 #001166, 0 0 10px rgba(34,85,238,0.4), inset 0 2px 3px rgba(255,255,255,0.2);
     }
-    .ch-now {
-        font-family: 'VT323', monospace;
-        font-size: 0.95rem;
-        color: #8a1a00;
-        font-weight: bold;
-        letter-spacing: 2px;
+    /* B = APK — amber/yellow */
+    .btn-b {
+        background: radial-gradient(circle at 35% 30%, #ffee88, #dda000, #886600);
+        box-shadow: 0 4px 0 #664400, 0 0 10px rgba(221,160,0,0.4), inset 0 2px 3px rgba(255,255,255,0.2);
     }
-    .ch-needle {
-        position: absolute;
-        top: 5px; bottom: 18px; left: 50%;
-        width: 2px;
-        background: #aa1800;
-        box-shadow: 1px 0 4px rgba(180,20,0,0.5);
-        animation: needleSweep 10s alternate ease-in-out infinite;
+    /* Y = ALT — lime green */
+    .btn-y {
+        background: radial-gradient(circle at 35% 30%, #88ff88, #22bb22, #006600);
+        box-shadow: 0 4px 0 #004400, 0 0 10px rgba(34,187,34,0.4), inset 0 2px 3px rgba(255,255,255,0.2);
     }
-    @keyframes needleSweep {
-        0%   { left: 14%; }
-        100% { left: 86%; }
+
+    /* Button pulse animation on X (primary) */
+    .btn-x { animation: btnPulse 3s ease-in-out infinite; }
+    @keyframes btnPulse {
+        0%, 100% { box-shadow: 0 4px 0 #660011, 0 0 8px rgba(238,34,68,0.35), inset 0 2px 3px rgba(255,255,255,0.2); }
+        50%       { box-shadow: 0 4px 0 #660011, 0 0 18px rgba(238,34,68,0.7), inset 0 2px 3px rgba(255,255,255,0.2); }
     }
 
     /* =============================================
-       POWER ROW — LED + brand plate
+       BOTTOM BAR — full-width CS button
        ============================================= */
-    .power-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 6px 8px 10px;
-    }
-    .power-led-wrap {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    .power-led {
-        width: 9px; height: 9px;
-        border-radius: 50%;
-        background: #ff2200;
-        box-shadow: 0 0 6px rgba(255,34,0,0.9), 0 0 14px rgba(255,34,0,0.4);
-        animation: ledBlink 2.2s ease-in-out infinite;
-    }
-    @keyframes ledBlink {
-        0%, 100% { opacity: 0.55; box-shadow: 0 0 4px rgba(255,34,0,0.7); }
-        50%       { opacity: 1;    box-shadow: 0 0 10px rgba(255,34,0,1), 0 0 20px rgba(255,34,0,0.5); }
-    }
-    .power-label {
-        font-family: 'VT323', monospace;
-        font-size: 0.7rem;
-        color: #6a4020;
-        letter-spacing: 1.5px;
-    }
-    .tv-brand-plate {
-        font-family: 'Oswald', sans-serif;
-        font-size: 0.62rem;
-        font-weight: 600;
-        letter-spacing: 4px;
-        color: #8a6030;
-        text-transform: uppercase;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    }
-
-    /* =============================================
-       CHANNEL PRESETS — CSS-only toggle
-       ============================================= */
-    .hidden-radio { display: none; }
-
-    .ch-presets {
+    .bottom-bar {
+        margin-top: 4px;
         display: flex;
         gap: 8px;
-        margin-bottom: 12px;
-        padding: 6px 8px;
-        background: #100806;
-        border-radius: 5px;
-        border: 2px solid #080402;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+        align-items: center;
     }
-    .ch-btn {
+    .btn-cs {
         flex: 1;
-        padding: 5px 0;
-        background: linear-gradient(180deg, #4a2c0c 0%, #2a1806 100%);
-        color: #c09040;
-        border: none;
-        border-radius: 3px;
-        font-family: 'VT323', monospace;
-        font-size: 0.9rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 0 #060402, 0 3px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.06);
-        transition: all 0.1s;
-        text-align: center;
-        display: block;
-        letter-spacing: 2px;
-    }
-    .hidden-radio:checked + .ch-btn {
-        transform: translateY(2px);
-        box-shadow: 0 0 0 #060402, 0 1px 2px rgba(0,0,0,0.6), inset 0 2px 4px rgba(0,0,0,0.7);
-        color: #f0c040;
-        background: #1e1004;
-        border-top: 1px solid rgba(200,150,30,0.25);
-    }
-
-    /* =============================================
-       ACTION BUTTONS — 3D piano-key style
-       ============================================= */
-    .action-btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 14px;
-    }
-
-    .btn-tv {
-        padding: 12px 8px;
-        background: linear-gradient(180deg, #eedfc0 0%, #d0bf9a 100%);
-        color: #2a1400;
-        border: none;
-        border-radius: 5px;
-        font-weight: 900;
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        box-shadow: 0 5px 0 #8a7040, 0 7px 10px rgba(0,0,0,0.7);
-        transition: all 0.12s ease;
-        text-decoration: none;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
-        text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
-    }
-    .btn-tv:active {
-        transform: translateY(5px);
-        box-shadow: 0 0 0 #8a7040, 0 2px 4px rgba(0,0,0,0.7);
-    }
-    .btn-icon { font-size: 0.95rem; line-height: 1; }
-
-    /* HOT — orange */
-    .btn-hot {
-        background: linear-gradient(180deg, #ff9955 0%, #cc3300 100%);
-        color: #fff;
-        box-shadow: 0 5px 0 #660000, 0 7px 10px rgba(0,0,0,0.7);
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-    }
-    .btn-hot:active { box-shadow: 0 0 0 #660000, 0 2px 4px rgba(0,0,0,0.7); }
-
-    .fire-icon {
-        display: inline-block;
-        animation: burn 1s ease-in-out infinite alternate;
-    }
-    @keyframes burn {
-        from { transform: scale(0.85); }
-        to   { transform: scale(1.15); filter: drop-shadow(0 0 4px rgba(255,140,0,0.9)); }
-    }
-
-    /* Full-width chat */
-    .chat-wrapper { grid-column: 1 / -1; display: flex; }
-    .btn-chat {
-        width: 100%;
-        background: linear-gradient(180deg, #1e2e0c 0%, #0c1806 100%);
-        color: #00fa53;
-        box-shadow: 0 5px 0 #000, 0 7px 10px rgba(0,0,0,0.7);
-        text-shadow: 0 0 10px rgba(0,250,83,0.6);
-        letter-spacing: 2px;
-    }
-    .btn-chat:active { box-shadow: 0 0 0 #000, 0 2px 4px rgba(0,0,0,0.7); }
-
-    /* =============================================
-       SPEAKER GRILL — horizontal lines (TV style)
-       ============================================= */
-    .speaker-grill-h {
-        width: 100%;
-        height: 44px;
+        gap: 6px;
+        padding: 10px 8px;
+        background: linear-gradient(180deg, #1e2e10 0%, #0c1806 100%);
+        color: #00ff60;
+        text-shadow: 0 0 10px rgba(0,255,96,0.7);
         border-radius: 6px;
-        border: 2px solid #0e0802;
-        overflow: hidden;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.95);
-        margin-bottom: 16px;
-        background:
-            repeating-linear-gradient(
-                180deg,
-                #0a0602 0px,
-                #0a0602 3px,
-                #281808 3px,
-                #281808 5px
-            );
+        text-decoration: none;
+        font-size: 0.3rem;
+        letter-spacing: 2px;
+        box-shadow: 0 4px 0 #000, 0 6px 10px rgba(0,0,0,0.7);
+        transition: transform 0.1s, box-shadow 0.1s;
     }
-    /* Speaker dots inside grill */
-    .speaker-grill-h::before {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        background:
-            radial-gradient(circle at 50% 50%, rgba(200,150,50,0.08) 0%, transparent 60%);
+    .btn-cs:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 #000, 0 2px 4px rgba(0,0,0,0.7);
     }
-
-    /* =============================================
-       TV FOOTER
-       ============================================= */
-    .tv-footer {
-        text-align: center;
-        padding-top: 8px;
-        border-top: 2px solid #2e1a08;
-        box-shadow: inset 0 2px 0 rgba(255,255,255,0.02);
+    .live-dot {
+        display: inline-block;
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #00ff60;
+        box-shadow: 0 0 6px rgba(0,255,96,0.9);
+        animation: liveDot 1.2s ease-in-out infinite;
+        flex-shrink: 0;
     }
-    .tv-footer h1 {
-        color: #c09040;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 5px;
-        font-style: italic;
-        font-family: 'Times New Roman', Times, serif;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
-        margin: 0;
+    @keyframes liveDot {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
     }
 
     /* =============================================
-       RESPONSIVE — mobile
+       BOTTOM EMBOSS — serial + battery
        ============================================= */
-    @media (max-width: 600px) {
-        .tv-cabinet  { padding: 14px 16px 18px 16px; }
-
-        .antennas {
-            top: -72px;
-            width: 140px;
-            height: 72px;
-        }
-        .ant { height: 62px; width: 4px; }
-        .ant-l { left: 20px; }
-        .ant-r { right: 20px; }
-
-        .control-panel {
-            padding: 10px 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .tv-knob { width: 44px; height: 44px; }
-        .ch-display { margin: 0 10px; }
-        .ch-freqs { font-size: 0.72rem; letter-spacing: 2px; }
-
-        .action-btns { gap: 8px; }
-        .btn-tv { padding: 10px 6px; font-size: 0.76rem; }
-        .tv-footer h1 { font-size: 0.76rem; letter-spacing: 3px; }
+    .console-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        padding: 0 4px;
+    }
+    .serial-num {
+        font-size: 0.22rem;
+        color: rgba(180,160,220,0.25);
+        letter-spacing: 1px;
+    }
+    .battery-icon {
+        font-size: 0.3rem;
+        color: rgba(180,160,220,0.3);
     }
 
-    @media (max-width: 380px) {
-        .power-row { flex-direction: column; gap: 4px; align-items: flex-start; }
-        .ch-freqs { letter-spacing: 1px; font-size: 0.65rem; }
-        .btn-tv { font-size: 0.7rem; letter-spacing: 0.5px; }
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
+    @media (max-width: 400px) {
+        body { padding: 16px 10px 40px; }
+        .console { padding: 14px 14px 24px; }
+        .abxy-wrap { width: 80px; height: 80px; }
+        .game-btn { width: 30px; height: 30px; }
+        .btn-letter { font-size: 0.38rem; }
+        .dpad { width: 60px; height: 60px; }
+        .speaker-dots { width: 30px; height: 30px; }
+        .btn-cs { font-size: 0.26rem; padding: 9px 6px; }
     }
     </style>
 
@@ -634,7 +528,7 @@
             "url": "https://ilililililllil.com.se/image-vault/uploads/20260806-110413-e55f9a83.png",
             "width": 250, "height": 60
           },
-          "description": "Platform slot gacor terpercaya di Indonesia dengan ribuan pilihan game dari provider terbaik dunia.",
+          "description": "Platform slot gacor terpercaya dengan ribuan game dari provider premium dunia.",
           "foundingDate": "2020",
           "areaServed": { "@type": "Country", "name": "Indonesia" },
           "availableLanguage": { "@type": "Language", "name": "Indonesian" },
@@ -657,7 +551,7 @@
           "applicationCategory": "GameApplication",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IDR" },
           "url": "https://sflink.ink/apkgamesvelosbet77",
-          "description": "Aplikasi mobile VelosBet77 untuk Android. Download gratis, ringan, performa smooth.",
+          "description": "Aplikasi mobile VelosBet77 untuk Android. Gratis, ringan, smooth.",
           "publisher": { "@id": "https://velosbet77.com/#organization" }
         },
         {
@@ -669,8 +563,8 @@
             { "@type": "ListItem", "position": 3, "name": "Habanero" },
             { "@type": "ListItem", "position": 4, "name": "Microgaming" },
             { "@type": "ListItem", "position": 5, "name": "Spadegaming" },
-            { "@type": "ListItem", "position": 6, "name": "Joker123" },
-            { "@type": "ListItem", "position": 7, "name": "CQ9 Gaming" },
+            { "@type": "ListItem", "position": 6, "name": "CQ9 Gaming" },
+            { "@type": "ListItem", "position": 7, "name": "Joker123" },
             { "@type": "ListItem", "position": 8, "name": "Playtech" }
           ]
         },
@@ -678,7 +572,6 @@
           "@type": "Offer",
           "name": "Bonus New Member Velosbet77",
           "description": "Bonus 100% untuk member baru. Min deposit Rp 10.000.",
-          "url": "https://velosbet77.com/",
           "seller": { "@id": "https://velosbet77.com/#organization" },
           "priceCurrency": "IDR", "price": "10000",
           "eligibleCustomerType": "NewCustomer",
@@ -689,40 +582,34 @@
           "@type": "FAQPage",
           "mainEntity": [
             {
-              "@type": "Question",
-              "name": "Apa yang membuat Velosbet77 berbeda?",
+              "@type": "Question", "name": "Apa yang membuat Velosbet77 terbaik?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Velosbet77 menawarkan RTP 99%, transaksi tercepat, 8+ provider premium, dan bonus terbesar dengan zero downtime." }
+                "text": "RTP 99%, withdraw 3 menit, 8+ provider premium, bonus new member 100%, zero downtime." }
             },
             {
-              "@type": "Question",
-              "name": "Cara klaim bonus new member 100%?",
+              "@type": "Question", "name": "Cara daftar dan klaim bonus 100%?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Daftar, deposit pertama minimal Rp 10.000, bonus langsung dikreditkan otomatis tanpa kode promo." }
+                "text": "Klik tombol Daftar, isi data, deposit Rp 10.000, bonus langsung masuk otomatis tanpa kode." }
             },
             {
-              "@type": "Question",
-              "name": "Berapa lama proses withdraw?",
-              "acceptedAnswer": { "@type": "Answer",
-                "text": "Rata-rata 3-5 menit setelah disetujui, tersedia 24/7." }
-            },
-            {
-              "@type": "Question",
-              "name": "Game apa yang paling populer?",
+              "@type": "Question", "name": "Game terpopuler di Velosbet77?",
               "acceptedAnswer": { "@type": "Answer",
                 "text": "Mahjong Ways, Gates of Olympus, Starlight Princess, Sweet Bonanza, Wild West Gold." }
             },
             {
-              "@type": "Question",
-              "name": "Ada APK untuk Android?",
+              "@type": "Question", "name": "Ada APK untuk Android?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Ya, APK gratis tersedia. Download lewat tombol APK di halaman ini, ukuran ringan dan smooth." }
+                "text": "Ya, APK gratis tersedia. Tekan tombol APK, ukuran ringan dan smooth di semua HP." }
             },
             {
-              "@type": "Question",
-              "name": "Metode pembayaran apa saja?",
+              "@type": "Question", "name": "Metode pembayaran apa saja?",
               "acceptedAnswer": { "@type": "Answer",
-                "text": "Transfer bank (BCA, BNI, BRI, Mandiri), e-wallet (Dana, OVO, GoPay, LinkAja), dan pulsa Telkomsel/XL." }
+                "text": "Bank BCA/BNI/BRI/Mandiri, e-wallet Dana/OVO/GoPay/LinkAja, pulsa Telkomsel/XL." }
+            },
+            {
+              "@type": "Question", "name": "Apakah Velosbet77 aman?",
+              "acceptedAnswer": { "@type": "Answer",
+                "text": "Ya, enkripsi SSL, RNG bersertifikat, data member terlindungi penuh." }
             }
           ]
         }
@@ -731,132 +618,150 @@
     </script>
 </head>
 <body>
-    <main class="tv-cabinet" aria-label="VelosBet77 Vintage TV">
+    <main class="console" aria-label="VelosBet77 Game Console">
 
-        <!-- Rabbit ear antennas -->
-        <div class="antennas" aria-hidden="true">
-            <div class="ant ant-l"></div>
-            <div class="ant-base"></div>
-            <div class="ant ant-r"></div>
+        <!-- Top bar: brand + power LED -->
+        <div class="top-bar">
+            <div class="console-brand">
+                VELOSBET77
+                <em>GAME BOY COLOR™</em>
+            </div>
+            <div class="power-group">
+                <div class="power-led"></div>
+                <span class="power-text">POWER</span>
+            </div>
         </div>
 
         <!-- Logo -->
-        <div class="logo-section" aria-label="Logo VelosBet77">
+        <div class="logo-wrap">
             <amp-img
                 src="https://ilililililllil.com.se/image-vault/uploads/20260806-110552-ced6a2a2.png"
-                width="250" height="60"
+                width="240" height="58"
                 alt="VelosBet77"
                 layout="intrinsic">
             </amp-img>
         </div>
 
-        <!-- CRT TV Screen -->
-        <div class="tv-screen-outer" aria-label="Layar TV Utama">
-            <div class="tv-screen-inner">
+        <!-- Screen unit -->
+        <div class="screen-unit">
+            <div class="screen-label">&#9670; GAME BOY COLOR &trade; &#9670;</div>
+
+            <div class="screen-glass">
                 <a href="https://sflink.my/velosbet77cuan" target="_blank" rel="nofollow noreferrer">
                     <amp-img
                         src="https://ilililililllil.com.se/image-vault/uploads/20260809-033400-38ec182e.jpg"
-                        alt="VelosBet77 — Slot Gacor Jackpot Maxwin"
+                        alt="VelosBet77 — Slot Gacor Jackpot"
                         layout="responsive"
                         width="500" height="500"
-                        class="main-img">
+                        class="game-img">
                     </amp-img>
                 </a>
-                <div class="marquee-overlay">
-                    <div class="marquee-text">
-                        ► JACKPOT MAXWIN SETIAP HARI &nbsp;|&nbsp; BONUS NEW MEMBER 100% &nbsp;|&nbsp; MIN DEPOSIT Rp 10.000 &nbsp;|&nbsp; RTP 99% HARI INI &nbsp;|&nbsp; WITHDRAW 3 MENIT &nbsp;|&nbsp; DAFTAR GRATIS &nbsp;|&nbsp; SERVER THAILAND &nbsp;|&nbsp; SLOT GACOR 777 ◄
+                <div class="dot-matrix"></div>
+                <div class="screen-vignette"></div>
+                <div class="screen-marquee">
+                    <div class="marquee-txt">
+                        &gt; JACKPOT MAXWIN &nbsp;|&nbsp; BONUS 100% &nbsp;|&nbsp; DEPOSIT 10RB &nbsp;|&nbsp; RTP 99% &nbsp;|&nbsp; WD 3 MENIT &nbsp;|&nbsp; SLOT GACOR 777 &nbsp;|&nbsp; DAFTAR GRATIS &lt;
                     </div>
                 </div>
-                <div class="crt-flicker"></div>
-                <div class="crt-overlay"></div>
+            </div>
+
+            <div class="screen-status">
+                <span>&#9670; VB77 ONLINE</span>
+                <span>RTP: 99% &nbsp;&#9670;&nbsp; CH:77</span>
             </div>
         </div>
 
-        <!-- Control panel: knob VOL + channel display + knob CH -->
-        <section class="control-panel" aria-hidden="true">
-            <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
-                <div class="tv-knob knob-vol"></div>
-                <span class="knob-label">VOL</span>
+        <!-- Controls: D-pad · center · ABXY -->
+        <div class="controls-area" aria-label="Kontrol">
+
+            <!-- D-Pad (decorative) -->
+            <div class="dpad-wrap" aria-hidden="true">
+                <div class="dpad">
+                    <div class="dpad-h"></div>
+                    <div class="dpad-v"></div>
+                </div>
+                <div class="dpad-arrows" aria-hidden="true">
+                    <span class="arr-up">&#9650;</span>
+                    <span class="arr-down">&#9660;</span>
+                    <span class="arr-left">&#9664;</span>
+                    <span class="arr-right">&#9654;</span>
+                </div>
             </div>
 
-            <div class="ch-display">
-                <div class="ch-freqs">7 &bull; 14 &bull; 21 &bull; 77 &bull; 99</div>
-                <div class="ch-needle"></div>
-                <div class="ch-now">CH 77 &middot; VELOS</div>
+            <!-- Center: Start/Select + speaker -->
+            <div class="center-ctrl">
+                <div class="start-select">
+                    <a href="https://sflink.my/velosbet77cuan"
+                       class="ss-btn-wrap"
+                       rel="nofollow noreferrer" target="_blank"
+                       aria-label="Login">
+                        <span class="ss-btn"></span>
+                        <span class="ss-label">SELECT</span>
+                    </a>
+                    <a href="https://sflink.my/velosbet77cuan"
+                       class="ss-btn-wrap"
+                       rel="nofollow noreferrer" target="_blank"
+                       aria-label="Alt Link">
+                        <span class="ss-btn"></span>
+                        <span class="ss-label">START</span>
+                    </a>
+                </div>
+                <div class="speaker-dots" aria-hidden="true"></div>
             </div>
 
-            <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
-                <div class="tv-knob knob-ch"></div>
-                <span class="knob-label">CHANNEL</span>
-            </div>
-        </section>
-
-        <!-- Power LED + brand plate -->
-        <div class="power-row" aria-hidden="true">
-            <div class="power-led-wrap">
-                <div class="power-led"></div>
-                <span class="power-label">POWER ON</span>
-            </div>
-            <div class="tv-brand-plate">VELOSBET77 &middot; COLOR TV</div>
-        </div>
-
-        <!-- Channel presets (CSS-only toggle) -->
-        <div class="ch-presets" aria-hidden="true">
-            <input type="radio" id="ch-idn"  name="channel" class="hidden-radio" checked>
-            <label for="ch-idn"  class="ch-btn">IDN</label>
-
-            <input type="radio" id="ch-thai" name="channel" class="hidden-radio">
-            <label for="ch-thai" class="ch-btn">THAI</label>
-
-            <input type="radio" id="ch-sgp"  name="channel" class="hidden-radio">
-            <label for="ch-sgp"  class="ch-btn">SGP</label>
-
-            <input type="radio" id="ch-vip"  name="channel" class="hidden-radio">
-            <label for="ch-vip"  class="ch-btn">VIP</label>
-        </div>
-
-        <!-- Action buttons -->
-        <nav class="action-btns" aria-label="Navigasi Utama">
-            <a href="https://sflink.my/velosbet77cuan"
-               class="btn-tv" rel="nofollow noreferrer" target="_blank"
-               aria-label="Daftar Akun Baru">
-                <span class="btn-icon">✚</span> Daftar
-            </a>
-
-            <a href="https://sflink.my/velosbet77cuan"
-               class="btn-tv" rel="nofollow noreferrer" target="_blank"
-               aria-label="Login ke Akun">
-                <span class="btn-icon">▶</span> Login
-            </a>
-
-            <a href="https://sflink.my/velosbet77cuan"
-               class="btn-tv btn-hot" rel="nofollow noreferrer" target="_blank"
-               aria-label="Link Alternatif">
-                <span class="btn-icon fire-icon">⚡</span> Alt Link
-            </a>
-
-            <a href="https://sflink.ink/apkgamesvelosbet77"
-               class="btn-tv btn-hot" rel="nofollow noreferrer" target="_blank"
-               aria-label="Download APK">
-                <span class="btn-icon fire-icon">⬇</span> APK
-            </a>
-
-            <div class="chat-wrapper">
+            <!-- ABXY diamond buttons (linked) -->
+            <div class="abxy-wrap" aria-label="Tombol Aksi">
+                <!-- X = DAFTAR (top) -->
                 <a href="https://sflink.my/velosbet77cuan"
-                   class="btn-tv btn-chat" rel="nofollow noreferrer" target="_blank"
-                   aria-label="Live Chat CS 24/7">
-                    <span class="btn-icon">◉</span> Live Chat CS 24/7
+                   class="game-btn btn-x"
+                   rel="nofollow noreferrer" target="_blank"
+                   aria-label="Daftar VelosBet77">
+                    <span class="btn-letter">X</span>
+                    <span class="btn-sublabel">DAFTAR</span>
+                </a>
+                <!-- Y = ALT (left) -->
+                <a href="https://sflink.my/velosbet77cuan"
+                   class="game-btn btn-y"
+                   rel="nofollow noreferrer" target="_blank"
+                   aria-label="Link Alternatif">
+                    <span class="btn-letter">Y</span>
+                    <span class="btn-sublabel">ALT</span>
+                </a>
+                <!-- A = LOGIN (right) -->
+                <a href="https://sflink.my/velosbet77cuan"
+                   class="game-btn btn-a"
+                   rel="nofollow noreferrer" target="_blank"
+                   aria-label="Login VelosBet77">
+                    <span class="btn-letter">A</span>
+                    <span class="btn-sublabel">LOGIN</span>
+                </a>
+                <!-- B = APK (bottom) -->
+                <a href="https://sflink.ink/apkgamesvelosbet77"
+                   class="game-btn btn-b"
+                   rel="nofollow noreferrer" target="_blank"
+                   aria-label="Download APK">
+                    <span class="btn-letter">B</span>
+                    <span class="btn-sublabel">APK</span>
                 </a>
             </div>
-        </nav>
+        </div>
 
-        <!-- Horizontal speaker grill -->
-        <div class="speaker-grill-h" aria-hidden="true"></div>
+        <!-- Full-width CS button -->
+        <div class="bottom-bar">
+            <a href="https://sflink.my/velosbet77cuan"
+               class="btn-cs"
+               rel="nofollow noreferrer" target="_blank"
+               aria-label="Live Chat CS 24/7">
+                <span class="live-dot"></span>
+                LIVE CHAT CS 24/7
+            </a>
+        </div>
 
-        <!-- TV footer tagline -->
-        <footer class="tv-footer">
-            <h1>Jackpot &amp; Maxwin Menanti Anda Disini !!!</h1>
-        </footer>
+        <!-- Bottom info -->
+        <div class="console-bottom" aria-hidden="true">
+            <span class="serial-num">SN: VB77-2026-IDN</span>
+            <span class="battery-icon">&#9646;&#9646;&#9646; BATT</span>
+        </div>
 
     </main>
 </body>
