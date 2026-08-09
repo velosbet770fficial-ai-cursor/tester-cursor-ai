@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo Kraken Abyss Popup</title><style>body{margin:0;font-family:Trebuchet MS,Segoe UI,sans-serif;background:linear-gradient(165deg,#06201c,#0a1620 45%,#102428);color:#e8fff8;min-height:100vh}main{max-width:760px;margin:0 auto;padding:28px 18px 80px}h1{margin:0 0 10px;font-size:28px}p,li{line-height:1.6;color:#9ec9bc}.card{margin-top:18px;padding:16px;border:1px solid rgba(30,230,193,.25);border-radius:14px;background:rgba(3,16,24,.55)}</style></head><body><main><h1>Demo halaman + Kraken Abyss Popup</h1><p>Bukan tornado. Tentakel bioluminescent + mata abyss + loot dari kedalaman. Overlay ringan; tutup = FX hilang total.</p><div class="card"><ul><li>Beranda</li><li>Promo</li><li>Kontak</li></ul></div></main>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo Kraken Abyss Popup</title><style>body{margin:0;font-family:Trebuchet MS,Segoe UI,sans-serif;background:linear-gradient(165deg,#06201c,#0a1620 45%,#102428);color:#e8fff8;min-height:100vh}main{max-width:760px;margin:0 auto;padding:28px 18px 80px}h1{margin:0 0 10px;font-size:28px}p,li{line-height:1.6;color:#9ec9bc}.card{margin-top:18px;padding:16px;border:1px solid rgba(30,230,193,.25);border-radius:14px;background:rgba(3,16,24,.55)}</style></head><body><main><h1>Demo halaman + Kraken Abyss Popup</h1><p>Tutup popup = modal hilang, tapi tentakel / mata / loot <b>tetap hidup</b> di halaman.</p><div class="card"><ul><li>Beranda</li><li>Promo</li><li>Kontak</li></ul></div></main>
 <!--
   DROP-IN: Popup + KRAKEN ABYSS — gaya total beda
-  Overlay TRANSPARAN · tutup = semua FX mati
+  Overlay TRANSPARAN · tutup popup = modal hilang, FX TETAP HIDUP
 -->
 <style>
   #kraken-root {
@@ -15,8 +15,7 @@
     --sub: #9ec9bc;
     font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
   }
-  #kraken-root.is-closed #popup-overlay,
-  #kraken-root.is-closed #fx {
+  #kraken-root.is-closed #popup-overlay {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -200,10 +199,6 @@
     z-index: 999998 !important; pointer-events: none !important;
     overflow: hidden !important; background: transparent !important;
   }
-  #kraken-root #fx.is-closed {
-    display: none !important; visibility: hidden !important;
-  }
-
   #kraken-root .abyss {
     position: absolute; left: 50%; bottom: -8vh; width: 70vw; height: 40vh;
     transform: translateX(-50%);
@@ -463,25 +458,11 @@
     return id;
   }
 
-  function stopAll() {
-    closed = true;
-    var i;
-    for (i = 0; i < timers.length; i++) clearInterval(timers[i]);
-    timers = [];
-    for (i = 0; i < timeouts.length; i++) clearTimeout(timeouts[i]);
-    timeouts = [];
-    if (fx) {
-      var kill = fx.querySelectorAll(".loot, .ink, .spark");
-      for (var k = 0; k < kill.length; k++) kill[k].remove();
-      fx.classList.add("is-closed");
-      fx.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
-    }
-  }
-
+  /* Tutup = modal saja hilang. Tentakel / mata / loot TETAP jalan. */
   function closePopup(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (closed) return;
-    stopAll();
+    closed = true;
     root.classList.add("is-closed");
     if (overlay) {
       overlay.classList.add("is-closed");
@@ -512,7 +493,7 @@
   var KINDS = ["coin", "pearl", "gem", "bubble", "skull", "star"];
 
   function loot() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     var kind = KINDS[Math.floor(Math.random() * KINDS.length)];
     el.className = "loot " + kind;
@@ -538,7 +519,7 @@
   }
 
   function ink() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     el.className = "ink";
     var size = 80 + Math.random() * 160;
@@ -551,7 +532,7 @@
   }
 
   function spark() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     el.className = "spark";
     el.style.left = (10 + Math.random() * 80) + "vw";
@@ -564,7 +545,6 @@
   }
 
   function burst() {
-    if (closed) return;
     for (var i = 0; i < 8; i++) loot();
     ink();
     for (var s = 0; s < 6; s++) spark();

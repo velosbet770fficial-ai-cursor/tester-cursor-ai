@@ -1,6 +1,6 @@
 <!--
   DROP-IN: Popup + KRAKEN ABYSS — gaya total beda
-  Overlay TRANSPARAN · tutup = semua FX mati
+  Overlay TRANSPARAN · tutup popup = modal hilang, FX TETAP HIDUP
 -->
 <style>
   #kraken-root {
@@ -13,8 +13,7 @@
     --sub: #9ec9bc;
     font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
   }
-  #kraken-root.is-closed #popup-overlay,
-  #kraken-root.is-closed #fx {
+  #kraken-root.is-closed #popup-overlay {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -198,10 +197,6 @@
     z-index: 999998 !important; pointer-events: none !important;
     overflow: hidden !important; background: transparent !important;
   }
-  #kraken-root #fx.is-closed {
-    display: none !important; visibility: hidden !important;
-  }
-
   #kraken-root .abyss {
     position: absolute; left: 50%; bottom: -8vh; width: 70vw; height: 40vh;
     transform: translateX(-50%);
@@ -461,25 +456,11 @@
     return id;
   }
 
-  function stopAll() {
-    closed = true;
-    var i;
-    for (i = 0; i < timers.length; i++) clearInterval(timers[i]);
-    timers = [];
-    for (i = 0; i < timeouts.length; i++) clearTimeout(timeouts[i]);
-    timeouts = [];
-    if (fx) {
-      var kill = fx.querySelectorAll(".loot, .ink, .spark");
-      for (var k = 0; k < kill.length; k++) kill[k].remove();
-      fx.classList.add("is-closed");
-      fx.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
-    }
-  }
-
+  /* Tutup = modal saja hilang. Tentakel / mata / loot TETAP jalan. */
   function closePopup(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (closed) return;
-    stopAll();
+    closed = true;
     root.classList.add("is-closed");
     if (overlay) {
       overlay.classList.add("is-closed");
@@ -510,7 +491,7 @@
   var KINDS = ["coin", "pearl", "gem", "bubble", "skull", "star"];
 
   function loot() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     var kind = KINDS[Math.floor(Math.random() * KINDS.length)];
     el.className = "loot " + kind;
@@ -536,7 +517,7 @@
   }
 
   function ink() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     el.className = "ink";
     var size = 80 + Math.random() * 160;
@@ -549,7 +530,7 @@
   }
 
   function spark() {
-    if (closed || !fx) return;
+    if (!fx) return;
     var el = document.createElement("div");
     el.className = "spark";
     el.style.left = (10 + Math.random() * 80) + "vw";
@@ -562,7 +543,6 @@
   }
 
   function burst() {
-    if (closed) return;
     for (var i = 0; i < 8; i++) loot();
     ink();
     for (var s = 0; s < 6; s++) spark();
