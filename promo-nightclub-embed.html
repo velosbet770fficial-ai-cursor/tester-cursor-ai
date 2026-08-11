@@ -1,19 +1,18 @@
 <!--
-  DROP-IN: Popup CLUB MALAM (neon / spotlight / strobe)
-  Overlay gelap transparan · tutup = modal hilang, lampu club tetap soft
+  DROP-IN: Popup CLUB MALAM WAH — disco ball, laser grid, strobe, confetti
+  Overlay gelap transparan · tutup = modal hilang, FX club TETAP HIDUP
 -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Syne:wght@700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@600;800&display=swap');
 
   #club-root {
-    --ink: #07060c;
-    --neon: #3dfff0;
-    --hot: #ff3d7f;
-    --gold: #ffd166;
-    --lime: #b8ff4a;
-    --foam: #f4f7ff;
-    --sub: #c9c2d8;
-    font-family: "Outfit", "Syne", sans-serif;
+    --neon: #2ef7ff;
+    --hot: #ff2d6f;
+    --gold: #ffd60a;
+    --lime: #c6ff3d;
+    --violet: #b44dff;
+    --foam: #fff8ff;
+    font-family: "Outfit", system-ui, sans-serif;
   }
   #club-root.is-closed #popup-overlay {
     display: none !important;
@@ -25,245 +24,310 @@
   #club-root #popup-overlay {
     position: fixed; inset: 0; z-index: 2147483647;
     display: flex; align-items: center; justify-content: center;
-    padding: 20px; box-sizing: border-box;
+    padding: 16px; box-sizing: border-box;
     background:
-      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(255,61,127,.18), transparent 50%),
-      radial-gradient(ellipse 70% 45% at 85% 20%, rgba(61,255,240,.14), transparent 52%),
-      radial-gradient(ellipse 90% 60% at 50% 100%, rgba(255,209,102,.1), transparent 55%),
-      rgba(4, 3, 10, .42);
-    backdrop-filter: blur(2px) saturate(1.25);
+      radial-gradient(ellipse 90% 55% at 15% 0%, rgba(255,45,111,.28), transparent 55%),
+      radial-gradient(ellipse 80% 50% at 90% 10%, rgba(46,247,255,.22), transparent 50%),
+      radial-gradient(ellipse 100% 70% at 50% 110%, rgba(180,77,255,.18), transparent 55%),
+      rgba(2, 2, 8, .38);
+    backdrop-filter: blur(1.5px) saturate(1.4);
     opacity: 0; visibility: hidden;
-    animation: club-in .45s ease .35s forwards;
+    animation: club-in .4s ease .25s forwards, club-beat 1.05s ease-in-out 1.2s infinite;
     overflow: hidden;
   }
-  #club-root #popup-overlay.is-closed {
-    display: none !important; animation: none !important;
-  }
+  #club-root #popup-overlay.is-closed { display: none !important; animation: none !important; }
   @keyframes club-in { to { opacity: 1; visibility: visible; } }
+  @keyframes club-beat {
+    0%,100% { filter: brightness(1) contrast(1); }
+    40% { filter: brightness(1.08) contrast(1.05); }
+    45% { filter: brightness(1.25) contrast(1.15); }
+    55% { filter: brightness(1.05); }
+  }
 
-  /* Spotlights behind modal */
-  #club-root .spot {
-    position: absolute; width: 42vw; height: 90vh; top: -10vh;
-    pointer-events: none; filter: blur(18px); opacity: .45;
-    mix-blend-mode: screen;
+  /* Floor grid */
+  #club-root .floor {
+    position: absolute; left: -10%; right: -10%; bottom: -5%; height: 42%;
+    background:
+      linear-gradient(90deg, rgba(46,247,255,.12) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255,45,111,.1) 1px, transparent 1px);
+    background-size: 48px 48px;
+    transform: perspective(420px) rotateX(58deg);
+    transform-origin: center bottom;
+    pointer-events: none;
+    animation: club-floor 1.05s ease-in-out infinite;
+    mask-image: linear-gradient(180deg, transparent, #000 35%, #000);
   }
-  #club-root .spot.s1 {
-    left: 8%;
-    background: linear-gradient(180deg, rgba(61,255,240,.55), transparent 70%);
-    transform-origin: top center;
-    animation: club-spot1 4.5s ease-in-out infinite;
+  @keyframes club-floor {
+    0%,100% { opacity: .35; filter: brightness(1); }
+    50% { opacity: .75; filter: brightness(1.4); }
   }
-  #club-root .spot.s2 {
-    right: 6%; left: auto;
-    background: linear-gradient(180deg, rgba(255,61,127,.5), transparent 70%);
-    transform-origin: top center;
-    animation: club-spot2 5.2s ease-in-out infinite .4s;
+
+  /* Disco ball */
+  #club-root .disco {
+    position: absolute; top: 4vh; left: 50%; width: 70px; height: 70px;
+    margin-left: -35px; border-radius: 50%;
+    background:
+      repeating-conic-gradient(from 0deg, #fff 0 8deg, #2ef7ff 8deg 16deg, #ff2d6f 16deg 24deg, #ffd60a 24deg 32deg);
+    box-shadow:
+      0 0 30px rgba(255,255,255,.7),
+      0 0 60px rgba(46,247,255,.5),
+      0 0 90px rgba(255,45,111,.35);
+    animation: club-disco 3.2s linear infinite;
+    pointer-events: none; z-index: 1;
   }
-  #club-root .spot.s3 {
-    left: 38%;
-    background: linear-gradient(180deg, rgba(255,209,102,.4), transparent 68%);
-    transform-origin: top center;
-    animation: club-spot3 3.8s ease-in-out infinite .2s;
+  #club-root .disco::after {
+    content: ""; position: absolute; left: 50%; top: -18px; width: 3px; height: 18px;
+    background: linear-gradient(#aaa, #666); transform: translateX(-50%);
   }
-  @keyframes club-spot1 {
-    0%,100% { transform: rotate(-18deg) skewX(-6deg); opacity: .35; }
-    50% { transform: rotate(12deg) skewX(4deg); opacity: .65; }
+  @keyframes club-disco { to { transform: rotate(360deg); } }
+
+  /* Big rotating beams from top */
+  #club-root .beam-wrap {
+    position: absolute; top: 7vh; left: 50%; width: 0; height: 0;
+    pointer-events: none; z-index: 0;
   }
-  @keyframes club-spot2 {
-    0%,100% { transform: rotate(16deg) skewX(5deg); opacity: .3; }
-    50% { transform: rotate(-14deg) skewX(-6deg); opacity: .7; }
+  #club-root .beam {
+    position: absolute; left: 0; top: 0; width: 10vw; height: 95vh;
+    margin-left: -5vw;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(46,247,255,.2) 35%, transparent 75%);
+    transform-origin: 50% 0;
+    filter: blur(8px); opacity: .55; mix-blend-mode: screen;
   }
-  @keyframes club-spot3 {
-    0%,100% { transform: rotate(-4deg) scaleX(.85); opacity: .25; }
-    50% { transform: rotate(6deg) scaleX(1.15); opacity: .55; }
+  #club-root .beam.b1 { animation: club-beam 5s linear infinite; background: linear-gradient(180deg, rgba(46,247,255,.7), transparent 70%); }
+  #club-root .beam.b2 { animation: club-beam 5s linear infinite reverse; background: linear-gradient(180deg, rgba(255,45,111,.65), transparent 70%); }
+  #club-root .beam.b3 { animation: club-beam 3.6s linear infinite; background: linear-gradient(180deg, rgba(255,214,10,.55), transparent 70%); width: 7vw; margin-left: -3.5vw; }
+  #club-root .beam.b4 { animation: club-beam 4.2s linear infinite reverse; background: linear-gradient(180deg, rgba(180,77,255,.5), transparent 70%); width: 8vw; margin-left: -4vw; }
+  #club-root .beam.b5 { animation: club-beam 6s linear infinite; background: linear-gradient(180deg, rgba(198,255,61,.45), transparent 70%); }
+  @keyframes club-beam {
+    0% { transform: rotate(-50deg); }
+    100% { transform: rotate(50deg); }
   }
 
   #club-root .strobe {
-    position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(circle at 50% 40%, rgba(244,247,255,.22), transparent 42%);
-    opacity: 0; animation: club-strobe 2.8s ease-in-out infinite;
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.35), transparent 40%);
+    opacity: 0; animation: club-strobe 1.8s steps(1,end) infinite;
   }
   @keyframes club-strobe {
-    0%,72%,78%,86%,100% { opacity: 0; }
-    74% { opacity: .55; }
-    76% { opacity: .08; }
-    80% { opacity: .35; }
-    82% { opacity: 0; }
+    0%,68%,71%,74%,100% { opacity: 0; }
+    69% { opacity: .7; }
+    70% { opacity: 0; }
+    72% { opacity: .45; }
+    73% { opacity: 0; }
+  }
+
+  #club-root .orb {
+    position: absolute; border-radius: 50%; pointer-events: none; filter: blur(2px);
+    mix-blend-mode: screen; opacity: .7;
+    animation: club-orb 7s ease-in-out infinite;
+  }
+  #club-root .orb.o1 { width: 120px; height: 120px; left: 8%; top: 20%; background: radial-gradient(circle, rgba(46,247,255,.7), transparent 70%); }
+  #club-root .orb.o2 { width: 160px; height: 160px; right: 6%; top: 30%; background: radial-gradient(circle, rgba(255,45,111,.65), transparent 70%); animation-delay: -2s; }
+  #club-root .orb.o3 { width: 100px; height: 100px; left: 40%; bottom: 12%; background: radial-gradient(circle, rgba(255,214,10,.55), transparent 70%); animation-delay: -3.5s; }
+  @keyframes club-orb {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px,-40px) scale(1.25); }
   }
 
   #club-root .popup-backdrop {
     position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
-    background: transparent; cursor: pointer; z-index: 0;
+    background: transparent; cursor: pointer; z-index: 2;
   }
 
   #club-root .popup-box {
-    position: relative; z-index: 2; width: min(400px, 93vw);
-    padding: 18px 18px 16px;
-    border-radius: 22px;
-    text-align: center;
-    background:
-      radial-gradient(circle at 50% -10%, rgba(61,255,240,.16), transparent 42%),
-      radial-gradient(circle at 100% 100%, rgba(255,61,127,.14), transparent 40%),
-      linear-gradient(165deg, #14101f 0%, #0a0812 55%, #120c1a 100%);
-    border: 1.5px solid rgba(61,255,240,.45);
+    position: relative; z-index: 5; width: min(390px, 94vw);
+    padding: 16px 16px 14px; border-radius: 20px; text-align: center;
+    background: linear-gradient(165deg, #160d22 0%, #08060f 55%, #120a1a 100%);
+    border: 2px solid rgba(46,247,255,.65);
     box-shadow:
-      0 0 0 1px rgba(255,61,127,.18) inset,
-      0 0 40px rgba(61,255,240,.22),
-      0 0 70px rgba(255,61,127,.12),
-      0 24px 50px rgba(0,0,0,.55);
-    overflow: hidden;
+      0 0 0 1px rgba(255,45,111,.25) inset,
+      0 0 50px rgba(46,247,255,.45),
+      0 0 90px rgba(255,45,111,.3),
+      0 0 140px rgba(255,214,10,.12),
+      0 25px 60px rgba(0,0,0,.6);
+    overflow: visible;
     animation:
-      club-pop .7s cubic-bezier(.2,1.35,.3,1) .35s backwards,
-      club-bass 1.1s ease-in-out 1.1s infinite;
+      club-pop .65s cubic-bezier(.15,1.5,.35,1) .25s backwards,
+      club-shake 2.2s ease-in-out 1s infinite;
   }
   #club-root .popup-box::before {
-    content: ""; position: absolute; inset: -2px; z-index: 0; pointer-events: none;
-    border-radius: 24px;
-    background: conic-gradient(from 0deg, #3dfff0, #ff3d7f, #ffd166, #3dfff0, #ff3d7f);
-    opacity: .35; filter: blur(16px);
-    animation: club-spin 4s linear infinite;
+    content: ""; position: absolute; inset: -8px; z-index: -1; border-radius: 26px;
+    background: conic-gradient(from 0deg, #2ef7ff, #ff2d6f, #ffd60a, #b44dff, #2ef7ff, #ff2d6f);
+    filter: blur(18px); opacity: .75;
+    animation: club-spin 2.4s linear infinite;
+  }
+  #club-root .ring {
+    position: absolute; inset: -14px; border-radius: 28px; pointer-events: none; z-index: -1;
+    border: 2px solid transparent;
+    background:
+      linear-gradient(#08060f, #08060f) padding-box,
+      conic-gradient(from var(--a,0deg), #2ef7ff, transparent 25%, #ff2d6f, transparent 55%, #ffd60a, transparent 80%, #2ef7ff) border-box;
+    animation: club-ring 2s linear infinite;
+    opacity: .9;
+  }
+  @keyframes club-ring { to { --a: 360deg; transform: rotate(360deg); } }
+  @property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
   }
   #club-root .popup-box::after {
-    content: ""; position: absolute; inset: 2px; z-index: 0; pointer-events: none;
-    border-radius: 20px;
+    content: ""; position: absolute; inset: 2px; z-index: 0; border-radius: 18px; pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(244,247,255,.06), transparent 28%),
-      rgba(8,6,14,.94);
+      linear-gradient(180deg, rgba(255,255,255,.08), transparent 30%),
+      rgba(8,6,14,.95);
   }
   @keyframes club-spin { to { transform: rotate(360deg); } }
   @keyframes club-pop {
-    0% { transform: scale(.4) translateY(40px); opacity: 0; filter: blur(8px); }
-    70% { transform: scale(1.04) translateY(-4px); filter: blur(0); }
+    0% { transform: scale(.2) rotate(-12deg); opacity: 0; filter: blur(12px); }
+    65% { transform: scale(1.08) rotate(2deg); filter: blur(0); }
     100% { transform: none; opacity: 1; }
   }
-  @keyframes club-bass {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.012); }
+  @keyframes club-shake {
+    0%,100% { transform: translate(0,0) rotate(0); }
+    20% { transform: translate(-2px,1px) rotate(-.4deg); }
+    40% { transform: translate(2px,-1px) rotate(.5deg); }
+    60% { transform: translate(-1px,-2px) rotate(-.3deg); }
+    80% { transform: translate(1px,2px) rotate(.3deg); }
   }
   #club-root .popup-box > * { position: relative; z-index: 1; }
 
   #club-root .eq {
-    position: absolute; left: 14px; right: 14px; bottom: 10px; height: 28px;
-    display: flex; align-items: flex-end; justify-content: center; gap: 3px;
-    pointer-events: none; opacity: .55; z-index: 2;
+    position: absolute; left: 12px; right: 12px; bottom: 6px; height: 34px;
+    display: flex; align-items: flex-end; justify-content: center; gap: 2px;
+    pointer-events: none; opacity: .7; z-index: 3;
   }
   #club-root .eq i {
-    display: block; width: 4px; border-radius: 2px;
-    background: linear-gradient(180deg, var(--neon), var(--hot));
-    animation: club-eq 0.55s ease-in-out infinite;
+    display: block; width: 3px; border-radius: 2px; min-height: 4px;
+    background: linear-gradient(180deg, #2ef7ff, #ff2d6f);
+    animation: club-eq .42s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(46,247,255,.8);
   }
-  #club-root .eq i:nth-child(odd) { animation-duration: .4s; background: linear-gradient(180deg, var(--gold), var(--hot)); }
-  #club-root .eq i:nth-child(3n) { animation-duration: .7s; }
+  #club-root .eq i:nth-child(odd) { animation-duration: .32s; background: linear-gradient(180deg, #ffd60a, #ff2d6f); }
+  #club-root .eq i:nth-child(3n) { animation-duration: .55s; }
+  #club-root .eq i:nth-child(4n) { animation-duration: .28s; }
   @keyframes club-eq {
-    0%,100% { height: 6px; opacity: .5; }
-    50% { height: 26px; opacity: 1; }
+    0%,100% { height: 5px; opacity: .45; }
+    50% { height: 32px; opacity: 1; }
   }
 
   #club-root .popup-close {
-    position: absolute; top: -14px; right: -14px; width: 48px; height: 48px;
-    border-radius: 50%; border: 2px solid var(--foam);
-    background: radial-gradient(circle at 35% 30%, #ffd166, #ff3d7f 55%, #3a1030);
-    color: #fff; font-size: 22px; font-weight: 800; cursor: pointer;
+    position: absolute; top: -18px; right: -18px; width: 52px; height: 52px;
+    border-radius: 50%; border: 2px solid #fff;
+    background: radial-gradient(circle at 30% 25%, #ffd60a, #ff2d6f 50%, #5a1038);
+    color: #fff; font-size: 24px; font-weight: 800; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 24px rgba(255,61,127,.85), 0 0 12px rgba(61,255,240,.45);
-    z-index: 30; padding: 0; line-height: 1;
-    animation: club-btn 1s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(255,45,111,1), 0 0 16px #2ef7ff;
+    z-index: 40; padding: 0; line-height: 1;
+    animation: club-x .8s ease-in-out infinite;
   }
-  @keyframes club-btn {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.1) rotate(-8deg); }
+  @keyframes club-x {
+    0%,100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.15) rotate(-12deg); }
   }
-  #club-root .popup-close:hover { transform: scale(1.15) rotate(90deg); animation: none; }
+  #club-root .popup-close:hover { transform: scale(1.2) rotate(90deg); animation: none; }
 
   #club-root .popup-img-wrap {
-    position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 1/1;
-    border: 2px solid rgba(61,255,240,.4);
-    box-shadow: 0 0 28px rgba(255,61,127,.25), 0 0 20px rgba(61,255,240,.2);
+    position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 1/1;
+    border: 2px solid rgba(46,247,255,.55);
+    box-shadow: 0 0 35px rgba(255,45,111,.4), 0 0 25px rgba(46,247,255,.35);
+    animation: club-img 1.6s ease-in-out infinite;
+  }
+  @keyframes club-img {
+    0%,100% { filter: saturate(1.15) contrast(1.05); }
+    50% { filter: saturate(1.45) contrast(1.2) brightness(1.08); }
   }
   #club-root .popup-img-wrap::before {
     content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
     background:
-      linear-gradient(180deg, transparent 40%, rgba(7,6,12,.7)),
-      radial-gradient(circle at 30% 20%, rgba(61,255,240,.18), transparent 40%);
+      linear-gradient(180deg, transparent 35%, rgba(8,6,14,.75)),
+      radial-gradient(circle at 70% 15%, rgba(255,214,10,.25), transparent 35%);
   }
   #club-root .popup-img-wrap::after {
-    content: ""; position: absolute; inset: -30%; z-index: 2; pointer-events: none;
-    background: linear-gradient(115deg, transparent 40%, rgba(255,209,102,.35) 48%, transparent 56%);
-    animation: club-shine 2.2s ease-in-out infinite;
+    content: ""; position: absolute; inset: -40%; z-index: 2; pointer-events: none;
+    background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.45) 48%, transparent 58%);
+    animation: club-shine 1.6s ease-in-out infinite;
   }
   @keyframes club-shine {
-    0%,100% { transform: translateX(-35%) skewX(-14deg); opacity: 0; }
-    40% { opacity: 1; }
-    70% { transform: translateX(35%) skewX(-14deg); opacity: 0; }
+    0%,100% { transform: translateX(-40%) skewX(-16deg); opacity: 0; }
+    35% { opacity: 1; }
+    70% { transform: translateX(40%) skewX(-16deg); opacity: 0; }
   }
   #club-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   #club-root .popup-badge {
-    position: absolute; left: 12px; bottom: 12px; z-index: 3;
-    font-family: "Syne", sans-serif;
-    font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
-    color: #07060c;
-    background: linear-gradient(90deg, #3dfff0, #ffd166, #ff3d7f);
-    padding: 7px 12px; border-radius: 999px;
-    box-shadow: 0 0 18px rgba(61,255,240,.5);
-    animation: club-badge .85s ease-in-out infinite;
+    position: absolute; left: 10px; bottom: 10px; z-index: 3;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 15px; letter-spacing: .18em;
+    color: #08060f;
+    background: linear-gradient(90deg, #2ef7ff, #ffd60a, #ff2d6f);
+    background-size: 200% 100%;
+    padding: 8px 14px; border-radius: 999px;
+    box-shadow: 0 0 22px rgba(255,214,10,.7);
+    animation: club-badge .7s ease-in-out infinite, club-grad 2s linear infinite;
   }
   @keyframes club-badge {
-    0%,100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-3px) scale(1.05); }
+    0%,100% { transform: scale(1) rotate(-2deg); }
+    50% { transform: scale(1.08) rotate(2deg); }
   }
+  @keyframes club-grad { to { background-position: 200% 0; } }
 
   #club-root .popup-title {
-    margin: 14px 0 4px;
-    font-family: "Syne", sans-serif;
-    font-size: 26px; font-weight: 800; letter-spacing: 1px;
-    color: var(--foam);
+    margin: 12px 0 2px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 42px; letter-spacing: 3px; line-height: 1;
+    color: #fff;
     text-shadow:
-      0 0 16px rgba(61,255,240,.85),
-      0 0 28px rgba(255,61,127,.4);
-    animation: club-title 1.2s ease-in-out infinite;
+      0 0 12px #2ef7ff,
+      0 0 28px #ff2d6f,
+      0 0 48px rgba(255,214,10,.5);
+    animation: club-title .9s ease-in-out infinite;
   }
   @keyframes club-title {
-    0%,100% { letter-spacing: 1px; filter: brightness(1); }
-    50% { letter-spacing: 2.2px; filter: brightness(1.25); }
+    0%,100% { transform: scale(1); filter: hue-rotate(0deg); }
+    50% { transform: scale(1.05); filter: hue-rotate(18deg); }
   }
   #club-root .popup-sub {
-    margin: 0 0 14px; font-size: 13px; color: var(--sub); line-height: 1.45;
+    margin: 0 0 12px; font-size: 13px; color: #d6cce8; font-weight: 600;
   }
 
-  #club-root .popup-buttons { display: flex; gap: 10px; margin-bottom: 8px; }
+  #club-root .popup-buttons { display: flex; gap: 10px; margin-bottom: 6px; }
   #club-root .popup-btn {
-    flex: 1; padding: 14px 0; border-radius: 999px;
-    font-size: 14px; font-weight: 800; letter-spacing: 1.5px;
+    flex: 1; padding: 15px 0; border-radius: 999px;
+    font-size: 15px; font-weight: 800; letter-spacing: 2px;
     text-decoration: none; text-align: center; text-transform: uppercase;
     transition: transform .15s;
   }
-  #club-root .popup-btn:hover { transform: translateY(-3px) scale(1.03); }
+  #club-root .popup-btn:hover { transform: translateY(-4px) scale(1.05); }
   #club-root .btn-login {
-    background: transparent; color: var(--neon);
-    border: 2px solid var(--neon);
-    box-shadow: 0 0 16px rgba(61,255,240,.35);
+    background: #08060f; color: #2ef7ff; border: 2px solid #2ef7ff;
+    box-shadow: 0 0 22px rgba(46,247,255,.55);
+    animation: club-login 1s ease-in-out infinite;
+  }
+  @keyframes club-login {
+    0%,100% { box-shadow: 0 0 14px rgba(46,247,255,.4); }
+    50% { box-shadow: 0 0 32px rgba(46,247,255,.9), 0 0 14px #fff; }
   }
   #club-root .btn-daftar {
-    color: #07060c; border: none;
-    background: linear-gradient(135deg, #3dfff0, #ffd166 45%, #ff3d7f);
-    box-shadow: 0 0 28px rgba(255,61,127,.45);
-    animation: club-cta .9s ease-in-out infinite;
+    color: #08060f; border: none;
+    background: linear-gradient(120deg, #2ef7ff, #ffd60a 40%, #ff2d6f 75%, #b44dff);
+    background-size: 250% 100%;
+    box-shadow: 0 0 34px rgba(255,45,111,.7);
+    animation: club-cta .75s ease-in-out infinite, club-grad 2.2s linear infinite;
   }
   @keyframes club-cta {
-    0%,100% { box-shadow: 0 0 14px rgba(61,255,240,.4); transform: scale(1); }
-    50% { box-shadow: 0 0 32px rgba(255,61,127,.75), 0 0 18px #ffd166; transform: scale(1.04); }
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
   }
 
   #club-root .popup-footer {
-    font-size: 11px; color: #9a92b0; line-height: 1.5; padding-bottom: 18px;
+    font-size: 11px; color: #a89cbc; line-height: 1.45; padding-bottom: 22px; font-weight: 600;
   }
   #club-root .popup-footer b {
-    color: var(--gold);
-    text-shadow: 0 0 10px rgba(255,209,102,.55);
+    color: #ffd60a; text-shadow: 0 0 12px rgba(255,214,10,.8);
   }
 
-  /* FX layer — laser / sparkles di halaman */
+  /* FX full screen */
   #club-root #fx {
     position: fixed !important; inset: 0 !important;
     width: 100vw !important; height: 100vh !important;
@@ -271,61 +335,83 @@
     overflow: hidden !important; background: transparent !important;
   }
   #club-root .laser {
-    position: absolute; height: 2px; border-radius: 2px;
-    background: linear-gradient(90deg, transparent, var(--c, #3dfff0), transparent);
-    box-shadow: 0 0 12px var(--c, #3dfff0);
-    animation: club-laser .55s ease-out forwards;
-    opacity: .85;
+    position: absolute; height: 3px; border-radius: 3px;
+    background: linear-gradient(90deg, transparent, var(--c,#2ef7ff), #fff, var(--c,#2ef7ff), transparent);
+    box-shadow: 0 0 16px var(--c,#2ef7ff), 0 0 28px var(--c,#2ef7ff);
+    animation: club-laser .5s ease-out forwards;
   }
   @keyframes club-laser {
-    0% { transform: scaleX(.1) rotate(var(--ang)); opacity: 0; }
-    30% { opacity: .95; }
-    100% { transform: scaleX(1.3) rotate(var(--ang)) translateX(var(--len)); opacity: 0; }
+    0% { transform: scaleX(.08) rotate(var(--ang)); opacity: 0; }
+    25% { opacity: 1; }
+    100% { transform: scaleX(1.4) rotate(var(--ang)) translateX(var(--len)); opacity: 0; }
   }
   #club-root .spark {
-    position: absolute; width: 5px; height: 5px; border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 10px 2px var(--c, #ffd166);
-    animation: club-spark .7s ease-out forwards;
+    position: absolute; width: 6px; height: 6px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 14px 4px var(--c,#ffd60a);
+    animation: club-spark .75s ease-out forwards;
   }
   @keyframes club-spark {
-    0% { transform: translate(0,0) scale(.4); opacity: 0; }
-    20% { opacity: 1; }
+    0% { transform: translate(0,0) scale(.3); opacity: 0; }
+    15% { opacity: 1; }
     100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+  }
+  #club-root .confetti {
+    position: absolute; width: 8px; height: 12px; border-radius: 2px;
+    background: var(--c,#ff2d6f);
+    box-shadow: 0 0 10px var(--c,#ff2d6f);
+    animation: club-conf 2.2s linear forwards;
+  }
+  @keyframes club-conf {
+    0% { transform: translate3d(0,0,0) rotate(0) scale(1); opacity: 0; }
+    8% { opacity: 1; }
+    100% { transform: translate3d(var(--dx), 105vh, 0) rotate(var(--spin)) scale(.6); opacity: 0; }
+  }
+  #club-root .flashbang {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.55), transparent 45%);
+    animation: club-fb .35s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes club-fb {
+    0% { opacity: .8; }
+    100% { opacity: 0; }
   }
 </style>
 
 <div id="club-root">
   <div id="popup-overlay">
-    <div class="spot s1"></div>
-    <div class="spot s2"></div>
-    <div class="spot s3"></div>
+    <div class="floor"></div>
+    <div class="disco"></div>
+    <div class="beam-wrap">
+      <div class="beam b1"></div>
+      <div class="beam b2"></div>
+      <div class="beam b3"></div>
+      <div class="beam b4"></div>
+      <div class="beam b5"></div>
+    </div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
     <div class="strobe"></div>
     <button type="button" class="popup-backdrop" id="club-close-bg" aria-label="Tutup"></button>
     <div class="popup-box">
+      <div class="ring"></div>
       <button type="button" class="popup-close" id="club-close-btn" aria-label="Tutup">✕</button>
       <div class="popup-img-wrap">
         <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEjA0X8bAuStiu0kj906_JUJqMUWXo19KNH9B3PqLGQixo70sDDwxKLQWIskOhmCok-T4UPI4OLUMXVmfQG1G0GXr_pPfJKBaZq8YBAL70EIP_cwRdU2uDspQ0bNr-Rcr5K7BI1qOn_CqJgJTtSxWU04XUDJF8yGOtAzlpdkQvO7Z12gtTjt8dfuMpa6rTMC=w642-h642" alt="Promo">
-        <span class="popup-badge">Club Night</span>
+        <span class="popup-badge">VIP CLUB</span>
       </div>
       <div class="popup-title">BONUS MEMBER BARU!</div>
-      <p class="popup-sub">Masuk ke lantai dansa — klaim bonus deposit pertamamu</p>
+      <p class="popup-sub">Tonight only — masuk dancefloor &amp; klaim depo pertama</p>
       <div class="popup-buttons">
         <a class="popup-btn btn-login" href="https://al-amwal-staimasi-masasih.pages.dev/">LOGIN</a>
         <a class="popup-btn btn-daftar" href="https://al-amwal-staimasi-masasih.pages.dev/">DAFTAR</a>
       </div>
       <div class="popup-footer">
-        <b>Slot Depo 5K</b> · Metode QRIS<br>
-        <span>© 2026 Club Night Promo</span>
+        <b>Slot Depo 5K</b> · QRIS Instant<br>
+        <span>© 2026 Night Club Promo</span>
       </div>
-      <div class="eq" aria-hidden="true">
-        <i style="animation-delay:0s"></i><i style="animation-delay:.05s"></i>
-        <i style="animation-delay:.1s"></i><i style="animation-delay:.15s"></i>
-        <i style="animation-delay:.2s"></i><i style="animation-delay:.08s"></i>
-        <i style="animation-delay:.18s"></i><i style="animation-delay:.03s"></i>
-        <i style="animation-delay:.12s"></i><i style="animation-delay:.22s"></i>
-        <i style="animation-delay:.07s"></i><i style="animation-delay:.16s"></i>
-      </div>
+      <div class="eq" id="club-eq" aria-hidden="true"></div>
     </div>
   </div>
   <div id="fx"></div>
@@ -337,12 +423,21 @@
   if (!root) return;
   var overlay = document.getElementById("popup-overlay");
   var fx = root.querySelector("#fx");
+  var eq = document.getElementById("club-eq");
   var timers = [];
   var closed = false;
-  var COLORS = ["#3dfff0", "#ff3d7f", "#ffd166", "#b8ff4a", "#ffffff"];
+  var COLORS = ["#2ef7ff", "#ff2d6f", "#ffd60a", "#c6ff3d", "#b44dff", "#ffffff"];
 
-  function closePopup(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
+  if (eq) {
+    for (var e = 0; e < 28; e++) {
+      var bar = document.createElement("i");
+      bar.style.animationDelay = (Math.random() * 0.4) + "s";
+      eq.appendChild(bar);
+    }
+  }
+
+  function closePopup(ev) {
+    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
     if (closed) return;
     closed = true;
     root.classList.add("is-closed");
@@ -350,16 +445,13 @@
       overlay.classList.add("is-closed");
       overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
     }
-    /* laser/spark tetap jalan soft di halaman */
   }
 
   var b1 = document.getElementById("club-close-btn");
   var b2 = document.getElementById("club-close-bg");
   if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
   if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closePopup(e);
-  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePopup(e); });
 
   function laser() {
     if (!fx) return;
@@ -367,13 +459,13 @@
     el.className = "laser";
     var c = COLORS[Math.floor(Math.random() * COLORS.length)];
     el.style.setProperty("--c", c);
-    el.style.setProperty("--ang", (Math.random() * 50 - 25) + "deg");
-    el.style.setProperty("--len", (40 + Math.random() * 80) + "px");
-    el.style.left = (8 + Math.random() * 84) + "vw";
-    el.style.top = (10 + Math.random() * 75) + "vh";
-    el.style.width = (90 + Math.random() * 160) + "px";
+    el.style.setProperty("--ang", (Math.random() * 70 - 35) + "deg");
+    el.style.setProperty("--len", (50 + Math.random() * 100) + "px");
+    el.style.left = (Math.random() * 95) + "vw";
+    el.style.top = (5 + Math.random() * 80) + "vh";
+    el.style.width = (100 + Math.random() * 200) + "px";
     fx.appendChild(el);
-    setTimeout(function () { if (el.parentNode) el.remove(); }, 600);
+    setTimeout(function () { if (el.parentNode) el.remove(); }, 520);
   }
 
   function spark() {
@@ -382,16 +474,46 @@
     el.className = "spark";
     var c = COLORS[Math.floor(Math.random() * COLORS.length)];
     el.style.setProperty("--c", c);
-    el.style.setProperty("--dx", (Math.random() * 80 - 40) + "px");
-    el.style.setProperty("--dy", (-30 - Math.random() * 70) + "px");
-    el.style.left = (5 + Math.random() * 90) + "vw";
-    el.style.top = (15 + Math.random() * 70) + "vh";
+    el.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+    el.style.setProperty("--dy", (-40 - Math.random() * 100) + "px");
+    el.style.left = (Math.random() * 100) + "vw";
+    el.style.top = (Math.random() * 85) + "vh";
     fx.appendChild(el);
-    setTimeout(function () { if (el.parentNode) el.remove(); }, 750);
+    setTimeout(function () { if (el.parentNode) el.remove(); }, 780);
   }
 
-  for (var i = 0; i < 12; i++) setTimeout(function () { laser(); spark(); spark(); }, i * 60);
-  timers.push(setInterval(function () { laser(); laser(); }, 140));
-  timers.push(setInterval(function () { spark(); spark(); spark(); }, 90));
+  function confetti() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    el.className = "confetti";
+    var c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    el.style.setProperty("--c", c);
+    el.style.setProperty("--dx", (Math.random() * 80 - 40) + "px");
+    el.style.setProperty("--spin", (Math.random() * 720 - 360) + "deg");
+    el.style.left = (Math.random() * 100) + "vw";
+    el.style.top = (-5 - Math.random() * 10) + "vh";
+    el.style.width = (6 + Math.random() * 8) + "px";
+    el.style.height = (8 + Math.random() * 12) + "px";
+    el.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
+    fx.appendChild(el);
+    setTimeout(function () { if (el.parentNode) el.remove(); }, 3200);
+  }
+
+  function burst() {
+    if (!fx) return;
+    var bang = document.createElement("div");
+    bang.className = "flashbang";
+    fx.appendChild(bang);
+    setTimeout(function () { if (bang.parentNode) bang.remove(); }, 380);
+    for (var i = 0; i < 18; i++) { laser(); spark(); spark(); }
+    for (var j = 0; j < 16; j++) confetti();
+  }
+
+  for (var i = 0; i < 20; i++) setTimeout(function () { laser(); spark(); confetti(); }, i * 35);
+  setTimeout(burst, 300);
+  timers.push(setInterval(function () { laser(); laser(); laser(); laser(); }, 55));
+  timers.push(setInterval(function () { spark(); spark(); spark(); spark(); spark(); }, 40));
+  timers.push(setInterval(function () { confetti(); confetti(); confetti(); }, 70));
+  timers.push(setInterval(burst, 1600));
 })();
 </script>
