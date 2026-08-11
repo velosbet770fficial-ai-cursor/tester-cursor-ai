@@ -1,0 +1,443 @@
+<!--
+  DROP-IN: Popup ROULETTE CASINO — roda putar, chip, bola, felt
+  Overlay transparan · tutup = modal hilang, FX chip/bola TETAP HIDUP
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@600;700;800&display=swap');
+
+  #rl-root {
+    --felt: #0b3d2e;
+    --felt2: #06261c;
+    --gold: #f0c75e;
+    --gold2: #c9a227;
+    --red: #e11d48;
+    --black: #121212;
+    --green: #16a34a;
+    --cream: #fff6e0;
+    --ink: #06140f;
+    font-family: "DM Sans", system-ui, sans-serif;
+  }
+
+  #rl-root.is-closed #popup-overlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #rl-root #popup-overlay {
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; box-sizing: border-box;
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 100%, rgba(15,100,70,.35), transparent 55%),
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(240,199,94,.12), transparent 50%),
+      rgba(3, 12, 9, .32);
+    backdrop-filter: blur(1.5px);
+    opacity: 0; visibility: hidden;
+    animation: rl-in .4s ease .3s forwards;
+    overflow: hidden;
+  }
+  #rl-root #popup-overlay.is-closed { display: none !important; animation: none !important; }
+  @keyframes rl-in { to { opacity: 1; visibility: visible; } }
+
+  /* Felt table backdrop */
+  #rl-root .felt {
+    position: absolute; inset: 8% 6% 6%;
+    border-radius: 40% / 28%;
+    background:
+      radial-gradient(ellipse at 50% 40%, #146b4d 0%, #0b3d2e 45%, #06261c 100%);
+    box-shadow:
+      inset 0 0 80px rgba(0,0,0,.45),
+      0 0 60px rgba(20,107,77,.35),
+      0 0 0 10px #1a1208,
+      0 0 0 14px #f0c75e;
+    opacity: .55; pointer-events: none;
+    filter: blur(.2px);
+    animation: rl-felt 3s ease-in-out infinite;
+  }
+  @keyframes rl-felt {
+    0%,100% { transform: scale(1); opacity: .5; }
+    50% { transform: scale(1.02); opacity: .65; }
+  }
+
+  /* Big spinning roulette behind modal */
+  #rl-root .wheel-wrap {
+    position: absolute; left: 50%; top: 46%;
+    width: min(92vw, 520px); height: min(92vw, 520px);
+    transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 0; opacity: .85;
+  }
+  #rl-root .wheel {
+    width: 100%; height: 100%; border-radius: 50%;
+    background:
+      repeating-conic-gradient(
+        from 0deg,
+        #e11d48 0deg 9.73deg,
+        #121212 9.73deg 19.46deg
+      );
+    box-shadow:
+      0 0 0 14px #1a1208,
+      0 0 0 18px #f0c75e,
+      0 0 0 26px #3a2a12,
+      0 0 50px rgba(240,199,94,.45),
+      inset 0 0 40px rgba(0,0,0,.5);
+    animation: rl-spin 8s linear infinite;
+    position: relative;
+  }
+  #rl-root .wheel::before {
+    content: ""; position: absolute; inset: 18%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, #f0c75e 0 12%, #1a1208 13% 28%, #0b3d2e 29% 100%);
+    box-shadow: inset 0 0 20px rgba(0,0,0,.5), 0 0 20px rgba(240,199,94,.4);
+  }
+  #rl-root .wheel::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: repeating-conic-gradient(from 4deg, transparent 0 8deg, rgba(255,255,255,.08) 8deg 9deg);
+  }
+  @keyframes rl-spin { to { transform: rotate(360deg); } }
+
+  #rl-root .ball-track {
+    position: absolute; inset: 6%; border-radius: 50%;
+    animation: rl-ball 2.8s linear infinite;
+    pointer-events: none;
+  }
+  #rl-root .ball {
+    position: absolute; top: 0; left: 50%; width: 14px; height: 14px;
+    margin-left: -7px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #d0d0d0 50%, #777);
+    box-shadow: 0 0 12px rgba(255,255,255,.9), 0 2px 6px rgba(0,0,0,.5);
+  }
+  @keyframes rl-ball { to { transform: rotate(-720deg); } }
+
+  #rl-root .popup-backdrop {
+    position: absolute; inset: 0; border: 0; margin: 0; padding: 0;
+    background: transparent; cursor: pointer; z-index: 1;
+  }
+
+  #rl-root .popup-box {
+    position: relative; z-index: 5; width: min(380px, 94vw);
+    padding: 16px; border-radius: 18px; text-align: center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(240,199,94,.18), transparent 45%),
+      linear-gradient(165deg, #143d2f 0%, #071a14 55%, #0f2e24 100%);
+    border: 2px solid rgba(240,199,94,.85);
+    box-shadow:
+      0 0 0 1px rgba(225,29,72,.25) inset,
+      0 0 40px rgba(240,199,94,.35),
+      0 0 70px rgba(20,107,77,.35),
+      0 22px 50px rgba(0,0,0,.55);
+    overflow: visible;
+    animation:
+      rl-pop .7s cubic-bezier(.18,1.45,.35,1) .3s backwards,
+      rl-hum 2.4s ease-in-out 1.1s infinite;
+  }
+  #rl-root .popup-box::before {
+    content: ""; position: absolute; inset: -6px; z-index: -1; border-radius: 22px;
+    background: conic-gradient(from 0deg, #f0c75e, #e11d48, #f0c75e, #16a34a, #f0c75e);
+    filter: blur(14px); opacity: .55;
+    animation: rl-glow 3s linear infinite;
+  }
+  @keyframes rl-glow { to { transform: rotate(360deg); } }
+  #rl-root .popup-box::after {
+    content: ""; position: absolute; inset: 2px; z-index: 0; border-radius: 16px; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(255,246,224,.06), transparent 30%),
+      rgba(6,20,15,.94);
+  }
+  @keyframes rl-pop {
+    0% { transform: scale(.35) rotate(-8deg); opacity: 0; filter: blur(10px); }
+    70% { transform: scale(1.05) rotate(1deg); filter: blur(0); }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes rl-hum {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  #rl-root .popup-box > * { position: relative; z-index: 1; }
+
+  /* Mini wheel on modal corner */
+  #rl-root .mini-wheel {
+    position: absolute; top: -22px; left: -22px; width: 64px; height: 64px;
+    border-radius: 50%; z-index: 20;
+    background: repeating-conic-gradient(from 0deg, #e11d48 0 20deg, #121212 20deg 40deg);
+    box-shadow: 0 0 0 4px #1a1208, 0 0 0 6px #f0c75e, 0 0 20px rgba(240,199,94,.7);
+    animation: rl-spin 3s linear infinite;
+  }
+  #rl-root .mini-wheel::after {
+    content: ""; position: absolute; inset: 22%; border-radius: 50%;
+    background: radial-gradient(circle, #f0c75e 0 35%, #1a1208 36%);
+  }
+
+  #rl-root .popup-close {
+    position: absolute; top: -16px; right: -16px; width: 50px; height: 50px;
+    border-radius: 50%; border: 2px solid #fff6e0;
+    background: radial-gradient(circle at 30% 28%, #f0c75e, #c9a227 45%, #5a3d0a);
+    color: #06140f; font-size: 22px; font-weight: 900; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 26px rgba(240,199,94,.95);
+    z-index: 30; padding: 0; line-height: 1;
+    animation: rl-x .9s ease-in-out infinite;
+  }
+  @keyframes rl-x {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12) rotate(-10deg); }
+  }
+  #rl-root .popup-close:hover { transform: scale(1.18) rotate(90deg); animation: none; }
+
+  #rl-root .popup-img-wrap {
+    position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 1/1;
+    border: 2px solid rgba(240,199,94,.7);
+    box-shadow: 0 0 28px rgba(240,199,94,.35), 0 0 20px rgba(225,29,72,.2);
+  }
+  #rl-root .popup-img-wrap::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, transparent 40%, rgba(6,20,15,.7));
+  }
+  #rl-root .popup-img-wrap::after {
+    content: ""; position: absolute; inset: -30%; z-index: 2; pointer-events: none;
+    background: linear-gradient(115deg, transparent 40%, rgba(240,199,94,.4) 48%, transparent 56%);
+    animation: rl-shine 2s ease-in-out infinite;
+  }
+  @keyframes rl-shine {
+    0%,100% { transform: translateX(-35%) skewX(-12deg); opacity: 0; }
+    40% { opacity: 1; }
+    70% { transform: translateX(35%) skewX(-12deg); opacity: 0; }
+  }
+  #rl-root .popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  #rl-root .popup-badge {
+    position: absolute; left: 10px; bottom: 10px; z-index: 3;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 15px; letter-spacing: .2em;
+    color: #06140f;
+    background: linear-gradient(90deg, #f0c75e, #fff6e0, #e11d48);
+    padding: 7px 12px; border-radius: 8px;
+    box-shadow: 0 0 18px rgba(240,199,94,.65);
+    animation: rl-badge .8s ease-in-out infinite;
+  }
+  @keyframes rl-badge {
+    0%,100% { transform: rotate(-2deg) scale(1); }
+    50% { transform: rotate(2deg) scale(1.06); }
+  }
+
+  #rl-root .popup-title {
+    margin: 12px 0 2px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 40px; letter-spacing: 2px; line-height: 1;
+    color: #fff6e0;
+    text-shadow:
+      0 0 14px rgba(240,199,94,.9),
+      0 0 28px rgba(225,29,72,.45);
+    animation: rl-title 1s ease-in-out infinite;
+  }
+  @keyframes rl-title {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  #rl-root .popup-sub {
+    margin: 0 0 12px; font-size: 13px; color: #cfe7d8; font-weight: 600;
+  }
+
+  #rl-root .numbers {
+    display: flex; justify-content: center; gap: 6px; margin-bottom: 12px;
+  }
+  #rl-root .numbers span {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Bebas Neue", sans-serif; font-size: 15px; color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,.35);
+    animation: rl-num 1.2s ease-in-out infinite;
+  }
+  #rl-root .numbers span:nth-child(1) { background: #e11d48; animation-delay: 0s; }
+  #rl-root .numbers span:nth-child(2) { background: #121212; animation-delay: .1s; }
+  #rl-root .numbers span:nth-child(3) { background: #16a34a; animation-delay: .2s; }
+  #rl-root .numbers span:nth-child(4) { background: #e11d48; animation-delay: .3s; }
+  #rl-root .numbers span:nth-child(5) { background: #121212; animation-delay: .4s; }
+  @keyframes rl-num {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px) scale(1.08); }
+  }
+
+  #rl-root .popup-buttons { display: flex; gap: 10px; }
+  #rl-root .popup-btn {
+    flex: 1; padding: 14px 0; border-radius: 12px;
+    font-size: 15px; font-weight: 800; letter-spacing: 1.5px;
+    text-decoration: none; text-align: center; text-transform: uppercase;
+    transition: transform .15s;
+  }
+  #rl-root .popup-btn:hover { transform: translateY(-3px) scale(1.03); }
+  #rl-root .btn-login {
+    background: #06140f; color: #f0c75e; border: 2px solid #f0c75e;
+    box-shadow: 0 0 16px rgba(240,199,94,.35);
+  }
+  #rl-root .btn-daftar {
+    color: #06140f; border: none;
+    background: linear-gradient(145deg, #fff6e0, #f0c75e 40%, #e11d48);
+    box-shadow: 0 0 28px rgba(240,199,94,.55);
+    animation: rl-cta .85s ease-in-out infinite;
+  }
+  @keyframes rl-cta {
+    0%,100% { transform: scale(1); box-shadow: 0 0 16px rgba(240,199,94,.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 34px rgba(240,199,94,.85), 0 0 16px #e11d48; }
+  }
+
+  #rl-root .popup-footer {
+    margin-top: 10px; font-size: 11px; color: #9dc4b4; font-weight: 600; line-height: 1.45;
+  }
+  #rl-root .popup-footer b { color: #f0c75e; text-shadow: 0 0 10px rgba(240,199,94,.6); }
+
+  /* FX chips + sparks */
+  #rl-root #fx {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    z-index: 999998 !important; pointer-events: none !important;
+    overflow: hidden !important; background: transparent !important;
+  }
+  #rl-root .chip {
+    position: absolute; width: 28px; height: 28px; border-radius: 50%;
+    border: 3px dashed rgba(255,255,255,.75);
+    box-shadow: 0 0 14px rgba(240,199,94,.55), inset 0 0 8px rgba(255,255,255,.25);
+    animation: rl-chip linear forwards;
+  }
+  #rl-root .chip.red { background: radial-gradient(circle at 30% 30%, #ff6b8a, #e11d48 55%, #8b102e); }
+  #rl-root .chip.black { background: radial-gradient(circle at 30% 30%, #444, #121212 55%, #000); }
+  #rl-root .chip.gold { background: radial-gradient(circle at 30% 30%, #fff6e0, #f0c75e 50%, #8a6a14); }
+  #rl-root .chip.green { background: radial-gradient(circle at 30% 30%, #4ade80, #16a34a 55%, #065f32); }
+  @keyframes rl-chip {
+    0% { transform: translate3d(0,0,0) rotate(0) scale(.5); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--spin)) scale(var(--sc)); opacity: 0; }
+  }
+  #rl-root .coin {
+    position: absolute; width: 16px; height: 16px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%, #fff8c0, #f0c75e 45%, #8a6a14);
+    box-shadow: 0 0 12px rgba(240,199,94,.95);
+    animation: rl-chip linear forwards;
+  }
+  #rl-root .spark {
+    position: absolute; width: 4px; height: 14px; border-radius: 2px;
+    background: linear-gradient(180deg, #fff6e0, transparent);
+    box-shadow: 0 0 10px #f0c75e;
+    animation: rl-spark .55s ease-out forwards;
+  }
+  @keyframes rl-spark {
+    0% { transform: translate(0,0) scaleY(.3); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scaleY(1.2); opacity: 0; }
+  }
+</style>
+
+<div id="rl-root">
+  <div id="popup-overlay">
+    <div class="felt"></div>
+    <div class="wheel-wrap">
+      <div class="wheel"></div>
+      <div class="ball-track"><div class="ball"></div></div>
+    </div>
+    <button type="button" class="popup-backdrop" id="rl-close-bg" aria-label="Tutup"></button>
+    <div class="popup-box">
+      <div class="mini-wheel" aria-hidden="true"></div>
+      <button type="button" class="popup-close" id="rl-close-btn" aria-label="Tutup">✕</button>
+      <div class="popup-img-wrap">
+        <img class="popup-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEjA0X8bAuStiu0kj906_JUJqMUWXo19KNH9B3PqLGQixo70sDDwxKLQWIskOhmCok-T4UPI4OLUMXVmfQG1G0GXr_pPfJKBaZq8YBAL70EIP_cwRdU2uDspQ0bNr-Rcr5K7BI1qOn_CqJgJTtSxWU04XUDJF8yGOtAzlpdkQvO7Z12gtTjt8dfuMpa6rTMC=w642-h642" alt="Promo">
+        <span class="popup-badge">ROULETTE</span>
+      </div>
+      <div class="popup-title">BONUS MEMBER BARU!</div>
+      <p class="popup-sub">Putar keberuntungan — klaim bonus deposit pertamamu</p>
+      <div class="numbers" aria-hidden="true">
+        <span>7</span><span>0</span><span>32</span><span>15</span><span>19</span>
+      </div>
+      <div class="popup-buttons">
+        <a class="popup-btn btn-login" href="https://al-amwal-staimasi-masasih.pages.dev/">LOGIN</a>
+        <a class="popup-btn btn-daftar" href="https://al-amwal-staimasi-masasih.pages.dev/">DAFTAR</a>
+      </div>
+      <div class="popup-footer">
+        <b>Slot Depo 5K</b> · QRIS Instant<br>
+        <span>© 2026 Roulette Promo</span>
+      </div>
+    </div>
+  </div>
+  <div id="fx"></div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("rl-root");
+  if (!root) return;
+  var overlay = document.getElementById("popup-overlay");
+  var fx = root.querySelector("#fx");
+  var timers = [];
+  var closed = false;
+  var W = window.innerWidth || 1200, H = window.innerHeight || 800;
+  var CHIP = ["red", "black", "gold", "green"];
+
+  window.addEventListener("resize", function () {
+    W = window.innerWidth || 1200; H = window.innerHeight || 800;
+  });
+
+  function closePopup(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (closed) return;
+    closed = true;
+    root.classList.add("is-closed");
+    if (overlay) {
+      overlay.classList.add("is-closed");
+      overlay.style.cssText = "display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;";
+    }
+  }
+
+  var b1 = document.getElementById("rl-close-btn");
+  var b2 = document.getElementById("rl-close-bg");
+  if (b1) { b1.onclick = closePopup; b1.addEventListener("touchend", closePopup, { passive: false }); }
+  if (b2) { b2.onclick = closePopup; b2.addEventListener("touchend", closePopup, { passive: false }); }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePopup(e); });
+
+  function chip() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    var kind = Math.random() > 0.35 ? "chip " + CHIP[Math.floor(Math.random() * CHIP.length)] : "coin";
+    el.className = kind;
+    var fromLeft = Math.random() > 0.5;
+    var x = fromLeft ? -40 : W + 10;
+    var y = H * (0.15 + Math.random() * 0.7);
+    var dx = (fromLeft ? 1 : -1) * (120 + Math.random() * W * 0.55);
+    var dy = (Math.random() * 200 - 100);
+    var dur = 1.8 + Math.random() * 1.6;
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    el.style.setProperty("--dx", dx + "px");
+    el.style.setProperty("--dy", dy + "px");
+    el.style.setProperty("--spin", (Math.random() * 720 - 360) + "deg");
+    el.style.setProperty("--sc", String(0.7 + Math.random() * 1.1));
+    el.style.animationDuration = dur + "s";
+    fx.appendChild(el);
+    setTimeout(function () { if (el.parentNode) el.remove(); }, dur * 1000 + 40);
+  }
+
+  function spark() {
+    if (!fx) return;
+    var el = document.createElement("div");
+    el.className = "spark";
+    el.style.left = (10 + Math.random() * 80) + "vw";
+    el.style.top = (10 + Math.random() * 75) + "vh";
+    el.style.setProperty("--sx", (Math.random() * 40 - 20) + "px");
+    el.style.setProperty("--sy", (-30 - Math.random() * 60) + "px");
+    el.style.transform = "rotate(" + (Math.random() * 40 - 20) + "deg)";
+    fx.appendChild(el);
+    setTimeout(function () { if (el.parentNode) el.remove(); }, 600);
+  }
+
+  function burst() {
+    for (var i = 0; i < 10; i++) chip();
+    for (var s = 0; s < 8; s++) spark();
+  }
+
+  for (var i = 0; i < 18; i++) setTimeout(chip, i * 40);
+  setTimeout(burst, 250);
+  timers.push(setInterval(function () { chip(); chip(); chip(); chip(); }, 70));
+  timers.push(setInterval(function () { spark(); spark(); spark(); }, 100));
+  timers.push(setInterval(burst, 1200));
+})();
+</script>
