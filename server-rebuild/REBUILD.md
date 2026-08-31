@@ -1,7 +1,9 @@
 # Runbook: bangun ulang server yang dibajak
 
-Untuk `srv1008909` / `212.85.24.99` (Ubuntu 24.04), setelah ditemukan backdoor
-persistensi `sshd`.
+Untuk VPS Ubuntu 24.04 setelah ditemukan backdoor persistensi `sshd`.
+
+Ganti `<ip-server>` di seluruh dokumen dengan alamat server kamu. Jangan
+menuliskan alamat, hostname, atau kredensial asli ke dalam file di repo.
 
 ## Jawaban singkat: ya, instal ulang
 
@@ -26,7 +28,7 @@ menemukan dua.
 | `/etc/profile.d/openssh-agent.sh` memuat launcher yang sama | Persistensi kedua, berlaku untuk **semua** user |
 | `dpkg -S /etc/profile.d/openssh-agent.sh` → `no path found` | File tidak dimiliki paket apa pun, jadi **ditanam manual** |
 | `dpkg -L openssh-server openssh-client \| grep profile.d` → kosong | Paket openssh tidak pernah memasang file di `/etc/profile.d`, jadi nama itu **palsu** |
-| PID file di `/tmp/.ssh-125f9eac` | Nama tersembunyi berakhiran hex acak di direktori bisa-tulis; software sah tidak begitu |
+| PID file di `/tmp/.ssh-<hex-acak>` | Nama tersembunyi berakhiran hex acak di direktori bisa-tulis; software sah tidak begitu |
 | `sshd` asli menolak flag `-fg` (`g: No such file or directory`) | Binary yang dipanggil **bukan** OpenSSH sshd, hanya memakai namanya |
 | Password root diketik di prompt **username** console | Password tercatat plaintext di log autentikasi; harus dianggap bocor |
 
@@ -50,7 +52,7 @@ Script hanya membaca, tidak mengubah apa pun. Hasilnya arsip di
 server dihapus:
 
 ```bash
-scp root@212.85.24.99:/root/ir-evidence-*.tar.gz .
+scp root@<ip-server>:/root/ir-evidence-*.tar.gz .
 ```
 
 Gunanya: mencari jalur masuk penyerang. Kalau jalur masuknya tidak ditemukan,
@@ -82,7 +84,7 @@ mysqldump --all-databases --single-transaction > /root/db-$(date +%F).sql
 tar czf /root/webdata-$(date +%F).tar.gz /var/www /etc/letsencrypt
 
 # Unduh ke laptop
-scp root@212.85.24.99:/root/db-*.sql root@212.85.24.99:/root/webdata-*.tar.gz .
+scp root@<ip-server>:/root/db-*.sql root@<ip-server>:/root/webdata-*.tar.gz .
 ```
 
 `reports/inventaris-data.txt` dari Fase 0 berisi daftar direktori web, virtual
