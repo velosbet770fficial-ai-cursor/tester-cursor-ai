@@ -8,9 +8,9 @@ SSH, padahal port 22 terbuka dan service-nya `active (running)`.
 Di sisi client:
 
 ```
-Connection closed by 212.85.24.99 port 22
+Connection closed by <ip-server> port 22
 kex_exchange_identification: read: Software caused connection abort
-banner exchange: Connection to 212.85.24.99 port 22: Software caused connection abort
+banner exchange: Connection to <ip-server> port 22: Software caused connection abort
 ```
 
 MobaXterm menampilkan `Remote side unexpectedly closed network connection`.
@@ -18,8 +18,8 @@ MobaXterm menampilkan `Remote side unexpectedly closed network connection`.
 Yang bikin bingung, semua pemeriksaan jaringan justru terlihat **normal**:
 
 ```
-$ nc -zv 212.85.24.99 22
-Connection to 212.85.24.99 22 port [tcp/ssh] succeeded!
+$ nc -zv <ip-server> 22
+Connection to <ip-server> 22 port [tcp/ssh] succeeded!
 
 $ systemctl status sshd
 ● ssh.service - OpenBSD Secure Shell server
@@ -238,9 +238,8 @@ grep -n 'usr/local/sbin/sshd\|sshd -fg' /root/.bash_history 2>/dev/null
 
 Dua hal lain dari sesi yang sama:
 
-- Password root sempat diketik di prompt **username** console
-  (`srv1008909 login: Q&INUJx;&Qfo...`), sehingga tercatat sebagai teks biasa di
-  log autentikasi. Password itu harus dianggap bocor dan segera diganti.
+- Kalau password root pernah diketik di prompt **username** console, password
+  itu tercatat sebagai teks biasa di log autentikasi. Anggap bocor dan ganti.
 - Script `/etc/networkd-dispatcher/routable.d/50-sshd-run.sh` yang dibuat saat
   troubleshooting sebaiknya dihapus; `tmpfiles.d` sudah menangani tugasnya dan
   hook networkd-dispatcher hanya jalan saat status jaringan berubah.
