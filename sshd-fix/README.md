@@ -197,19 +197,43 @@ Log sesi server memuat baris ini:
 ```
 
 `/usr/local/sbin/sshd` **bukan** lokasi paket Ubuntu — paket `openssh-server`
-memasang `sshd` di `/usr/sbin/sshd`. Sebuah watchdog yang me-respawn `sshd`
-dari `/usr/local/sbin` adalah pola persistensi backdoor yang umum. `Exit 127`
-berarti binary-nya sedang tidak ada, tapi watchdog-nya masih terpasang.
+memasang `sshd` di `/usr/sbin/sshd`. `/usr/local` adalah prefix default
+`make install`, jadi path itu muncul kalau `sshd` pernah dikompilasi dari
+sumber. `Exit 127` berarti binary-nya memang tidak ada.
 
-Perlu diperiksa dan dibersihkan:
+Ada dua kemungkinan yang harus dibedakan, dan bedanya besar:
+
+1. **Perintah yang pernah ditempel manual saat troubleshooting.** Jalan sekali
+   di satu shell, gagal (`Exit 127`), selesai. Bukan ancaman.
+2. **Watchdog yang terpasang permanen** di file startup shell, cron, hook
+   networkd-dispatcher, atau unit systemd. Ini pola persistensi backdoor.
+
+Pemeriksaan `/root/.bashrc` pada server ini menunjukkan file stok Debian yang
+**bersih** — tidak ada watchdog di sana. Itu menggeser dugaan kuat ke
+kemungkinan nomor 1. Yang masih perlu dipastikan adalah lokasi lain, terutama
+`~/.bash_aliases`: `.bashrc` stok Debian men-`source` file itu kalau ada, jadi
+ia tempat persembunyian yang efektif dan mudah terlewat.
+
+`fix-sshd-privsep.sh --diagnose` memeriksa semuanya dan **membedakan kedua
+kasus di atas**: kalau polanya hanya ada di `/root/.bash_history`, script
+melaporkannya sebagai jejak sesi dan menyatakan tidak ada yang perlu dibersihkan.
+
+Pemeriksaan manual yang setara:
 
 ```bash
 ls -la /usr/local/sbin/sshd /usr/local/bin/sshd 2>&1
-grep -rn 'usr/local/sbin/sshd\|sshd -fg' /root/.bashrc /root/.profile \
-  /etc/bash.bashrc /etc/profile /etc/profile.d/ /etc/rc.local \
-  /etc/crontab /etc/cron.d/ /var/spool/cron/crontabs/ 2>/dev/null
 dpkg -V openssh-server
 pgrep -x sshd | while read -r p; do echo "$p -> $(readlink -f /proc/$p/exe)"; done
+
+# Persistensi: kalau ini tidak keluar apa-apa, server bersih
+grep -rn 'usr/local/sbin/sshd\|sshd -fg' \
+  /root/.bashrc /root/.bash_aliases /root/.bash_profile /root/.profile \
+  /etc/bash.bashrc /etc/profile /etc/profile.d/ /etc/rc.local \
+  /etc/crontab /etc/cron.d/ /etc/cron.daily/ /var/spool/cron/crontabs/ \
+  /etc/networkd-dispatcher/ /etc/systemd/system/ 2>/dev/null
+
+# Riwayat: kalau HANYA ini yang keluar, berarti cuma pernah diketik manual
+grep -n 'usr/local/sbin/sshd\|sshd -fg' /root/.bash_history 2>/dev/null
 ```
 
 Dua hal lain dari sesi yang sama:

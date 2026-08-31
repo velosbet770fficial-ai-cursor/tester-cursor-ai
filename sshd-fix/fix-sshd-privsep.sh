@@ -309,17 +309,23 @@ diag_rogue() {
   done
   [ "$found" -eq 0 ] && ok "Tidak ada binary sshd di path non-standar"
 
-  local pat='usr/local/sbin/sshd|sshd -fg|sshd -D.*&'
-  local files=(/root/.bashrc /root/.bash_profile /root/.profile /etc/bash.bashrc
-               /etc/profile /etc/rc.local /etc/crontab)
-  for f in /etc/profile.d/*.sh /etc/cron.d/* /var/spool/cron/crontabs/*; do
+  local pat='usr/local/sbin/sshd|usr/local/bin/sshd|sshd -fg|sshd -D.*&'
+
+  # .bashrc stok Debian men-source ~/.bash_aliases, jadi file itu wajib ikut
+  # diperiksa. Begitu juga hook networkd-dispatcher dan unit systemd, karena
+  # keduanya lokasi persistensi yang sah tapi jarang dilihat.
+  local files=(/root/.bashrc /root/.bash_profile /root/.bash_login /root/.profile
+               /root/.bash_aliases /root/.bash_logout
+               /etc/bash.bashrc /etc/profile /etc/rc.local /etc/crontab)
+  for f in /etc/profile.d/*.sh /etc/cron.d/* /var/spool/cron/crontabs/* \
+           /etc/cron.hourly/* /etc/cron.daily/* /etc/cron.weekly/* \
+           /etc/cron.monthly/* /etc/networkd-dispatcher/*/* /etc/init.d/*; do
     [ -f "$f" ] && files+=("$f")
   done
 
-  local hit=0
+  local hit=0 f m
   for f in "${files[@]}"; do
     [ -f "$f" ] || continue
-    local m
     m=$(grep -nEi "$pat" "$f" 2>/dev/null)
     if [ -n "$m" ]; then
       bad "Watchdog sshd tidak resmi di $f:"
@@ -328,7 +334,27 @@ diag_rogue() {
       hit=1
     fi
   done
-  [ "$hit" -eq 0 ] && ok "Tidak ada watchdog sshd di file shell/cron yang diperiksa"
+
+  m=$(grep -rnEi "$pat" /etc/systemd/system /lib/systemd/system 2>/dev/null)
+  if [ -n "$m" ]; then
+    bad "Referensi sshd tidak resmi di unit systemd:"
+    printf '%s\n' "$m" | sed 's/^/       /'
+    note "Unit systemd mereferensikan sshd tidak resmi"
+    hit=1
+  fi
+
+  [ "$hit" -eq 0 ] && ok "Tidak ada watchdog sshd di file shell/cron/systemd yang diperiksa"
+
+  # Kalau polanya hanya muncul di riwayat shell, berarti dulu diketik/ditempel
+  # manual -- itu jejak sesi, bukan mekanisme persistensi.
+  if [ "$hit" -eq 0 ] && [ -f /root/.bash_history ]; then
+    m=$(grep -nEi "$pat" /root/.bash_history 2>/dev/null | tail -5)
+    if [ -n "$m" ]; then
+      warn "Pola hanya ditemukan di /root/.bash_history (perintah yang pernah diketik manual):"
+      printf '%s\n' "$m" | sed 's/^/       /'
+      info "Ini jejak sesi, BUKAN persistensi. Tidak ada yang perlu dibersihkan."
+    fi
+  fi
 
   # Daftar berdasarkan pgrep, bukan "ps | grep sshd", supaya baris perintah
   # kita sendiri tidak ikut terdaftar dan bikin bingung.
